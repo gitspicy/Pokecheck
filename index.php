@@ -113,10 +113,18 @@ function resolve_species_key(string $slug, array $gameData): ?string
  * from PvPoke's gamemaster.json - see data.json's top-level comment).
  *
  * Family members with no "family" block at all (e.g. Mewtwo) are treated
- * as a family of one. Traversal starts at the root (the member with no
- * "parent", or whose parent isn't in baseStats) and walks "evolutions"
- * breadth-first, so branching families (Eevee) come back in a sensible
- * base-first order.
+ * as a family of one. Traversal walks "evolutions" breadth-first from each
+ * root (a member with no "parent") so branching families (Eevee) come back
+ * in a sensible base-first order.
+ *
+ * A family can have MORE THAN ONE root: regional forms (Alolan/Galarian/
+ * Hisuian/Paldean) share their standard form's family id in PvPoke's data,
+ * but aren't "evolved from" it - Galarian Ponyta has no "parent", same as
+ * Ponyta itself, so FAMILY_PONYTA has two disconnected roots (Ponyta and
+ * Ponyta (Galarian)) each with their own evolution line. Seeding the BFS
+ * from every rootless member, not just the first one found, is what makes
+ * a search for "ponyta" also return the Galarian line instead of silently
+ * dropping it.
  *
  * @param array<string,mixed> $baseStats
  * @return array{names: string[], canEvolveFurther: array<string,bool>}
@@ -141,22 +149,29 @@ function resolve_evolution_family(string $speciesKey, array $baseStats): array
         }
     }
 
-    $root = $speciesKey;
+    $roots = [];
     foreach ($members as $key => $familyData) {
         if (!isset($familyData['parent'])) {
-            $root = $key;
-            break;
+            $roots[] = $key;
         }
+    }
+
+    if ($roots === []) {
+        $roots = [$speciesKey];
     }
 
     $orderedNames = [];
     $canEvolveFurther = [];
     $stage = [];
-    // Queue holds [speciesKey, depth] pairs so branching families (Eevee)
-    // report which "evolution stage" each member belongs to - the front
-    // end groups same-stage siblings together instead of drawing a
-    // misleading linear chain through them.
-    $queue = [[$root, 0]];
+    // Queue holds [speciesKey, depth] pairs so branching families (Eevee,
+    // or a regional form's own sub-branch) report which "evolution stage"
+    // each member belongs to - the front end groups same-stage siblings
+    // together instead of drawing a misleading linear chain through them.
+    // Every root starts its own line at depth 0.
+    $queue = [];
+    foreach ($roots as $root) {
+        $queue[] = [$root, 0];
+    }
 
     while ($queue !== []) {
         [$current, $depth] = array_shift($queue);
