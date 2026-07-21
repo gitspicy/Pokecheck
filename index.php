@@ -92,7 +92,7 @@ function normalize_species_slug(string $raw): ?string
  *
  * @return array<string,mixed>|null
  */
-function fetch_remote_json(string $url, int $timeoutSeconds = 6): ?array
+function fetch_remote_json(string $url, int $timeoutSeconds = 4): ?array
 {
     $userAgent = 'PokecheckPvPReference/1.0 (+https://github.com/gitspicy/pokecheck)';
 
@@ -732,6 +732,29 @@ function handle_search_request(): void
 {
     header('Content-Type: application/json; charset=utf-8');
 
+    // This endpoint must always emit a single valid JSON body. A stray
+    // PHP warning/notice printed to output (e.g. from a misconfigured
+    // extension) would otherwise land in front of the JSON and break
+    // jQuery's dataType:'json' parsing - which surfaces to the user as a
+    // generic "could not reach the server" with no clue what actually
+    // happened. Errors are logged server-side instead of displayed, and
+    // any exception is caught and turned into a proper JSON error body.
+    ini_set('display_errors', '0');
+
+    try {
+        handle_search_request_body();
+    } catch (\Throwable $e) {
+        error_log('Pokecheck search failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Something went wrong while looking that up. Please try again.',
+        ]);
+    }
+}
+
+function handle_search_request_body(): void
+{
     $gameData = load_game_data();
     $rawQuery = isset($_GET['pokemon']) ? (string) $_GET['pokemon'] : '';
     $slug = normalize_species_slug($rawQuery);
@@ -803,7 +826,7 @@ function handle_search_request(): void
         return;
     }
 
-    echo json_encode([
+    $payload = json_encode([
         'success' => true,
         'query' => $rawQuery,
         'resolvedSlug' => $slug,
@@ -811,6 +834,19 @@ function handle_search_request(): void
         'leagueDefinitions' => $leagues,
         'family' => $members,
     ]);
+
+    if ($payload === false) {
+        // json_encode() only fails on malformed input (e.g. invalid UTF-8
+        // slipping in from an external source); never emit an empty body.
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'error' => 'Something went wrong building the response. Please try again.',
+        ]);
+        return;
+    }
+
+    echo $payload;
 }
 
 // ---------------------------------------------------------------------------

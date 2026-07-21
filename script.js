@@ -218,6 +218,15 @@
     setStatus('Looking up "' + escapeHtml(term) + '"...', 'info');
     $results.empty();
 
+    function handleResult(data) {
+      if (data && data.success) {
+        renderResults(data);
+      } else {
+        var message = (data && data.error) ? data.error : 'Something went wrong. Please try again.';
+        setStatus(escapeHtml(message), 'error');
+      }
+    }
+
     $.ajax({
       url: 'index.php',
       method: 'GET',
@@ -227,16 +236,19 @@
         pokemon: term,
       },
     })
-      .done(function (data) {
-        if (data && data.success) {
-          renderResults(data);
+      .done(handleResult)
+      .fail(function (jqXHR) {
+        // index.php uses proper HTTP status codes (400/404/500) for
+        // "not found" / bad-input responses, not just 200 - but it always
+        // sends a JSON body with a real "error" message. jQuery still
+        // parses that body into jqXHR.responseJSON even on a non-2xx
+        // status, so use it instead of showing a generic network-error
+        // message for what's actually an ordinary "no results" response.
+        if (jqXHR.responseJSON) {
+          handleResult(jqXHR.responseJSON);
         } else {
-          var message = (data && data.error) ? data.error : 'Something went wrong. Please try again.';
-          setStatus(escapeHtml(message), 'error');
+          setStatus('Could not reach the server. Please try again in a moment.', 'error');
         }
-      })
-      .fail(function () {
-        setStatus('Could not reach the server. Please try again in a moment.', 'error');
       })
       .always(function () {
         setLoading(false);
