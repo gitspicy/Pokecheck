@@ -464,33 +464,138 @@ function load_ranking_csv(string $relativePath): array
 }
 
 /**
- * Normalizes a ranking CSV "Pokemon" column value (which may include a
- * parenthetical form suffix, e.g. "Zacian (Crowned Sword)") down to the
- * same slug format used for baseStats keys, so the two datasets can be
- * matched against each other.
+ * Known non-species "form tag" words that our CSV sources scatter through
+ * Pokemon names in inconsistent positions and conventions - prefix
+ * ("Alolan Diglett", "Shadow Mewtwo"), suffix ("Diglett (Alolan)",
+ * "Altaria (Shadow)"), or combined/reordered ("Ninetales (Alolan)
+ * (Shadow)", "Shadow Alolan Golem"). Region tags are also encoded
+ * (in some order) inside our baseStats keys themselves (e.g.
+ * "golem_alolan", "darmanitan_galarian_standard").
+ */
+const RANKING_REGION_TAGS = ['alolan' => true, 'galarian' => true, 'hisuian' => true, 'paldean' => true];
+
+/**
+ * Words that mean "the default/no-special-form state" and get included
+ * inconsistently across our CSV sources - e.g. the DPS rankings call the
+ * base form just "Darmanitan"/"Galarian Darmanitan", while baseStats (and
+ * the tier list) spell it "darmanitan_standard"/"Darmanitan Standard".
+ * Dropped from both sides during canonicalization rather than treated as
+ * meaningful "base name" words, so the two sources still match. Safe only
+ * because no two distinct baseStats entries differ solely by one of these
+ * words (verified against the current roster).
+ */
+const RANKING_DISCARD_TOKENS = ['standard' => true];
+
+/**
+ * Splits a ranking CSV "Pokemon" column value into lowercase word tokens,
+ * treating parentheses/hyphens/apostrophes/periods as plain separators
+ * (so "Ninetales (Alolan)" and "Ho-Oh" tokenize the same way a baseStats
+ * key's underscore-split would).
  *
- * Shadow forms get special handling since our CSV sources spell them two
- * different ways - "Altaria (Shadow)" in the PvP league rankings, "Shadow
- * Mewtwo" in the DPS/tier-list rankings. Either is turned into a "_shadow"
- * suffix on the slug (e.g. "altaria_shadow") so Shadow rows get their own
- * lookup key instead of colliding with - and silently losing to - the
- * Normal form's row.
+ * @return string[]
+ */
+function tokenize_ranking_name(string $name): array
+{
+    $lower = mb_strtolower($name);
+    $lower = str_replace(['♀', '♂'], [' female', ' male'], $lower);
+    $clean = str_replace(["'", '.', '(', ')', '-'], ' ', $lower);
+    $clean = (string) preg_replace('/[^a-z0-9]+/', ' ', $clean);
+
+    return array_values(array_filter(explode(' ', trim($clean)), static function (string $t): bool {
+        return $t !== '';
+    }));
+}
+
+/**
+ * Builds an order-independent signature from a token list: region-tag
+ * words are pulled out and sorted separately from the remaining "base
+ * name" words, so e.g. tokens from "Galarian Darmanitan Standard" and
+ * from baseStats key "darmanitan_galarian_standard" (word order differs
+ * between our two data sources) produce the identical signature.
+ */
+function canonicalize_species_tokens(array $tokens): string
+{
+    $base = [];
+    $tags = [];
+
+    foreach ($tokens as $t) {
+        $t = strtolower((string) $t);
+        if ($t === '' || isset(RANKING_DISCARD_TOKENS[$t])) {
+            continue;
+        }
+        if (isset(RANKING_REGION_TAGS[$t])) {
+            $tags[] = $t;
+        } else {
+            $base[] = $t;
+        }
+    }
+
+    sort($tags);
+
+    return implode('_', $base) . '|' . implode(',', $tags);
+}
+
+/**
+ * Maps every baseStats key's canonical signature back to that key, so a
+ * ranking CSV name can be resolved to the exact slug our roster uses
+ * regardless of which of our sources' differing name conventions/word
+ * orders produced it. Built once per request from load_game_data(), which
+ * is itself already cached.
+ *
+ * @return array<string,string>
+ */
+function get_canonical_species_index(): array
+{
+    static $index = null;
+
+    if ($index !== null) {
+        return $index;
+    }
+
+    $index = [];
+    foreach (load_game_data()['baseStats'] as $key => $entry) {
+        $canonical = canonicalize_species_tokens(explode('_', $key));
+        if (!isset($index[$canonical])) {
+            $index[$canonical] = $key;
+        }
+    }
+
+    return $index;
+}
+
+/**
+ * Normalizes a ranking CSV "Pokemon" column value down to the exact
+ * baseStats slug it refers to, so the two datasets can be matched against
+ * each other regardless of naming convention differences between our
+ * sources (parenthetical vs prefix form tags, differing word order for
+ * compound forms, etc.) - see tokenize_ranking_name()/
+ * canonicalize_species_tokens() above.
+ *
+ * Shadow is handled separately from region tags: it's stripped from the
+ * token list before the canonical-index lookup (since Shadow forms are
+ * never separate baseStats entries - see data.json's shadowModifiers
+ * note) and re-appended as a "_shadow" suffix on whatever slug the
+ * remaining (region-aware) tokens resolve to.
  */
 function normalize_ranking_pokemon_name(string $name): string
 {
+    $tokens = tokenize_ranking_name($name);
     $isShadow = false;
-    $working = $name;
+    $remaining = [];
 
-    if (preg_match('/\(\s*shadow\s*\)/i', $working)) {
-        $isShadow = true;
-        $working = (string) preg_replace('/\s*\(\s*shadow\s*\)\s*/i', '', $working);
-    } elseif (preg_match('/^\s*shadow\s+/i', $working)) {
-        $isShadow = true;
-        $working = (string) preg_replace('/^\s*shadow\s+/i', '', $working);
+    foreach ($tokens as $t) {
+        if ($t === 'shadow') {
+            $isShadow = true;
+        } else {
+            $remaining[] = $t;
+        }
     }
 
-    $withoutForm = preg_replace('/\s*\(.*?\)\s*/', '', $working);
-    $slug = normalize_species_slug((string) $withoutForm) ?? '';
+    $canonical = canonicalize_species_tokens($remaining);
+    $index = get_canonical_species_index();
+    // Fall back to a best-effort plain slug (won't match baseStats, but
+    // keeps CSV rows for forms outside our roster from crashing anything).
+    $slug = $index[$canonical] ?? implode('_', $remaining);
 
     return $isShadow && $slug !== '' ? $slug . '_shadow' : $slug;
 }
