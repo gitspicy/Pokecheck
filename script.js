@@ -124,7 +124,7 @@
       return (
         '<tr class="' + rowClass + '">' +
           '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
-          '<td class="not-eligible" colspan="4">' + reason + '</td>' +
+          '<td class="not-eligible" colspan="3">' + reason + '</td>' +
         '</tr>'
       );
     }
@@ -132,8 +132,8 @@
     return (
       '<tr class="' + rowClass + '">' +
         '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
-        '<td class="iv-set">' + formatIvSet(leagueResult) + '<br><small>' + leagueResult.cp + ' CP &middot; Lv ' + leagueResult.level + '</small></td>' +
         '<td>' + formatRank(ranking) + '</td>' +
+        '<td class="iv-set">' + formatIvSet(leagueResult) + '<br><small>' + leagueResult.cp + ' CP &middot; Lv ' + leagueResult.level + '</small></td>' +
         '<td>' + formatMoveset(ranking) + '</td>' +
       '</tr>'
     );
@@ -251,7 +251,7 @@
         '<h3 class="section-heading">PvP League Rankings</h3>' +
         '<div class="table-scroll">' +
           '<table class="league-table">' +
-            '<thead><tr><th>League</th><th>Optimal Build (Atk/Def/HP IVs)</th><th>PvPoke Rank</th><th>Top Moveset</th></tr></thead>' +
+            '<thead><tr><th>League</th><th>PvPoke Rank</th><th>Optimal Build (Atk/Def/HP IVs)</th><th>Top Moveset</th></tr></thead>' +
             '<tbody>' + rows + '</tbody>' +
           '</table>' +
         '</div>' +
