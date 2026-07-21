@@ -539,6 +539,192 @@ function lookup_league_ranking(string $memberSlug, array $league): ?array
 }
 
 // ---------------------------------------------------------------------------
+// Raid attacker DPS / type-attacker / tier-list lookup
+// ---------------------------------------------------------------------------
+
+/**
+ * Parses the global raid-attacker DPS ranking CSV (Rank, Pokemon, Dex,
+ * Type1, Type2, Fast/Charged Move (+Type), DPS, TDO, ER, CP, Shadow, Mega).
+ *
+ * Returns both the full ordered row list (needed to re-derive a per-type
+ * ranking by filtering on Type1/Type2) and a slug-keyed lookup for direct
+ * "find this species' row" access.
+ *
+ * @return array{rows: array<int,array<string,mixed>>, bySlug: array<string,int>}
+ */
+function load_attacker_dps_csv(string $relativePath): array
+{
+    static $cache = [];
+
+    if (isset($cache[$relativePath])) {
+        return $cache[$relativePath];
+    }
+
+    $rows = [];
+    $bySlug = [];
+    $path = __DIR__ . '/' . $relativePath;
+    $handle = @fopen($path, 'r');
+
+    if ($handle !== false) {
+        $header = fgetcsv($handle);
+        $columns = is_array($header) ? array_flip($header) : [];
+
+        while (($row = fgetcsv($handle)) !== false) {
+            $nameIndex = $columns['Pokemon'] ?? null;
+
+            if ($nameIndex === null || !isset($row[$nameIndex]) || $row[$nameIndex] === '') {
+                continue;
+            }
+
+            $name = $row[$nameIndex];
+            $slug = normalize_ranking_pokemon_name($name);
+
+            $rowIndex = count($rows);
+            $rows[] = [
+                'rank' => $rowIndex + 1,
+                'name' => $name,
+                'type1' => isset($columns['Type1'], $row[$columns['Type1']]) ? strtolower($row[$columns['Type1']]) : '',
+                'type2' => isset($columns['Type2'], $row[$columns['Type2']]) ? strtolower($row[$columns['Type2']]) : '',
+                'fastMove' => isset($columns['Fast Move'], $row[$columns['Fast Move']]) ? clean_move_name($row[$columns['Fast Move']]) : null,
+                'chargedMove' => isset($columns['Charged Move'], $row[$columns['Charged Move']]) ? clean_move_name($row[$columns['Charged Move']]) : null,
+                'dps' => isset($columns['DPS'], $row[$columns['DPS']]) ? (float) $row[$columns['DPS']] : null,
+                'tdo' => isset($columns['TDO'], $row[$columns['TDO']]) ? (int) $row[$columns['TDO']] : null,
+                'er' => isset($columns['ER'], $row[$columns['ER']]) ? (float) $row[$columns['ER']] : null,
+                'cp' => isset($columns['CP'], $row[$columns['CP']]) ? (int) $row[$columns['CP']] : null,
+                'isShadow' => isset($columns['Shadow'], $row[$columns['Shadow']]) && strtolower((string) $row[$columns['Shadow']]) === 'true',
+                'isMega' => isset($columns['Mega'], $row[$columns['Mega']]) && strtolower((string) $row[$columns['Mega']]) === 'true',
+            ];
+
+            // Prefer the first (highest-DPS, since the file is DPS-sorted)
+            // occurrence of a slug, e.g. plain "Venusaur" over a duplicate.
+            if (!isset($bySlug[$slug])) {
+                $bySlug[$slug] = $rowIndex;
+            }
+        }
+
+        fclose($handle);
+    }
+
+    $result = ['rows' => $rows, 'bySlug' => $bySlug];
+    $cache[$relativePath] = $result;
+
+    return $result;
+}
+
+/**
+ * Parses the community attacker tier-list CSV (Rank, Tier, Pokemon,
+ * Type1, Type2) into a slug-keyed lookup.
+ *
+ * @return array<string,array{tier:string, rank:int}>
+ */
+function load_attacker_tier_csv(string $relativePath): array
+{
+    static $cache = [];
+
+    if (isset($cache[$relativePath])) {
+        return $cache[$relativePath];
+    }
+
+    $bySlug = [];
+    $path = __DIR__ . '/' . $relativePath;
+    $handle = @fopen($path, 'r');
+
+    if ($handle !== false) {
+        $header = fgetcsv($handle);
+        $columns = is_array($header) ? array_flip($header) : [];
+        $rank = 0;
+
+        while (($row = fgetcsv($handle)) !== false) {
+            $nameIndex = $columns['Pokemon'] ?? null;
+
+            if ($nameIndex === null || !isset($row[$nameIndex]) || $row[$nameIndex] === '') {
+                continue;
+            }
+
+            $rank++;
+            $slug = normalize_ranking_pokemon_name($row[$nameIndex]);
+
+            if (!isset($bySlug[$slug])) {
+                $bySlug[$slug] = [
+                    'tier' => isset($columns['Tier'], $row[$columns['Tier']]) ? $row[$columns['Tier']] : '',
+                    'rank' => $rank,
+                ];
+            }
+        }
+
+        fclose($handle);
+    }
+
+    $cache[$relativePath] = $bySlug;
+
+    return $bySlug;
+}
+
+/**
+ * Builds the raid-attacker summary for one species: its overall DPS rank,
+ * DPS/TDO/ER stats and recommended raid moveset, its rank within each of
+ * its own types' attacker pool (e.g. "top 10 Fairy attackers"), and its
+ * community tier-list placement.
+ *
+ * @param array<string,mixed> $attackerRankings data.json's "attackerRankings" block
+ * @param string[] $types This species' types, e.g. ["water", "flying"]
+ * @return array<string,mixed>|null Null if the species isn't in the DPS dataset at all.
+ */
+function build_attacker_summary(string $memberSlug, array $types, array $attackerRankings): ?array
+{
+    $dps = load_attacker_dps_csv((string) $attackerRankings['dpsFile']);
+    $rowIndex = $dps['bySlug'][$memberSlug] ?? null;
+
+    if ($rowIndex === null) {
+        return null;
+    }
+
+    $row = $dps['rows'][$rowIndex];
+
+    $byType = [];
+    foreach ($types as $type) {
+        $type = strtolower($type);
+        $matching = array_values(array_filter(
+            $dps['rows'],
+            static fn (array $r): bool => $r['type1'] === $type || $r['type2'] === $type
+        ));
+
+        $positionInType = null;
+        foreach ($matching as $i => $r) {
+            if ($r['name'] === $row['name']) {
+                $positionInType = $i + 1;
+                break;
+            }
+        }
+
+        $byType[$type] = [
+            'rank' => $positionInType,
+            'total' => count($matching),
+            'isTop10' => $positionInType !== null && $positionInType <= 10,
+        ];
+    }
+
+    $tierData = load_attacker_tier_csv((string) $attackerRankings['tierFile']);
+    $tier = $tierData[$memberSlug] ?? null;
+
+    return [
+        'name' => $row['name'],
+        'overallRank' => $row['rank'],
+        'totalOverall' => count($dps['rows']),
+        'dps' => $row['dps'],
+        'tdo' => $row['tdo'],
+        'er' => $row['er'],
+        'cp' => $row['cp'],
+        'fastMove' => $row['fastMove'],
+        'chargedMove' => $row['chargedMove'],
+        'isShadow' => $row['isShadow'],
+        'isMega' => $row['isMega'],
+        'byType' => $byType,
+        'tier' => $tier === null ? null : ['label' => $tier['tier'], 'rank' => $tier['rank']],
+    ];
+}
+
+// ---------------------------------------------------------------------------
 // AJAX endpoint
 // ---------------------------------------------------------------------------
 
@@ -570,6 +756,7 @@ function handle_search_request(): void
     $baseStats = $gameData['baseStats'];
     $leagues = $gameData['leagues'];
     $cpMultipliers = $gameData['cpMultipliers'];
+    $attackerRankings = $gameData['attackerRankings'];
 
     $members = [];
     foreach ($family['names'] as $memberSlug) {
@@ -592,6 +779,7 @@ function handle_search_request(): void
                 'stamina' => $stats['stamina'],
             ],
             'raid' => $stats['raid'],
+            'attacker' => build_attacker_summary($memberSlug, $stats['types'], $attackerRankings),
             // Little Cup traditionally only permits Pokemon that can still evolve further.
             'littleCupEligible' => $family['hasNextEvolution'][$memberSlug] ?? false,
             'leagues' => compute_all_leagues(
@@ -822,6 +1010,58 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
   }
 
   .raid-badges { margin-bottom: 0.4rem; }
+
+  .section-heading {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    margin: 1.1rem 0 0.5rem;
+  }
+
+  .attacker-panel {
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem 0.9rem;
+  }
+
+  .attacker-panel .raid-line { margin-bottom: 0.5rem; }
+  .attacker-panel .raid-line:last-child { margin-bottom: 0; }
+
+  .attacker-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .attacker-stat {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+
+  .attacker-stat span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-dim);
+  }
+
+  .type-attacker-list {
+    list-style: none;
+    margin: 0 0 0.6rem;
+    padding: 0;
+    font-size: 0.88rem;
+  }
+
+  .type-attacker-list li {
+    padding: 0.25rem 0;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .type-attacker-list li:last-child { border-bottom: none; }
 
   .badge {
     display: inline-block;

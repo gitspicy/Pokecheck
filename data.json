@@ -1,6 +1,13 @@
 {
   "_comment": "Static Pokemon GO reference data. Base stats (attack/defense/stamina) are sourced from the Pokemon GO game master (as mirrored by the PvPoke project, https://github.com/pvpoke/pvpoke), NOT the mainline PokeAPI stats. CP multipliers are Niantic's official per-level values; half-levels are derived with Niantic's documented formula sqrt((cpm[n]^2 + cpm[n+1]^2) / 2).",
 
+  "attackerRankings": {
+    "dpsFile": "rankings/attacker_dps_rankings.csv",
+    "dpsFileNote": "Global raid-attacker DPS/TDO/ER ranking across all species and forms (including Mega/Shadow). Used both as-is (overall rank) and re-grouped per type (rank within all attackers sharing a Type1/Type2 with this species) to answer 'is X a top-N TYPE attacker'. Re-export and drop in under this same filename to refresh - the date in a freshly downloaded file's own name doesn't matter, only the filename on disk.",
+    "tierFile": "rankings/attacker_tier_list.csv",
+    "tierFileNote": "Community attacker tier list (SSSSS down to F) spanning all species/forms. Independent source from dpsFile; only cross-referenced by Pokemon name, not by rank."
+  },
+
   "leagues": {
     "littleCup": {
       "id": "littleCup",
@@ -70,54 +77,54 @@
 
   "baseStats": {
     "bulbasaur":  { "dex": 1,   "displayName": "Bulbasaur",  "types": ["grass", "poison"],  "attack": 118, "defense": 111, "stamina": 128,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Grass-type attacker; only relevant while still evolving in PvP." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Weak Grass-type attacker; only relevant while still evolving in PvP." } },
     "ivysaur":    { "dex": 2,   "displayName": "Ivysaur",    "types": ["grass", "poison"],  "attack": 151, "defense": 143, "stamina": 155,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
     "venusaur":   { "dex": 3,   "displayName": "Venusaur",   "types": ["grass", "poison"],  "attack": 198, "defense": 189, "stamina": 190,
-      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": false, "role": "Usable Grass-type raid attacker (Vine Whip/Frenzy Plant); outclassed by Roserade, Kartana and Mega Venusaur." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Usable Grass-type raid attacker (Vine Whip/Frenzy Plant); outclassed by Roserade, Kartana and Mega Venusaur." } },
 
     "charmander": { "dex": 4,   "displayName": "Charmander", "types": ["fire"],             "attack": 116, "defense": 93,  "stamina": 118,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Fire-type attacker; only relevant while still evolving in PvP." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Weak Fire-type attacker; only relevant while still evolving in PvP." } },
     "charmeleon": { "dex": 5,   "displayName": "Charmeleon", "types": ["fire"],             "attack": 158, "defense": 126, "stamina": 151,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
     "charizard":  { "dex": 6,   "displayName": "Charizard",  "types": ["fire", "flying"],   "attack": 223, "defense": 173, "stamina": 186,
-      "raid": { "attackerTier": "A", "isTopAttacker": true,  "isGymDefender": false, "role": "Strong Fire/Flying raid attacker with Dragon Breath + Fire Blast/Blast Burn; fragile as a gym defender." } },
+      "raid": { "isTopAttacker": true,  "isGymDefender": false, "role": "Strong Fire/Flying raid attacker with Dragon Breath + Fire Blast/Blast Burn; fragile as a gym defender." } },
 
     "squirtle":   { "dex": 7,   "displayName": "Squirtle",   "types": ["water"],            "attack": 94,  "defense": 121, "stamina": 127,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Water-type attacker; only relevant while still evolving in PvP." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Weak Water-type attacker; only relevant while still evolving in PvP." } },
     "wartortle":  { "dex": 8,   "displayName": "Wartortle",  "types": ["water"],            "attack": 126, "defense": 155, "stamina": 153,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
     "blastoise":  { "dex": 9,   "displayName": "Blastoise",  "types": ["water"],            "attack": 171, "defense": 210, "stamina": 197,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": true,  "role": "Bulky enough for casual gym defense, but its Water-type attacks are mediocre next to Kyogre, Feraligatr or Gyarados as a raid attacker." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": true,  "role": "Bulky enough for casual gym defense, but its Water-type attacks are mediocre next to Kyogre, Feraligatr or Gyarados as a raid attacker." } },
 
     "pikachu":    { "dex": 25,  "displayName": "Pikachu",    "types": ["electric"],         "attack": 112, "defense": 96,  "stamina": 111,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Iconic but stat-limited; outclassed by nearly every other Electric-type attacker." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Iconic but stat-limited; outclassed by nearly every other Electric-type attacker." } },
     "raichu":     { "dex": 26,  "displayName": "Raichu",     "types": ["electric"],         "attack": 193, "defense": 151, "stamina": 155,
-      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": false, "role": "Serviceable budget Electric-type raid attacker with Volt Switch/Wild Charge." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Serviceable budget Electric-type raid attacker with Volt Switch/Wild Charge." } },
 
     "eevee":      { "dex": 133, "displayName": "Eevee",      "types": ["normal"],           "attack": 104, "defense": 114, "stamina": 146,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Base form kept relevant mainly for PvP Little Cup and Eeveelution collecting." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Base form kept relevant mainly for PvP Little Cup and Eeveelution collecting." } },
     "vaporeon":   { "dex": 134, "displayName": "Vaporeon",   "types": ["water"],            "attack": 205, "defense": 161, "stamina": 277,
-      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": true,  "role": "Extremely bulky (highest non-legendary HP); a long-standing top-tier Gym Defender and solid Water-type attacker." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": true,  "role": "Extremely bulky (highest non-legendary HP); a long-standing top-tier Gym Defender and solid Water-type attacker." } },
     "jolteon":    { "dex": 135, "displayName": "Jolteon",    "types": ["electric"],         "attack": 232, "defense": 182, "stamina": 163,
-      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": false, "role": "Glass-cannon Electric-type raid attacker; strong damage output but fragile in prolonged fights." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Glass-cannon Electric-type raid attacker; strong damage output but fragile in prolonged fights." } },
     "flareon":    { "dex": 136, "displayName": "Flareon",    "types": ["fire"],             "attack": 246, "defense": 179, "stamina": 173,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Hard-hitting Fire-type but move pool and bulk leave it behind Charizard/Moltres-tier attackers." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Hard-hitting Fire-type but move pool and bulk leave it behind Charizard/Moltres-tier attackers." } },
 
     "dratini":    { "dex": 147, "displayName": "Dratini",    "types": ["dragon"],           "attack": 119, "defense": 95,  "stamina": 137,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Dragon-type attacker; only relevant while still evolving in PvP." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Weak Dragon-type attacker; only relevant while still evolving in PvP." } },
     "dragonair":  { "dex": 148, "displayName": "Dragonair",  "types": ["dragon"],           "attack": 163, "defense": 135, "stamina": 156,
-      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
     "dragonite":  { "dex": 149, "displayName": "Dragonite",  "types": ["dragon", "flying"], "attack": 263, "defense": 201, "stamina": 209,
-      "raid": { "attackerTier": "A", "isTopAttacker": true,  "isGymDefender": true,  "role": "Longtime top-tier Dragon-type raid attacker (Dragon Breath/Outrage) and durable Gym Defender." } },
+      "raid": { "isTopAttacker": true,  "isGymDefender": true,  "role": "Longtime top-tier Dragon-type raid attacker (Dragon Breath/Outrage) and durable Gym Defender." } },
 
     "magikarp":   { "dex": 129, "displayName": "Magikarp",   "types": ["water"],            "attack": 29,  "defense": 85,  "stamina": 129,
-      "raid": { "attackerTier": "F", "isTopAttacker": false, "isGymDefender": false, "role": "One of the weakest attackers in the game; purely a novelty/evolution fodder pick." } },
+      "raid": { "isTopAttacker": false, "isGymDefender": false, "role": "One of the weakest attackers in the game; purely a novelty/evolution fodder pick." } },
     "gyarados":   { "dex": 130, "displayName": "Gyarados",   "types": ["water", "flying"],  "attack": 237, "defense": 197, "stamina": 216,
-      "raid": { "attackerTier": "A", "isTopAttacker": true,  "isGymDefender": false, "role": "Premier Water-type raid attacker (Waterfall/Dragon-move sets); one of the best counters to Fire/Rock raid bosses." } },
+      "raid": { "isTopAttacker": true,  "isGymDefender": false, "role": "Premier Water-type raid attacker (Waterfall/Dragon-move sets); one of the best counters to Fire/Rock raid bosses." } },
 
     "mewtwo":     { "dex": 150, "displayName": "Mewtwo",     "types": ["psychic"],          "attack": 300, "defense": 182, "stamina": 214,
-      "raid": { "attackerTier": "S", "isTopAttacker": true,  "isGymDefender": false, "role": "Top-tier Psychic-type raid attacker and one of the best all-around attackers in the game; also a premier raid boss." } }
+      "raid": { "isTopAttacker": true,  "isGymDefender": false, "role": "Top-tier Psychic-type raid attacker and one of the best all-around attackers in the game; also a premier raid boss." } }
   },
 
   "fallbackFamilies": {

@@ -94,13 +94,63 @@
     );
   }
 
+  function renderTypeAttackerLine(type, info) {
+    var label = type.charAt(0).toUpperCase() + type.slice(1);
+
+    if (!info.rank) {
+      return '<li>' + escapeHtml(label) + ': <span class="unranked">not ranked</span></li>';
+    }
+
+    var top10 = info.isTop10 ? ' <span class="badge attacker">Top 10</span>' : '';
+
+    return (
+      '<li>' + escapeHtml(label) + ' attacker: <strong>#' + info.rank + '</strong> of ' + info.total + top10 + '</li>'
+    );
+  }
+
+  function renderAttackerPanel(attacker) {
+    if (!attacker) {
+      return '<p class="raid-line unranked">Not present in the raid-attacker DPS dataset.</p>';
+    }
+
+    var typeLines = Object.keys(attacker.byType)
+      .map(function (type) { return renderTypeAttackerLine(type, attacker.byType[type]); })
+      .join('');
+
+    var tierLine = attacker.tier
+      ? '<span>Community Tier: <strong>' + escapeHtml(attacker.tier.label) + '</strong> (#' + attacker.tier.rank + ')</span>'
+      : '<span class="unranked">Not in the community tier list</span>';
+
+    var formTags = '';
+    if (attacker.isMega) { formTags += '<span class="badge tier">Mega</span>'; }
+    if (attacker.isShadow) { formTags += '<span class="badge tier">Shadow</span>'; }
+
+    return (
+      '<div class="attacker-panel">' +
+        '<div class="attacker-stats">' +
+          '<div class="attacker-stat"><span>DPS</span><strong>' + attacker.dps + '</strong></div>' +
+          '<div class="attacker-stat"><span>TDO</span><strong>' + attacker.tdo + '</strong></div>' +
+          '<div class="attacker-stat"><span>ER</span><strong>' + attacker.er + '</strong></div>' +
+          '<div class="attacker-stat"><span>Overall Rank</span><strong>#' + attacker.overallRank + ' <small>of ' + attacker.totalOverall + '</small></strong></div>' +
+        '</div>' +
+        '<p class="raid-line">Best raid moveset: <strong>' + escapeHtml(attacker.fastMove) + ' + ' + escapeHtml(attacker.chargedMove) + '</strong> ' + formTags + '</p>' +
+        '<ul class="type-attacker-list">' + typeLines + '</ul>' +
+        '<p class="raid-line">' + tierLine + '</p>' +
+      '</div>'
+    );
+  }
+
   function renderPokemonCard(member, leagueDefinitions) {
     var typeBadges = member.types
       .map(function (t) { return '<span class="type-badge">' + escapeHtml(t) + '</span>'; })
       .join('');
 
     var raid = member.raid;
-    var badges = '<span class="badge tier">Raid Tier ' + escapeHtml(raid.attackerTier) + '</span>';
+    // The letter-tier badge intentionally comes only from the sourced
+    // community tier list (rendered in the attacker panel below), never
+    // from editorial guesswork - showing two different "Tier" scales side
+    // by side reads as a bug, not a nuance.
+    var badges = '';
     if (raid.isTopAttacker) {
       badges += '<span class="badge attacker">Top Raid Attacker</span>';
     }
@@ -124,12 +174,15 @@
         '</div>' +
         '<div class="raid-badges">' + badges + '</div>' +
         '<p class="raid-line">' + escapeHtml(raid.role) + '</p>' +
+        '<h3 class="section-heading">PvP League Rankings</h3>' +
         '<div class="table-scroll">' +
           '<table class="league-table">' +
             '<thead><tr><th>League</th><th>Optimal Build (Atk/Def/HP IVs)</th><th>PvPoke Rank</th><th>Top Moveset</th></tr></thead>' +
             '<tbody>' + rows + '</tbody>' +
           '</table>' +
         '</div>' +
+        '<h3 class="section-heading">Raid Attacker Rankings</h3>' +
+        renderAttackerPanel(member.attacker) +
       '</article>'
     );
   }

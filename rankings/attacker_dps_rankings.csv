@@ -1,0 +1,1683 @@
+Rank,Pokemon,Dex,Type1,Type2,Fast Move,Fast Move Type,Charged Move,Charged Move Type,DPS,TDO,ER,CP,Shadow,Mega
+1,Mega Lucario Z,448,fighting,steel,Force Palm,fighting,Aura Sphere,fighting,30.71,702,67.14,4237,false,true
+2,Mega Rayquaza,384,dragon,flying,Dragon Tail,dragon,Dragon Ascent,flying,29.84,1128,73.98,5713,false,true
+3,Mega Mewtwo Y,150,psychic,none,Psycho Cut,psychic,Psystrike,psychic,28.33,1137,71.31,6428,false,true
+4,Mega Zeraora,807,electric,none,Volt Switch,electric,Plasma Fists,electric,28.07,832,65.50,4853,false,true
+5,Shadow Regigigas,486,normal,none,Zen Headbutt,psychic,Crush Grip,normal,27.98,859,65.87,4346,true,false
+6,Mega Mewtwo X,150,fighting,psychic,Counter,fighting,Psystrike,psychic,27.67,1073,69.06,6112,false,true
+7,Mega Baxcalibur,998,dragon,ice,Ice Fang,ice,Glaive Rush,dragon,26.99,1206,69.79,5641,false,true
+8,Eternatus,890,dragon,poison,Poison Jab,poison,Dynamax Cannon,dragon,26.74,1087,67.53,4429,false,false
+9,Mega Lucario,448,fighting,steel,Force Palm,fighting,Aura Sphere,fighting,26.62,656,59.31,3826,false,true
+10,Dawn Wings Necrozma,800,ghost,psychic,Psycho Cut,psychic,Moongeist Beam,ghost,25.92,909,63.07,4099,false,false
+11,Dusk Mane Necrozma,800,psychic,steel,Psycho Cut,psychic,Sunsteel Strike,steel,25.92,909,63.07,4099,false,false
+12,Zacian - Crowned Sword,888,fairy,steel,Metal Claw,steel,Behemoth Blade,steel,25.87,948,63.64,4979,false,false
+13,Mega Blaziken,257,fighting,fire,Counter,fighting,Aura Sphere,fighting,25.85,673,58.40,4161,false,true
+14,Shadow Mewtwo,150,psychic,none,Psycho Cut,psychic,Psystrike,psychic,25.76,672,58.23,4178,true,false
+15,Ash Greninja,658,dark,water,Water Shuriken,water,Hydro Cannon,water,25.27,569,55.05,3984,false,false
+16,Shadow Salamence,373,dragon,flying,Dragon Tail,dragon,Fly,flying,25.25,617,56.14,3749,true,false
+17,Blacephalon,806,fire,ghost,Astonish,ghost,Mind Blown,fire,24.91,443,51.15,3297,false,false
+18,Black Kyurem,646,dragon,ice,Dragon Tail,dragon,Freeze Shock,ice,24.77,885,60.56,4605,false,false
+19,Zamazenta - Crowned Shield,889,fighting,steel,Metal Claw,steel,Behemoth Bash,steel,24.77,1093,63.84,4172,false,false
+20,Mega Zygarde,718,dragon,ground,Dragon Tail,dragon,Earthquake,ground,24.77,1285,66.47,6710,false,true
+21,Regieleki,894,electric,none,Lock-On,normal,Thunder Cage,electric,24.13,481,50.97,2803,false,false
+22,Shadow Haxorus,612,dragon,none,Dragon Tail,dragon,Breaking Swipe,dragon,23.99,514,51.60,3593,true,false
+23,Shadow Blaziken,257,fighting,fire,Counter,fighting,Aura Sphere,fighting,23.83,441,49.42,2848,true,false
+24,Shadow Reshiram,643,dragon,fire,Fire Fang,fire,Fusion Flare,fire,23.59,678,54.62,4038,true,false
+25,Mega Sceptile,254,dragon,grass,Fury Cutter,bug,Frenzy Plant,grass,23.52,613,53.14,4056,false,true
+26,Mega Delphox,655,fire,psychic,Fire Spin,fire,Blast Burn,fire,23.43,797,56.58,4783,false,true
+27,Mega Alakazam,65,psychic,none,Confusion,psychic,Psychic,psychic,23.38,580,52.18,4510,false,true
+28,Mega Absol Z,359,dark,ghost,Snarl,dark,Brutal Swing,dark,23.30,440,48.58,3576,false,true
+29,Mega Gengar,94,ghost,poison,Lick,ghost,Shadow Ball,ghost,23.29,588,52.21,4336,false,true
+30,Rayquaza,384,dragon,flying,Dragon Tail,dragon,Dragon Ascent,flying,23.17,678,53.90,3835,false,false
+31,Regigigas,486,normal,none,Zen Headbutt,psychic,Crush Grip,normal,23.09,851,56.90,4346,false,false
+32,Mega Garchomp,445,dragon,ground,Dragon Tail,dragon,Breaking Swipe,dragon,23.05,963,58.60,5424,false,true
+33,Shadow Toucannon,733,flying,normal,Peck,flying,Beak Blast,flying,23.04,440,48.16,2689,true,false
+34,Shadow Metagross,376,psychic,steel,Fury Cutter,bug,Meteor Mash,steel,23.00,663,53.29,3791,true,false
+35,Shadow Moltres,146,fire,flying,Fire Spin,fire,Fly,flying,22.79,573,51.04,3465,true,false
+36,Mega Charizard Y,6,fire,flying,Fire Spin,fire,Blast Burn,fire,22.78,721,54.03,4455,false,true
+37,Mega Raichu Y,26,electric,none,Thunder Shock,electric,Wild Charge,electric,22.76,462,48.31,3780,false,true
+38,Keldeo - Resolute Forme,647,fighting,water,Low Kick,fighting,Secret Sword,fighting,22.75,732,54.17,3698,false,false
+39,Mega Salamence,373,dragon,flying,Dragon Tail,dragon,Fly,flying,22.47,958,57.43,5031,false,true
+40,Shadow Chandelure,609,fire,ghost,Fire Spin,fire,Shadow Ball,ghost,22.40,434,46.99,3268,true,false
+41,Mega Chandelure,609,fire,ghost,Fire Spin,fire,Shadow Ball,ghost,22.33,638,51.62,4433,false,true
+42,Shadow Palkia,484,dragon,water,Dragon Tail,dragon,Draco Meteor,dragon,22.31,605,50.92,3991,true,false
+43,Mega Greninja,658,water,dark,Water Shuriken,water,Hydro Cannon,water,22.30,576,50.28,3784,false,true
+44,Shadow Honchkrow,430,dark,flying,Snarl,dark,Sky Attack,flying,22.29,365,44.85,2711,true,false
+45,Shadow Rampardos,409,rock,none,Smack Down,rock,Rock Slide,rock,22.22,373,44.97,3298,true,false
+46,Mega Absol,359,dark,none,Snarl,dark,Brutal Swing,dark,22.21,398,45.69,3301,false,true
+47,Shadow Dialga,483,dragon,steel,Metal Claw,steel,Draco Meteor,dragon,22.20,638,51.41,4038,true,false
+48,Primal Kyogre,382,water,none,Waterfall,water,Origin Pulse,water,22.20,1016,57.74,5902,false,true
+49,White Kyurem,646,dragon,ice,Ice Fang,ice,Ice Burn,ice,22.16,792,54.19,4605,false,false
+50,Primal Groudon,383,ground,fire,Mud Shot,ground,Precipice Blades,ground,22.13,1013,57.56,5902,false,true
+51,Shadow Garchomp,445,dragon,ground,Dragon Tail,dragon,Breaking Swipe,dragon,22.12,676,52.00,3962,true,false
+52,Shadow Staraptor,398,flying,normal,Quick Attack,normal,Fly,flying,22.11,422,46.21,2825,true,false
+53,Mega Garchomp Z,445,dragon,none,Dragon Tail,dragon,Breaking Swipe,dragon,22.08,821,54.53,4858,false,true
+54,Mega Latios,381,dragon,psychic,Dragon Breath,dragon,Aura Sphere,fighting,22.07,804,54.23,5007,false,true
+55,Mega Heatran,485,fire,steel,Fire Spin,fire,Magma Storm,fire,22.03,914,55.92,5284,false,true
+56,Deoxys (Attack Forme),386,psychic,none,Zen Headbutt,psychic,Dark Pulse,dark,21.95,141,34.96,2580,false,false
+57,Shadow Gengar,94,ghost,poison,Lick,ghost,Shadow Ball,ghost,21.93,354,43.93,2878,true,false
+58,Shadow Latios,381,dragon,psychic,Dragon Breath,dragon,Aura Sphere,fighting,21.90,590,49.89,3812,true,false
+59,Shadow Darmanitan,555,fire,none,Fire Fang,fire,Overheat,fire,21.86,404,45.33,3105,true,false
+60,Calyrex - Shadow Rider,898,ghost,psychic,Confusion,psychic,Shadow Ball,ghost,21.82,696,51.85,4540,false,false
+61,Mega Metagross,376,psychic,steel,Fury Cutter,bug,Meteor Mash,steel,21.71,939,55.68,4911,false,true
+62,Shadow Absol,359,dark,none,Snarl,dark,Brutal Swing,dark,21.67,301,41.84,2526,true,false
+63,Mega Hawlucha,701,fighting,flying,Low Kick,fighting,Flying Press,fighting,21.64,685,51.34,3935,false,true
+64,Shadow Alakazam,65,psychic,none,Confusion,psychic,Psychic,psychic,21.47,364,43.56,3057,true,false
+65,Shadow Emboar,500,fighting,fire,Low Kick,fighting,Blast Burn,fire,21.43,452,45.92,2982,true,false
+66,Dialga (Origin Forme),483,dragon,steel,Metal Claw,steel,Roar of Time,dragon,21.26,779,52.31,4090,false,false
+67,Mewtwo,150,psychic,none,Psycho Cut,psychic,Psystrike,psychic,21.25,665,50.28,4178,false,false
+68,Shadow Dragonite,149,dragon,flying,Dragon Tail,dragon,Draco Meteor,dragon,21.25,586,48.71,3792,true,false
+69,Mega Feraligatr,160,water,dragon,Water Gun,water,Hydro Cannon,water,21.16,757,51.74,4523,false,true
+70,Shadow Darkrai,491,dark,none,Snarl,dark,Shadow Ball,ghost,21.02,484,46.06,3739,true,false
+71,Ultra Necrozma,800,dragon,psychic,Psycho Cut,psychic,Outrage,dragon,20.94,656,49.55,4671,false,false
+72,Mega Gardevoir,282,fairy,psychic,Confusion,psychic,Psychic,psychic,20.92,652,49.43,4512,false,true
+73,Mega Gallade,475,fighting,psychic,Confusion,psychic,Psychic,psychic,20.92,655,49.48,4521,false,true
+74,Shadow Conkeldurr,534,fighting,none,Force Palm,fighting,Dynamic Punch,fighting,20.91,519,46.67,3337,true,false
+75,Shadow Kyogre,382,water,none,Waterfall,water,Origin Pulse,water,20.88,646,49.23,4115,true,false
+76,Lucario,448,fighting,steel,Force Palm,fighting,Aura Sphere,fighting,20.88,431,44.50,2703,false,false
+77,Baxcalibur,998,dragon,ice,Ice Fang,ice,Glaive Rush,dragon,20.85,646,49.20,3550,false,false
+78,Shadow Groudon,383,ground,none,Mud Shot,ground,Precipice Blades,ground,20.85,645,49.16,4115,true,false
+79,Shadow Hydreigon,635,dark,dragon,Bite,dark,Brutal Swing,dark,20.84,553,47.30,3625,true,false
+80,Palkia (Origin Forme),484,dragon,water,Dragon Tail,dragon,Spacial Rend,dragon,20.84,702,50.21,4142,false,false
+81,Mega Excadrill,530,ground,steel,Metal Claw,steel,Earthquake,ground,20.84,740,50.86,4760,false,true
+82,Shadow Excadrill,530,ground,steel,Metal Claw,steel,Scorching Sands,ground,20.83,446,44.79,3244,true,false
+83,Shadow Electivire,466,electric,none,Thunder Shock,electric,Wild Charge,electric,20.82,420,44.14,3079,true,false
+84,Shadow Heatran,485,fire,steel,Fire Spin,fire,Magma Storm,fire,20.82,615,48.54,3754,true,false
+85,Shadow Greninja,658,dark,water,Water Shuriken,water,Hydro Cannon,water,20.79,384,43.09,2654,true,false
+86,Galarian Darmanitan (Zen Mode),555,fire,ice,Ice Fang,ice,Avalanche,ice,20.77,493,45.86,3905,false,false
+87,Salamence,373,dragon,flying,Dragon Tail,dragon,Fly,flying,20.77,609,48.33,3749,false,false
+88,Shadow Raikou,243,electric,none,Thunder Shock,electric,Aura Sphere,fighting,20.70,558,47.17,3452,true,false
+89,Enamorus (Incarnate Forme),905,fairy,flying,Fairy Wind,fairy,Fly,flying,20.68,493,45.68,3425,false,false
+90,Mega Banette,354,ghost,none,Shadow Claw,ghost,Shadow Ball,ghost,20.67,444,44.51,3594,false,true
+91,Shadow Vikavolt,738,bug,electric,Bug Bite,bug,Fly,flying,20.61,410,43.54,3117,true,false
+92,Shadow Crawdaunt,342,dark,water,Snarl,dark,Crabhammer,water,20.58,327,41.08,2474,true,false
+93,Shadow Sceptile,254,grass,none,Fury Cutter,bug,Frenzy Plant,grass,20.55,409,43.39,2757,true,false
+94,Regidrago,895,dragon,none,Dragon Breath,dragon,Dragon Energy,dragon,20.52,686,49.34,2973,false,false
+95,Shadow Delphox,655,fire,psychic,Fire Spin,fire,Blast Burn,fire,20.48,474,44.90,3059,true,false
+96,Mega Glimmora,970,poison,rock,Rock Throw,rock,Meteor Beam,rock,20.46,683,49.19,4314,false,true
+97,Mega Heracross,214,bug,fighting,Fury Cutter,bug,Megahorn,bug,20.46,693,49.35,4814,false,true
+98,Shadow Kingler,99,water,none,Bubble,water,Crabhammer,water,20.46,373,42.28,2829,true,false
+99,Mega Staraptor,398,fighting,flying,Gust,flying,Fly,flying,20.38,669,48.77,3979,false,true
+100,Shadow Tyranitar,248,dark,rock,Bite,dark,Brutal Swing,dark,20.32,626,47.89,3834,true,false
+101,Mega Meganium,154,grass,fairy,Vine Whip,grass,Frenzy Plant,grass,20.32,714,49.46,4089,false,true
+102,Kartana,798,grass,steel,Fury Cutter,bug,Sacred Sword,fighting,20.32,428,43.52,3677,false,false
+103,Shadow Gigalith,526,rock,none,Lock-On,normal,Meteor Beam,rock,20.27,539,46.03,3228,true,false
+104,Pheromosa,795,bug,fighting,Bug Bite,bug,Bug Buzz,bug,20.26,266,38.55,2842,false,false
+105,Mega Emboar,500,fighting,fire,Low Kick,fighting,Blast Burn,fire,20.25,755,50.05,4371,false,true
+106,Hoopa (Unbound),720,dark,psychic,Confusion,psychic,Psychic,psychic,20.20,543,46.00,4006,false,false
+107,Shadow Infernape,392,fighting,fire,Fire Spin,fire,Blast Burn,fire,20.19,384,42.16,2683,true,false
+108,Mega Beedrill,15,bug,poison,Poison Jab,poison,Sludge Bomb,poison,20.16,406,42.71,3383,false,true
+109,Shadow Samurott,503,water,none,Fury Cutter,bug,Hydro Cannon,water,20.16,463,44.14,2826,true,false
+110,Shadow Mamoswine,473,ice,ground,Mud Slap,ground,Avalanche,ice,20.12,482,44.50,3328,true,false
+111,Shadow Weavile,461,dark,ice,Snarl,dark,Avalanche,ice,20.12,405,42.60,3005,true,false
+112,Shadow Charizard,6,fire,flying,Fire Spin,fire,Blast Burn,fire,20.06,438,43.37,2889,true,false
+113,Mega Diancie,719,fairy,rock,Rock Throw,rock,Rock Slide,rock,20.05,529,45.44,4346,false,true
+114,Zeraora,807,electric,none,Volt Switch,electric,Plasma Fists,electric,20.02,584,46.54,3419,false,false
+115,Xurkitree,796,electric,none,Thunder Shock,electric,Discharge,electric,20.00,463,43.88,3937,false,false
+116,Shadow Porygon-Z,474,normal,none,Lock-On,normal,Hyper Beam,normal,19.97,406,42.40,3266,true,false
+117,Shadow Rhyperior,464,ground,rock,Mud Slap,ground,Rock Wrecker,rock,19.96,630,47.30,3733,true,false
+118,Mega Swampert,260,ground,water,Water Gun,water,Hydro Cannon,water,19.94,774,49.78,4401,false,true
+119,Aegislash - Blade,681,ghost,steel,Psycho Cut,psychic,Shadow Ball,ghost,19.93,263,38.01,2637,false,false
+120,Mega Tyranitar,248,dark,rock,Bite,dark,Brutal Swing,dark,19.92,966,52.57,5347,false,true
+121,Thundurus (Therian Forme),642,electric,flying,Volt Switch,electric,Wildbolt Storm,electric,19.90,493,44.41,3659,false,false
+122,Shadow Tyrantrum,697,dragon,rock,Dragon Tail,dragon,Meteor Beam,rock,19.85,492,44.29,3128,true,false
+123,Haxorus,612,dragon,none,Dragon Tail,dragon,Breaking Swipe,dragon,19.77,508,44.51,3593,false,false
+124,Mega Dragonite,149,dragon,flying,Dragon Tail,dragon,Draco Meteor,dragon,19.73,828,50.21,4823,false,true
+125,Mega Charizard X,6,dragon,fire,Fire Spin,fire,Blast Burn,fire,19.68,626,46.74,3850,false,true
+126,Mega Manectric,310,electric,none,Thunder Fang,electric,Wild Charge,electric,19.61,494,43.92,3580,false,true
+127,Shadow Empoleon,395,steel,water,Metal Claw,steel,Hydro Cannon,water,19.61,483,43.68,2900,true,false
+128,Landorus (Therian Forme),645,flying,ground,Mud Shot,ground,Sandsear Storm,ground,19.59,580,45.69,3922,false,false
+129,Reshiram,643,dragon,fire,Fire Fang,fire,Fusion Flare,fire,19.58,676,47.46,4038,false,false
+130,Blaziken,257,fighting,fire,Counter,fighting,Aura Sphere,fighting,19.55,434,42.44,2848,false,false
+131,Shadow Typhlosion,157,fire,none,Incinerate,fire,Blast Burn,fire,19.50,426,42.17,2889,true,false
+132,Mega Darkrai,491,dark,none,Snarl,dark,Shadow Ball,ghost,19.50,709,47.87,4859,false,true
+133,Shadow Luxray,405,electric,none,Snarl,dark,Wild Charge,electric,19.44,394,41.25,2888,true,false
+134,Shadow Cacturne,332,dark,grass,Sucker Punch,dark,Grass Knot,grass,19.42,273,37.61,2298,true,false
+135,Shadow Landorus (Incarnate Forme),645,flying,ground,Mud Shot,ground,Earth Power,ground,19.41,487,43.43,3588,true,false
+136,Shadow Machamp,68,fighting,none,Counter,fighting,Dynamic Punch,fighting,19.33,432,42.03,3056,true,false
+137,Terrakion,639,fighting,rock,Double Kick,fighting,Sacred Sword,fighting,19.31,621,45.98,3698,false,false
+138,Shadow Entei,244,fire,none,Fire Spin,fire,Overheat,fire,19.30,552,44.64,3473,true,false
+139,Mega Starmie,121,psychic,water,Psywave,psychic,Psychic,psychic,19.28,555,44.66,4045,false,true
+140,Shadow Haunter,93,ghost,poison,Lick,ghost,Shadow Ball,ghost,19.25,194,34.30,1963,true,false
+141,Shadow Zapdos,145,electric,flying,Thunder Shock,electric,Thunderbolt,electric,19.21,493,43.25,3527,true,false
+142,Shadow Exeggutor,103,grass,psychic,Confusion,psychic,Psychic,psychic,19.19,420,41.51,3014,true,false
+143,Shadow Magnezone,462,electric,steel,Volt Switch,electric,Wild Charge,electric,19.11,455,42.22,3205,true,false
+144,Shadow Tornadus (Incarnate Forme),641,flying,none,Air Slash,flying,Grass Knot,grass,19.09,401,40.86,3345,true,false
+145,Shadow Archeops,567,flying,rock,Wing Attack,flying,Ancient Power,rock,19.08,333,39.00,3331,true,false
+146,Mega Latias,380,dragon,psychic,Dragon Breath,dragon,Aura Sphere,fighting,19.07,846,49.21,4801,false,true
+147,Metagross,376,psychic,steel,Fury Cutter,bug,Meteor Mash,steel,19.05,659,46.19,3791,false,false
+148,Shadow Alolan Exeggutor,103,dragon,grass,Dragon Tail,dragon,Draco Meteor,dragon,19.05,428,41.46,3014,true,false
+149,Inteleon,818,water,none,Pound,normal,Hydro Cannon,water,19.02,388,40.42,2964,false,false
+150,Mega Scovillain,952,fire,grass,Fire Fang,fire,Grass Knot,grass,18.98,434,41.49,3298,false,true
+151,Mega Pidgeot,18,flying,normal,Wing Attack,flying,Brave Bird,flying,18.95,525,43.47,3680,false,true
+152,Shadow Gallade,475,fighting,psychic,Confusion,psychic,Psychic,psychic,18.92,423,41.13,3093,true,false
+153,Shadow Gardevoir,282,fairy,psychic,Confusion,psychic,Psychic,psychic,18.92,423,41.13,3093,true,false
+154,Shadow Hariyama,297,fighting,none,Force Palm,fighting,Dynamic Punch,fighting,18.87,446,41.61,2829,true,false
+155,Shadow Ho-Oh,250,fire,flying,Incinerate,fire,Brave Bird,flying,18.85,647,45.63,3863,true,false
+156,Toucannon,733,flying,normal,Peck,flying,Beak Blast,flying,18.85,432,41.24,2689,false,false
+157,Shadow Annihilape,979,fighting,ghost,Counter,fighting,Shadow Ball,ghost,18.84,540,43.59,3268,true,false
+158,Tapu Lele,786,fairy,psychic,Confusion,psychic,Nature's Madness,fairy,18.84,545,43.69,3494,false,false
+159,Shadow Sneasler,903,fighting,poison,Poison Jab,poison,Close Combat,fighting,18.83,386,40.08,3222,true,false
+160,Zekrom,644,dragon,electric,Dragon Breath,dragon,Fusion Bolt,electric,18.81,649,45.60,4038,false,false
+161,Yveltal,717,dark,flying,Snarl,dark,Oblivion Wing,flying,18.79,681,46.10,3781,false,false
+162,Galarian Zapdos,145,fighting,flying,Counter,fighting,Fly,flying,18.79,591,44.49,3548,false,false
+163,Moltres,146,fire,flying,Fire Spin,fire,Fly,flying,18.78,567,44.01,3465,false,false
+164,Mega Meowstic,678,psychic,none,Confusion,psychic,Psychic,psychic,18.77,546,43.59,3873,false,true
+165,Galarian Articuno,144,flying,psychic,Psycho Cut,psychic,Fly,flying,18.76,613,44.85,3590,false,false
+166,Mega Froslass,478,ghost,ice,Hex,ghost,Shadow Ball,ghost,18.75,509,42.78,3753,false,true
+167,Shadow Latias,380,dragon,psychic,Dragon Breath,dragon,Aura Sphere,fighting,18.72,579,44.15,3510,true,false
+168,Shadow Manectric,310,electric,none,Thunder Fang,electric,Wild Charge,electric,18.69,287,37.00,2340,true,false
+169,Mega Skarmory,227,flying,steel,Steel Wing,steel,Sky Attack,flying,18.68,561,43.73,3741,false,true
+170,Dragapult,887,dragon,ghost,Dragon Tail,dragon,Breaking Swipe,dragon,18.68,525,43.00,3532,false,false
+171,Mega Houndoom,229,dark,fire,Snarl,dark,Foul Play,dark,18.63,530,43.02,3842,false,true
+172,Shadow Swampert,260,ground,water,Water Gun,water,Hydro Cannon,water,18.62,491,42.19,2974,true,false
+173,Mega Raichu X,26,electric,none,Thunder Shock,electric,Wild Charge,electric,18.61,479,41.90,3510,false,true
+174,Deoxys (Normal Forme),386,psychic,none,Zen Headbutt,psychic,Thunderbolt,electric,18.59,255,35.78,3160,false,false
+175,Shadow Chesnaught,652,fighting,grass,Vine Whip,grass,Frenzy Plant,grass,18.59,516,42.66,2954,true,false
+176,Palkia,484,dragon,water,Dragon Tail,dragon,Draco Meteor,dragon,18.55,604,44.32,3991,false,false
+177,Mega Blastoise,9,water,none,Water Gun,water,Hydro Cannon,water,18.52,657,45.20,3941,false,true
+178,Chandelure,609,fire,ghost,Fire Spin,fire,Shadow Ball,ghost,18.51,430,40.65,3268,false,false
+179,Shadow Unfezant,521,flying,normal,Air Slash,flying,Sky Attack,flying,18.50,353,38.67,2734,true,false
+180,Dialga,483,dragon,steel,Metal Claw,steel,Draco Meteor,dragon,18.50,638,44.83,4038,false,false
+181,Shadow Banette,354,ghost,none,Shadow Claw,ghost,Shadow Ball,ghost,18.44,266,35.94,2298,true,false
+182,Shadow Ursaluna,901,ground,normal,Tackle,normal,High Horsepower,ground,18.44,610,44.22,3854,true,false
+183,Shadow Lugia,249,flying,psychic,Extrasensory,psychic,Aeroblast+,flying,18.42,866,48.24,3703,true,false
+184,Shadow Venusaur,3,grass,poison,Vine Whip,grass,Frenzy Plant,grass,18.40,445,40.80,2720,true,false
+185,Shadow Magmortar,467,fire,none,Fire Spin,fire,Fire Blast,fire,18.39,390,39.46,3132,true,false
+186,Shadow Sharpedo,319,dark,water,Bite,dark,Hydro Pump,water,18.39,195,33.17,2181,true,false
+187,Enamorus (Therian Forme),905,fairy,flying,Fairy Wind,fairy,Fly,flying,18.30,532,42.50,3388,false,false
+188,Honchkrow,430,dark,flying,Snarl,dark,Sky Attack,flying,18.27,359,38.47,2711,false,false
+189,Garchomp,445,dragon,ground,Dragon Tail,dragon,Breaking Swipe,dragon,18.25,669,44.90,3962,false,false
+190,Keldeo,647,fighting,water,Low Kick,fighting,Sacred Sword,fighting,18.23,587,43.41,3698,false,false
+191,Rampardos,409,rock,none,Smack Down,rock,Rock Slide,rock,18.22,367,38.59,3298,false,false
+192,Staraptor,398,flying,normal,Quick Attack,normal,Fly,flying,18.18,417,39.77,2825,false,false
+193,Tapu Koko,785,electric,fairy,Volt Switch,electric,Nature's Madness,fairy,18.17,462,40.81,3168,false,false
+194,Shadow Feraligatr,160,water,none,Water Gun,water,Hydro Cannon,water,18.16,454,40.61,2857,true,false
+195,Shaymin (Sky Forme),492,flying,grass,Magical Leaf,grass,Grass Knot,grass,18.16,547,42.54,3592,false,false
+196,Latios,381,dragon,psychic,Dragon Breath,dragon,Aura Sphere,fighting,18.14,586,43.24,3812,false,false
+197,Gengar,94,ghost,poison,Lick,ghost,Shadow Ball,ghost,18.11,350,37.98,2878,false,false
+198,Shadow Houndoom,229,dark,fire,Snarl,dark,Foul Play,dark,18.09,326,37.28,2635,true,false
+199,Tinkaton,959,fairy,steel,Fairy Wind,fairy,Gigaton Hammer,steel,18.07,564,42.69,2250,false,false
+200,Shadow Torterra,389,grass,ground,Mud Slap,ground,Frenzy Plant,grass,18.06,490,41.21,2934,true,false
+201,Darmanitan,555,fire,none,Fire Fang,fire,Overheat,fire,18.03,400,39.15,3105,false,false
+202,Mega Pyroar,668,fire,normal,Fire Fang,fire,Overheat,fire,18.02,573,42.79,3849,false,true
+203,Mega Lopunny,428,fighting,normal,Pound,normal,Hyper Beam,normal,18.00,509,41.51,3745,false,true
+204,Shadow Tangrowth,465,grass,none,Vine Whip,grass,Power Whip,grass,18.00,497,41.26,3030,true,false
+205,Shadow Thundurus (Incarnate Forme),642,electric,flying,Thunder Shock,electric,Thunder Punch,electric,17.97,378,38.48,3345,true,false
+206,Kyurem,646,dragon,ice,Dragon Breath,dragon,Glaciate,ice,17.97,600,43.20,3575,false,false
+207,Mega Pinsir,127,bug,flying,Fury Cutter,bug,X-Scissor,bug,17.96,546,42.17,4182,false,true
+208,Mega Venusaur,3,grass,poison,Vine Whip,grass,Frenzy Plant,grass,17.90,665,44.19,3698,false,true
+209,Mega Chesnaught,652,fighting,grass,Vine Whip,grass,Frenzy Plant,grass,17.88,807,46.34,4093,false,true
+210,Chien-Pao,1002,dark,ice,Snarl,dark,Avalanche,ice,17.86,463,40.30,3329,false,false
+211,Cinderace,815,fire,none,Fire Spin,fire,Pyro Ball,fire,17.83,452,40.00,3018,false,false
+212,Hisuian Zoroark,571,ghost,normal,Snarl,dark,Shadow Ball,ghost,17.83,285,35.65,2615,false,false
+213,Mega Golurk,623,ghost,ground,Mud Slap,ground,Earth Power,ground,17.82,590,42.75,4080,false,true
+214,Absol,359,dark,none,Snarl,dark,Brutal Swing,dark,17.80,297,35.98,2526,false,false
+215,Shadow Toxicroak,454,fighting,poison,Poison Jab,poison,Dynamic Punch,fighting,17.80,320,36.64,2488,true,false
+216,Alakazam,65,psychic,none,Confusion,psychic,Psychic,psychic,17.74,361,37.68,3057,false,false
+217,Hoopa (Confined),720,ghost,psychic,Confusion,psychic,Shadow Ball,ghost,17.74,467,40.18,3359,false,false
+218,Tornadus (Incarnate Forme),641,flying,none,Air Slash,flying,Bleakwind Storm,flying,17.72,447,39.72,3345,false,false
+219,Shadow Ursaring,217,normal,none,Metal Claw,steel,Hyper Beam,normal,17.72,362,37.66,2945,true,false
+220,Mega Eelektross,604,electric,none,Volt Switch,electric,Thunderbolt,electric,17.71,497,40.76,3844,false,true
+221,Breloom,286,fighting,grass,Force Palm,fighting,Grass Knot,grass,17.70,332,36.84,2628,false,false
+222,Mega Drampa,780,dragon,normal,Dragon Breath,dragon,Fly,flying,17.69,555,41.87,3891,false,true
+223,Spectrier,897,ghost,none,Tackle,normal,Shadow Ball,ghost,17.66,434,39.32,3385,false,false
+224,Naganadel,804,dragon,poison,Poison Jab,poison,Sludge Bomb,poison,17.66,409,38.75,3173,false,false
+225,Dragonite,149,dragon,flying,Dragon Tail,dragon,Draco Meteor,dragon,17.65,584,42.34,3792,false,false
+226,Shadow Alolan Golem,76,electric,rock,Rollout,rock,Wild Charge,electric,17.59,444,39.44,2949,true,false
+227,Lunala,792,ghost,psychic,Confusion,psychic,Shadow Ball,ghost,17.58,701,44.18,4042,false,false
+228,Mega Aerodactyl,142,flying,rock,Rock Throw,rock,Rock Slide,rock,17.54,562,41.72,4118,false,true
+229,Volcarona,637,bug,fire,Bug Bite,bug,Overheat,fire,17.53,529,41.08,3632,false,false
+230,Shadow Zebstrika,523,electric,none,Spark,electric,Wild Charge,electric,17.53,300,35.65,2428,true,false
+231,Emboar,500,fighting,fire,Low Kick,fighting,Blast Burn,fire,17.53,444,39.32,2982,false,false
+232,Mega Gyarados,130,dark,water,Bite,dark,Hydro Pump,water,17.53,736,44.62,4717,false,true
+233,Mega Victreebel,71,grass,poison,Magical Leaf,grass,Sludge Bomb,poison,17.51,488,40.23,3505,false,true
+234,Shadow Pinsir,127,bug,none,Fury Cutter,bug,X-Scissor,bug,17.49,355,37.11,2959,true,false
+235,Shadow Golurk,623,ghost,ground,Mud Slap,ground,Earth Power,ground,17.48,376,37.65,2854,true,false
+236,Calyrex - Ice Rider,898,ice,psychic,Confusion,psychic,Psychic,psychic,17.45,696,43.85,4235,false,false
+237,Mega Sharpedo,319,dark,water,Bite,dark,Hydro Pump,water,17.44,360,37.17,3273,false,true
+238,Hisuian Decidueye,724,fighting,grass,Magical Leaf,grass,Aura Sphere,fighting,17.44,501,40.37,2897,false,false
+239,Darkrai,491,dark,none,Snarl,dark,Shadow Ball,ghost,17.42,482,39.95,3739,false,false
+240,Groudon,383,ground,none,Mud Shot,ground,Precipice Blades,ground,17.39,645,42.91,4115,false,false
+241,Shadow Scizor,212,bug,steel,Fury Cutter,bug,X-Scissor,bug,17.39,369,37.31,3001,true,false
+242,Shadow Arcanine,59,fire,none,Fire Fang,fire,Wild Charge,electric,17.37,404,38.15,3029,true,false
+243,Koraidon,1007,dragon,fighting,Dragon Tail,dragon,Giga Impact,normal,17.36,631,42.61,3973,false,false
+244,Kyogre,382,water,none,Waterfall,water,Origin Pulse,water,17.35,644,42.81,4115,false,false
+245,Shadow Gyarados,130,flying,water,Waterfall,water,Hydro Pump,water,17.34,466,39.46,3391,true,false
+246,Mega Ampharos,181,dragon,electric,Volt Switch,electric,Zap Cannon,electric,17.29,581,41.61,4245,false,true
+247,Conkeldurr,534,fighting,none,Force Palm,fighting,Dynamic Punch,fighting,17.26,514,40.33,3337,false,false
+248,Shadow Flygon,330,dragon,ground,Dragon Tail,dragon,Boomburst,normal,17.26,375,37.25,2661,true,false
+249,Quaquaval,914,fighting,water,Water Gun,water,Hydro Cannon,water,17.25,444,38.86,3018,false,false
+250,Galarian Darmanitan,555,ice,none,Ice Fang,ice,Avalanche,ice,17.25,383,37.45,3105,false,false
+251,Shadow Victreebel,71,grass,poison,Magical Leaf,grass,Sludge Bomb,poison,17.22,306,35.36,2431,true,false
+252,Shadow Kadabra,64,psychic,none,Confusion,psychic,Shadow Ball,ghost,17.21,177,30.83,2059,true,false
+253,Electivire,466,electric,none,Thunder Shock,electric,Wild Charge,electric,17.20,417,38.17,3079,false,false
+254,Hydreigon,635,dark,dragon,Bite,dark,Brutal Swing,dark,17.20,548,40.85,3625,false,false
+255,Heatran,485,fire,steel,Fire Spin,fire,Magma Storm,fire,17.18,609,41.93,3754,false,false
+256,Espeon,196,psychic,none,Confusion,psychic,Psychic,psychic,17.18,403,37.81,3170,false,false
+257,Shadow Swanna,581,flying,water,Gust,flying,Fly,flying,17.17,286,34.69,2088,true,false
+258,Tapu Bulu,787,fairy,grass,Bullet Seed,grass,Nature's Madness,fairy,17.16,512,40.12,3419,false,false
+259,Excadrill,530,ground,steel,Metal Claw,steel,Scorching Sands,ground,17.16,441,38.63,3244,false,false
+260,Glimmora,970,poison,rock,Rock Throw,rock,Meteor Beam,rock,17.16,480,39.46,3273,false,false
+261,Greninja,658,dark,water,Water Shuriken,water,Hydro Cannon,water,17.14,379,37.18,2654,false,false
+262,Raikou,243,electric,none,Thunder Shock,electric,Aura Sphere,fighting,17.13,554,40.86,3452,false,false
+263,Urshifu - Rapid Strike Style,892,fighting,water,Counter,fighting,Dynamic Punch,fighting,17.13,548,40.72,3606,false,false
+264,Urshifu - Single Strike Style,892,dark,fighting,Counter,fighting,Dynamic Punch,fighting,17.13,548,40.72,3606,false,false
+265,Rillaboom,812,grass,none,Razor Leaf,grass,Frenzy Plant,grass,17.09,521,40.16,3324,false,false
+266,Shadow Mismagius,429,ghost,none,Sucker Punch,dark,Shadow Ball,ghost,17.09,339,36.07,2615,true,false
+267,Shadow Sawk,539,fighting,none,Low Kick,fighting,Focus Blast,fighting,17.06,325,35.63,2788,true,false
+268,Vikavolt,738,bug,electric,Bug Bite,bug,Fly,flying,17.05,407,37.70,3117,false,false
+269,Meloetta (Pirouette Forme),648,fighting,normal,Quick Attack,normal,Hyper Beam,normal,17.04,576,41.09,3915,false,false
+270,Meowscarada,908,dark,grass,Leafage,grass,Frenzy Plant,grass,17.04,393,37.35,2825,false,false
+271,Shadow Heliolisk,695,electric,normal,Quick Attack,normal,Thunderbolt,electric,17.02,312,35.20,2600,true,false
+272,Shadow Shiftry,275,dark,grass,Snarl,dark,Leaf Blade,grass,17.01,297,34.77,2333,true,false
+273,Zarude,893,dark,grass,Vine Whip,grass,Power Whip,grass,17.00,673,42.65,3833,false,false
+274,Shadow Trevenant,709,ghost,grass,Shadow Claw,ghost,Shadow Ball,ghost,16.99,354,36.30,2559,true,false
+275,Crawdaunt,342,dark,water,Snarl,dark,Crabhammer,water,16.98,324,35.49,2474,false,false
+276,Shadow Rhydon,112,ground,rock,Mud Slap,ground,Earthquake,ground,16.98,453,38.60,3179,true,false
+277,Sceptile,254,grass,none,Fury Cutter,bug,Frenzy Plant,grass,16.98,406,37.54,2757,false,false
+278,Shadow Bewear,760,fighting,normal,Tackle,normal,Superpower,fighting,16.98,421,37.89,3117,true,false
+279,Kingler,99,water,none,Bubble,water,Crabhammer,water,16.92,371,36.60,2829,false,false
+280,Victini,494,fire,psychic,Confusion,psychic,V-create,fire,16.92,634,41.86,3265,false,false
+281,Gigalith,526,rock,none,Lock-On,normal,Meteor Beam,rock,16.90,540,40.17,3228,false,false
+282,Delphox,655,fire,psychic,Fire Spin,fire,Blast Burn,fire,16.89,469,38.78,3059,false,false
+283,Shadow Granbull,210,fairy,none,Charm,fairy,Play Rough,fairy,16.85,316,35.06,2552,true,false
+284,Shadow Starmie,121,psychic,water,Psywave,psychic,Psychic,psychic,16.83,329,35.40,2584,true,false
+285,Mega Scolipede,545,bug,poison,Poison Jab,poison,Sludge Bomb,poison,16.82,534,39.92,3632,false,true
+286,Braviary,628,flying,normal,Air Slash,flying,Fly,flying,16.79,467,38.57,3088,false,false
+287,Tyranitar,248,dark,rock,Bite,dark,Brutal Swing,dark,16.79,621,41.40,3834,false,false
+288,Roserade,407,grass,poison,Poison Jab,poison,Grass Knot,grass,16.76,395,36.93,2971,false,false
+289,Shadow Accelgor,617,bug,none,Infestation,bug,Bug Buzz,bug,16.75,268,33.51,2441,true,false
+290,Giratina (Origin Forme),487,dragon,ghost,Dragon Tail,dragon,Shadow Force,ghost,16.75,702,42.61,3683,false,false
+291,Shadow Magneton,82,electric,steel,Thunder Shock,electric,Magnet Bomb,steel,16.71,270,33.50,2485,true,false
+292,Shadow Fraxure,611,dragon,none,Dragon Tail,dragon,Dragon Claw,dragon,16.70,240,32.51,2234,true,false
+293,Xerneas,716,fairy,none,Geomancy,fairy,Giga Impact,normal,16.70,605,40.96,3781,false,false
+294,Nihilego,793,poison,rock,Poison Jab,poison,Sludge Bomb,poison,16.67,664,41.88,3949,false,false
+295,Tornadus (Therian Forme),641,flying,none,Gust,flying,Bleakwind Storm,flying,16.67,479,38.60,3215,false,false
+296,Shadow Scyther,123,bug,flying,Fury Cutter,bug,Bug Buzz,bug,16.67,334,35.25,2706,true,false
+297,Shadow Aerodactyl,142,flying,rock,Rock Throw,rock,Rock Slide,rock,16.66,344,35.50,2783,true,false
+298,Shadow Escavalier,589,bug,steel,Bug Bite,bug,Megahorn,bug,16.65,364,36.00,2889,true,false
+299,Shadow Scolipede,545,bug,poison,Poison Jab,poison,Sludge Bomb,poison,16.65,311,34.61,2447,true,false
+300,Weavile,461,dark,ice,Snarl,dark,Avalanche,ice,16.64,402,36.88,3005,false,false
+301,Gholdengo,1000,ghost,steel,Hex,ghost,Shadow Ball,ghost,16.64,514,39.21,3517,false,false
+302,Samurott,503,water,none,Fury Cutter,bug,Hydro Cannon,water,16.64,459,38.12,2826,false,false
+303,Shadow Talonflame,663,fire,flying,Fire Spin,fire,Fly,flying,16.61,328,35.03,2205,true,false
+304,Infernape,392,fighting,fire,Fire Spin,fire,Blast Burn,fire,16.61,379,36.30,2683,false,false
+305,Porygon-Z,474,normal,none,Lock-On,normal,Hyper Beam,normal,16.60,405,36.89,3266,false,false
+306,Mienshao,620,fighting,none,Force Palm,fighting,Grass Knot,grass,16.59,291,33.95,2710,false,false
+307,Lugia,249,flying,psychic,Extrasensory,psychic,Aeroblast++,flying,16.57,935,45.42,3703,false,false
+308,Zoroark,571,dark,none,Snarl,dark,Foul Play,dark,16.54,277,33.47,2571,false,false
+309,Primarina,730,fairy,water,Charm,fairy,Hydro Cannon,water,16.54,494,38.67,3200,false,false
+310,Miraidon,1008,dragon,electric,Thunder Shock,electric,Outrage,dragon,16.54,601,40.60,3973,false,false
+311,Azelf,482,psychic,none,Confusion,psychic,Future Sight,psychic,16.54,373,36.04,3210,false,false
+312,Mamoswine,473,ice,ground,Mud Slap,ground,Avalanche,ice,16.54,475,38.28,3328,false,false
+313,Charizard,6,fire,flying,Fire Spin,fire,Blast Burn,fire,16.53,434,37.41,2889,false,false
+314,Shadow Aurorus,699,ice,rock,Rock Throw,rock,Meteor Beam,rock,16.52,476,38.27,2802,true,false
+315,Mega Scizor,212,bug,steel,Fury Cutter,bug,X-Scissor,bug,16.52,568,40.00,4087,false,true
+316,Tyrantrum,697,dragon,rock,Dragon Tail,dragon,Meteor Beam,rock,16.49,490,38.51,3128,false,false
+317,Shadow Nidoking,34,ground,poison,Poison Jab,poison,Earth Power,ground,16.46,335,34.97,2567,true,false
+318,Ho-Oh,250,fire,flying,Incinerate,fire,Sacred Fire++,fire,16.46,678,41.69,3863,false,false
+319,Incineroar,727,dark,fire,Snarl,dark,Blast Burn,fire,16.44,501,38.61,2996,false,false
+320,Rhyperior,464,ground,rock,Mud Slap,ground,Rock Wrecker,rock,16.44,622,40.77,3733,false,false
+321,Mega Falinks,870,fighting,none,Counter,fighting,Superpower,fighting,16.40,494,38.43,3670,false,true
+322,Polteageist,855,ghost,none,Sucker Punch,dark,Shadow Ball,ghost,16.36,394,36.24,3058,false,false
+323,Darmanitan (Zen Mode),555,fire,psychic,Fire Fang,fire,Psychic,psychic,16.32,610,40.35,3738,false,false
+324,Shadow Aggron,306,rock,steel,Metal Sound,steel,Meteor Beam,rock,16.31,480,37.98,3000,true,false
+325,Shadow Crustle,558,bug,rock,Fury Cutter,bug,Rock Wrecker,rock,16.28,379,35.75,2542,true,false
+326,Shadow Giratina (Altered Forme),487,dragon,ghost,Dragon Breath,dragon,Shadow Force,ghost,16.27,675,41.31,3379,true,false
+327,Pawmot,923,electric,fighting,Thunder Shock,electric,Wild Charge,electric,16.27,329,34.50,2634,false,false
+328,Empoleon,395,steel,water,Metal Claw,steel,Hydro Cannon,water,16.23,480,37.85,2900,false,false
+329,Shadow Donphan,232,ground,none,Mud Slap,ground,Earthquake,ground,16.23,417,36.53,3013,true,false
+330,Flareon,136,fire,none,Fire Spin,fire,Overheat,fire,16.20,388,35.84,3029,false,false
+331,Mega Abomasnow,460,grass,ice,Leafage,grass,Weather Ball Ice,ice,16.17,513,38.38,3405,false,true
+332,Shadow Drifblim,426,flying,ghost,Hex,ghost,Shadow Ball,ghost,16.17,358,35.06,2382,true,false
+333,Melmetal,809,steel,none,Thunder Shock,electric,Double Iron Bash,steel,16.16,641,40.56,3599,false,false
+334,Mega Clefable,36,fairy,flying,Charm,fairy,Meteor Mash,steel,16.14,569,39.34,3773,false,true
+335,Shadow Vileplume,45,grass,poison,Acid,poison,Sludge Bomb,poison,16.14,333,34.40,2559,true,false
+336,Jirachi,385,psychic,steel,Confusion,psychic,Doom Desire,steel,16.11,604,39.87,3265,false,false
+337,Shadow Golem,76,ground,rock,Rock Throw,rock,Earthquake,ground,16.08,406,36.05,2949,true,false
+338,Ceruledge,937,fire,ghost,Incinerate,fire,Shadow Ball,ghost,16.07,446,36.88,3172,false,false
+339,Shadow Swellow,277,flying,normal,Wing Attack,flying,Sky Attack,flying,16.07,220,30.90,1920,true,false
+340,Typhlosion,157,fire,none,Incinerate,fire,Blast Burn,fire,16.07,421,36.36,2889,false,false
+341,Mega Tatsugiri,978,dragon,water,Water Gun,water,Outrage,dragon,16.07,507,38.07,3688,false,true
+342,Shadow Tangela,114,grass,none,Vine Whip,grass,Grass Knot,grass,16.03,304,33.44,2238,true,false
+343,Landorus (Incarnate Forme),645,flying,ground,Mud Shot,ground,Earth Power,ground,16.02,482,37.53,3588,false,false
+344,Luxray,405,electric,none,Snarl,dark,Wild Charge,electric,16.02,390,35.58,2888,false,false
+345,Flamigo,973,fighting,flying,Double Kick,fighting,Brave Bird,flying,16.02,370,35.12,2757,false,false
+346,Hawlucha,701,fighting,flying,Low Kick,fighting,Flying Press,fighting,16.02,375,35.25,2410,false,false
+347,Cacturne,332,dark,grass,Sucker Punch,dark,Grass Knot,grass,15.99,270,32.41,2298,false,false
+348,Marshadow,802,fighting,ghost,Counter,fighting,Close Combat,fighting,15.99,505,37.91,3730,false,false
+349,Entei,244,fire,none,Fire Spin,fire,Overheat,fire,15.98,549,38.69,3473,false,false
+350,Mega Glalie,362,ice,none,Frost Breath,ice,Avalanche,ice,15.98,416,36.10,3229,false,true
+351,Shadow Noivern,715,dragon,flying,Air Slash,flying,Boomburst,normal,15.97,374,35.12,2764,true,false
+352,Shadow Gastly,92,ghost,poison,Lick,ghost,Sludge Bomb,poison,15.96,89,24.50,1229,true,false
+353,Palafin (Hero Form),964,water,none,Waterfall,water,Acrobatics,flying,15.96,470,37.17,3963,false,false
+354,Machamp,68,fighting,none,Counter,fighting,Dynamic Punch,fighting,15.95,428,36.29,3056,false,false
+355,Mega Golisopod,768,bug,steel,Metal Claw,steel,Razor Shell,water,15.94,655,40.35,4178,false,true
+356,Toxtricity,849,electric,poison,Poison Jab,poison,Wild Charge,electric,15.93,336,34.12,2601,false,false
+357,Chi-Yu,1004,dark,fire,Snarl,dark,Dark Pulse,dark,15.92,420,36.07,3457,false,false
+358,Mega Camerupt,323,fire,ground,Incinerate,fire,Earth Power,ground,15.92,409,35.83,3220,false,true
+359,Zapdos,145,electric,flying,Thunder Shock,electric,Thunderbolt,electric,15.91,490,37.48,3527,false,false
+360,Genesect,649,bug,steel,Metal Claw,steel,Magnet Bomb,steel,15.89,446,36.57,3353,false,false
+361,Genesect (Burn),649,bug,steel,Metal Claw,steel,Magnet Bomb,steel,15.89,446,36.57,3353,false,false
+362,Genesect (Chill),649,bug,steel,Metal Claw,steel,Magnet Bomb,steel,15.89,446,36.57,3353,false,false
+363,Genesect (Douse),649,bug,steel,Metal Claw,steel,Magnet Bomb,steel,15.89,446,36.57,3353,false,false
+364,Genesect (Shock),649,bug,steel,Metal Claw,steel,Magnet Bomb,steel,15.89,446,36.57,3353,false,false
+365,Volcanion,721,fire,water,Water Gun,water,Overheat,fire,15.89,522,38.04,3628,false,false
+366,Shadow Primeape,57,fighting,none,Counter,fighting,Rage Fist,ghost,15.88,250,31.64,2288,true,false
+367,Hisuian Samurott,503,dark,water,Snarl,dark,Razor Shell,water,15.88,409,35.76,2802,false,false
+368,Haunter,93,ghost,poison,Lick,ghost,Shadow Ball,ghost,15.88,192,29.62,1963,false,false
+369,Shadow Skuntank,435,dark,poison,Poison Jab,poison,Sludge Bomb,poison,15.84,330,33.84,2358,true,false
+370,Meloetta (Aria Forme),648,normal,psychic,Quick Attack,normal,Hyper Beam,normal,15.83,633,39.80,3972,false,false
+371,Shadow Meganium,154,grass,none,Vine Whip,grass,Frenzy Plant,grass,15.82,407,35.64,2410,true,false
+372,Shadow Galvantula,596,bug,electric,Fury Cutter,bug,Discharge,electric,15.82,245,31.38,2206,true,false
+373,Magnezone,462,electric,steel,Volt Switch,electric,Wild Charge,electric,15.81,451,36.54,3205,false,false
+374,Shadow Hippowdon,450,ground,none,Sand Attack,ground,Earth Power,ground,15.80,478,37.05,3085,true,false
+375,Hisuian Typhlosion,157,fire,ghost,Hex,ghost,Shadow Ball,ghost,15.80,394,35.29,2994,false,false
+376,Exeggutor,103,grass,psychic,Confusion,psychic,Psychic,psychic,15.79,415,35.76,3014,false,false
+377,Alolan Exeggutor,103,dragon,grass,Dragon Tail,dragon,Draco Meteor,dragon,15.79,425,35.97,3014,false,false
+378,Decidueye,724,ghost,grass,Magical Leaf,grass,Frenzy Plant,grass,15.79,427,36.00,2775,false,false
+379,Dhelmise,781,ghost,grass,Shadow Claw,ghost,Shadow Ball,ghost,15.76,397,35.29,2950,false,false
+380,Shadow Ambipom,424,normal,none,Scratch,normal,Hyper Beam,normal,15.75,282,32.41,2418,true,false
+381,Hisuian Braviary,628,flying,psychic,Air Slash,flying,Fly,flying,15.74,427,35.92,2814,false,false
+382,Archeops,567,flying,rock,Wing Attack,flying,Ancient Power,rock,15.74,330,33.67,3331,false,false
+383,Zacian - Hero of Many Battles,888,fairy,none,Snarl,dark,Play Rough,fairy,15.71,566,38.48,3829,false,false
+384,Mega Dragalgae,691,dragon,poison,Dragon Tail,dragon,Sludge Bomb,poison,15.70,543,38.08,3499,false,true
+385,Shadow Reuniclus,579,psychic,none,Zen Headbutt,psychic,Shadow Ball,ghost,15.68,380,34.78,2927,true,false
+386,Mega Crabominable,740,fighting,ice,Bubble,water,Crabhammer,water,15.67,580,38.66,4053,false,true
+387,Sneasler,903,fighting,poison,Poison Jab,poison,Close Combat,fighting,15.67,386,34.90,3222,false,false
+388,Gallade,475,fighting,psychic,Confusion,psychic,Psychic,psychic,15.65,420,35.60,3093,false,false
+389,Gardevoir,282,fairy,psychic,Confusion,psychic,Psychic,psychic,15.65,420,35.60,3093,false,false
+390,Kingambit,983,dark,steel,Snarl,dark,Foul Play,dark,15.63,568,38.37,3614,false,false
+391,Mega Barbaracle,689,rock,fighting,Fury Cutter,bug,Grass Knot,grass,15.63,545,37.98,3961,false,true
+392,Sirfetch'd,865,fighting,none,Counter,fighting,Brave Bird,flying,15.63,358,34.19,2985,false,false
+393,Hatterene,858,fairy,psychic,Confusion,psychic,Psychic,psychic,15.62,350,33.98,2829,false,false
+394,Kleavor,900,bug,rock,Fury Cutter,bug,Rock Slide,rock,15.61,383,34.74,3146,false,false
+395,Latias,380,dragon,psychic,Dragon Breath,dragon,Aura Sphere,fighting,15.55,577,38.38,3510,false,false
+396,Shadow Armaldo,348,bug,rock,Fury Cutter,bug,Rock Blast,rock,15.54,333,33.43,2848,true,false
+397,Shadow Hitmonlee,106,fighting,none,Double Kick,fighting,Blaze Kick,fire,15.53,268,31.64,2576,true,false
+398,Annihilape,979,fighting,ghost,Counter,fighting,Shadow Ball,ghost,15.53,535,37.62,3268,false,false
+399,Sinistcha,1013,ghost,grass,Magical Leaf,grass,Shadow Ball,ghost,15.50,419,35.35,2957,false,false
+400,Hariyama,297,fighting,none,Force Palm,fighting,Dynamic Punch,fighting,15.50,440,35.77,2829,false,false
+401,Shadow Alolan Muk,89,dark,poison,Snarl,dark,Gunk Shot,poison,15.49,415,35.25,2757,true,false
+402,Clawitzer,693,water,none,Water Gun,water,Crabhammer,water,15.49,378,34.42,2763,false,false
+403,Golisopod,768,bug,water,Fury Cutter,bug,Razor Shell,water,15.45,507,36.98,3162,false,false
+404,Shadow Exploud,295,normal,none,Bite,dark,Boomburst,normal,15.45,335,33.35,2347,true,false
+405,Shadow Omastar,139,rock,water,Rock Throw,rock,Hydro Pump,water,15.42,360,33.90,2786,true,false
+406,Shadow Electabuzz,125,electric,none,Thunder Shock,electric,Thunderbolt,electric,15.42,275,31.67,2334,true,false
+407,Galarian Moltres,146,dark,flying,Sucker Punch,dark,Fly,flying,15.41,584,38.25,3167,false,false
+408,Scovillain,952,fire,grass,Fire Fang,fire,Grass Knot,grass,15.41,276,31.70,2317,false,false
+409,Chesnaught,652,fighting,grass,Vine Whip,grass,Frenzy Plant,grass,15.40,513,36.99,2954,false,false
+410,Shadow Ampharos,181,electric,none,Volt Switch,electric,Zap Cannon,electric,15.40,364,33.95,2852,true,false
+411,Manectric,310,electric,none,Thunder Fang,electric,Wild Charge,electric,15.39,284,31.90,2340,false,false
+412,Swampert,260,ground,water,Water Gun,water,Hydro Cannon,water,15.36,486,36.44,2974,false,false
+413,Shadow Alolan Dugtrio,51,ground,steel,Metal Claw,steel,Earthquake,ground,15.35,176,28.23,1897,true,false
+414,Mega Scrafty,560,dark,fighting,Snarl,dark,Foul Play,dark,15.34,533,37.24,3534,false,true
+415,Togekiss,468,fairy,flying,Charm,fairy,Aura Sphere,fighting,15.34,526,37.12,3332,false,false
+416,Shadow Krabby,98,water,none,Bubble,water,Razor Shell,water,15.34,144,26.86,1561,true,false
+417,Tsareena,763,grass,none,Magical Leaf,grass,Grass Knot,grass,15.34,427,35.23,2964,false,false
+418,Shadow Crobat,169,flying,poison,Air Slash,flying,Sludge Bomb,poison,15.34,365,33.86,2646,true,false
+419,Shadow Camerupt,323,fire,ground,Incinerate,fire,Earth Power,ground,15.33,250,30.82,2193,true,false
+420,Ursaluna,901,ground,normal,Tackle,normal,High Horsepower,ground,15.33,609,38.49,3854,false,false
+421,Bombirdier,962,dark,flying,Sucker Punch,dark,Fly,flying,15.33,372,34.02,2487,false,false
+422,Shadow Blastoise,9,water,none,Water Gun,water,Hydro Cannon,water,15.31,399,34.59,2466,true,false
+423,Magmortar,467,fire,none,Fire Spin,fire,Fire Blast,fire,15.30,389,34.37,3132,false,false
+424,Necrozma,800,psychic,none,Psycho Cut,psychic,Future Sight,psychic,15.28,521,36.91,3682,false,false
+425,Sharpedo,319,dark,water,Bite,dark,Hydro Pump,water,15.27,194,28.83,2181,false,false
+426,Shadow Porygon2,233,normal,none,Lock-On,normal,Hyper Beam,normal,15.27,367,33.80,2711,true,false
+427,Shadow Abomasnow,460,grass,ice,Leafage,grass,Weather Ball Ice,ice,15.26,339,33.13,2362,true,false
+428,Shadow Muk,89,poison,none,Poison Jab,poison,Gunk Shot,poison,15.26,409,34.72,2757,true,false
+429,Shadow Girafarig,203,normal,psychic,Confusion,psychic,Psychic,psychic,15.25,244,30.50,2046,true,false
+430,Shadow Weepinbell,70,grass,poison,Acid,poison,Power Whip,grass,15.25,168,27.78,1611,true,false
+431,Venusaur,3,grass,poison,Vine Whip,grass,Frenzy Plant,grass,15.24,442,35.37,2720,false,false
+432,Kommo-o,784,dragon,fighting,Dragon Tail,dragon,Boomburst,normal,15.22,528,36.94,3309,false,false
+433,Krookodile,553,dark,ground,Snarl,dark,Earthquake,ground,15.22,422,34.93,3046,false,false
+434,Unfezant,521,flying,normal,Air Slash,flying,Sky Attack,flying,15.22,349,33.29,2734,false,false
+435,Mega Aggron,306,steel,none,Iron Tail,steel,Meteor Beam,rock,15.21,683,39.38,4162,false,true
+436,Shadow Poliwrath,62,fighting,water,Counter,fighting,Dynamic Punch,fighting,15.21,389,34.20,2586,true,false
+437,Drampa,780,dragon,normal,Dragon Breath,dragon,Fly,flying,15.21,380,34.00,2914,false,false
+438,Shadow Serperior,497,grass,none,Vine Whip,grass,Frenzy Plant,grass,15.21,378,33.95,2277,true,false
+439,Wishiwashi (School Form),746,water,none,Waterfall,water,Surf,water,15.21,388,34.17,3232,false,false
+440,Banette,354,ghost,none,Shadow Claw,ghost,Shadow Ball,ghost,15.19,263,30.99,2298,false,false
+441,Shadow Kingdra,230,dragon,water,Dragon Breath,dragon,Outrage,dragon,15.18,360,33.49,2641,true,false
+442,Brambleghast,947,ghost,grass,Hex,ghost,Power Whip,grass,15.18,270,31.15,2428,false,false
+443,Shadow Kabutops,141,rock,water,Waterfall,water,Stone Edge,rock,15.17,300,31.98,2713,true,false
+444,Shadow Sneasel,215,dark,ice,Feint Attack,dark,Avalanche,ice,15.17,227,29.84,2051,true,false
+445,Skeledirge,911,fire,ghost,Incinerate,fire,Blast Burn,fire,15.12,500,36.27,3027,false,false
+446,Shadow Machoke,67,fighting,none,Karate Chop,fighting,Dynamic Punch,fighting,15.12,251,30.52,2031,true,false
+447,Shadow Duosion,578,psychic,none,Zen Headbutt,psychic,Psyshock,psychic,15.11,184,28.21,2018,true,false
+448,Overqwil,904,dark,poison,Poison Jab,poison,Sludge Bomb,poison,15.11,415,34.59,2946,false,false
+449,Celebi,251,grass,psychic,Magical Leaf,grass,Aura Sphere,fighting,15.08,565,37.31,3265,false,false
+450,Simisage,512,grass,none,Vine Whip,grass,Grass Knot,grass,15.07,303,31.91,2350,false,false
+451,Grimmsnarl,861,dark,fairy,Sucker Punch,dark,Play Rough,fairy,15.04,371,33.52,2850,false,false
+452,Duraludon,884,dragon,steel,Dragon Tail,dragon,Dragon Claw,dragon,15.02,390,33.90,3067,false,false
+453,Feraligatr,160,water,none,Water Gun,water,Hydro Cannon,water,15.02,451,35.15,2857,false,false
+454,Pyroar,668,fire,normal,Fire Fang,fire,Overheat,fire,14.99,367,33.34,2767,false,false
+455,Jynx,124,ice,psychic,Confusion,psychic,Avalanche,ice,14.96,307,31.84,2555,false,false
+456,Houndoom,229,dark,fire,Snarl,dark,Foul Play,dark,14.96,324,32.26,2635,false,false
+457,Shadow Cranidos,408,rock,none,Zen Headbutt,psychic,Ancient Power,rock,14.94,135,25.91,1820,true,false
+458,Heracross,214,bug,fighting,Fury Cutter,bug,Megahorn,bug,14.92,412,34.19,3101,false,false
+459,Tangrowth,465,grass,none,Vine Whip,grass,Power Whip,grass,14.91,494,35.77,3030,false,false
+460,Glaceon,471,ice,none,Frost Breath,ice,Avalanche,ice,14.88,405,33.98,3126,false,false
+461,Glastrier,896,ice,none,Tackle,normal,Avalanche,ice,14.88,590,37.33,3895,false,false
+462,Torterra,389,grass,ground,Mud Slap,ground,Frenzy Plant,grass,14.87,484,35.52,2934,false,false
+463,Thundurus  (Incarnate Forme),642,electric,flying,Thunder Shock,electric,Thunder Punch,electric,14.87,375,33.31,3345,false,false
+464,Shadow Politoed,186,water,none,Bubble,water,Weather Ball Water,water,14.86,370,33.19,2449,true,false
+465,Beheeyem,606,psychic,none,Confusion,psychic,Psychic,psychic,14.85,360,32.94,2753,false,false
+466,Shadow Carracosta,565,rock,water,Rock Throw,rock,Surf,water,14.84,353,32.77,2621,true,false
+467,Revavroom,966,poison,steel,Poison Jab,poison,Gunk Shot,poison,14.84,386,33.52,2951,false,false
+468,Buzzwole,794,bug,fighting,Counter,fighting,Superpower,fighting,14.84,504,35.82,3469,false,false
+469,Shadow Snorlax,143,normal,none,Lick,ghost,Hyper Beam,normal,14.78,543,36.39,3225,true,false
+470,Mega Slowbro,80,psychic,water,Confusion,psychic,Psychic,psychic,14.77,649,38.01,3755,false,true
+471,Shadow Wailord,321,water,none,Water Gun,water,Surf,water,14.73,315,31.66,2280,true,false
+472,Ursaring,217,normal,none,Metal Claw,steel,Hyper Beam,normal,14.73,361,32.76,2945,false,false
+473,Zebstrika,523,electric,none,Spark,electric,Wild Charge,electric,14.71,252,29.92,2428,true,false
+474,Shadow Slowbro,80,psychic,water,Confusion,psychic,Psychic,psychic,14.70,383,33.21,2545,true,false
+475,Shadow Slowking,199,psychic,water,Confusion,psychic,Psychic,psychic,14.70,383,33.21,2545,true,false
+476,Hisuian Arcanine,59,fire,rock,Fire Fang,fire,Rock Slide,rock,14.68,424,34.03,3145,false,false
+477,Toxicroak,454,fighting,poison,Poison Jab,poison,Dynamic Punch,fighting,14.66,316,31.58,2488,false,false
+478,Shadow Ninetales,38,fire,none,Fire Spin,fire,Weather Ball Fire,fire,14.65,333,31.99,2279,true,false
+479,Shaymin (Land Forme),492,grass,none,Magical Leaf,grass,Grass Knot,grass,14.64,549,36.23,3265,false,false
+480,Cobalion,638,fighting,steel,Metal Claw,steel,Sacred Sword,fighting,14.64,555,36.33,3022,false,false
+481,Shadow Nidoqueen,31,ground,poison,Poison Jab,poison,Earth Power,ground,14.63,353,32.43,2488,true,false
+482,Shadow Piloswine,221,ground,ice,Ice Shard,ice,Avalanche,ice,14.62,310,31.38,2345,true,false
+483,Shadow Archen,566,flying,rock,Wing Attack,flying,Ancient Power,rock,14.62,142,25.78,1842,true,false
+484,Jolteon,135,electric,none,Thunder Shock,electric,Thunderbolt,electric,14.61,356,32.45,2888,false,false
+485,Shadow Cloyster,91,ice,water,Frost Breath,ice,Razor Shell,water,14.60,348,32.26,2547,true,false
+486,Yanmega,469,bug,flying,Bug Bite,bug,Bug Buzz,bug,14.59,372,32.80,2946,false,false
+487,Guzzlord,799,dark,dragon,Snarl,dark,Brutal Swing,dark,14.58,525,35.71,2887,false,false
+488,Mega Chimecho,358,psychic,steel,Extrasensory,psychic,Shadow Ball,ghost,14.57,482,34.95,3530,false,true
+489,Shadow Magmar,126,fire,none,Karate Chop,fighting,Flamethrower,fire,14.56,253,29.74,2394,true,false
+490,Shadow Articuno,144,flying,ice,Frost Breath,ice,Triple Axel,ice,14.56,469,34.69,3051,true,false
+491,Alolan Golem,76,electric,rock,Rollout,rock,Wild Charge,electric,14.54,441,34.12,2949,false,false
+492,Pinsir,127,bug,none,Fury Cutter,bug,X-Scissor,bug,14.52,353,32.24,2959,false,false
+493,Shadow Grovyle,253,grass,none,Quick Attack,normal,Grass Knot,grass,14.49,172,26.90,1673,true,false
+494,Virizion,640,fighting,grass,Double Kick,fighting,Sacred Sword,fighting,14.49,550,35.96,3022,false,false
+495,Farigiraf,981,normal,psychic,Confusion,psychic,Psychic,psychic,14.48,417,33.56,2850,false,false
+496,Shadow Drapion,452,dark,poison,Bite,dark,Sludge Bomb,poison,14.48,340,31.88,2453,true,false
+497,Shadow Milotic,350,water,none,Waterfall,water,Surf,water,14.47,452,34.22,3005,true,false
+498,Frosmoth,873,bug,ice,Bug Bite,bug,Bug Buzz,bug,14.47,319,31.36,2728,false,false
+499,Morpeko,877,dark,electric,Thunder Shock,electric,Aura Wheel,electric,14.46,227,28.78,1942,false,false
+500,Shadow Beedrill,15,bug,poison,Bug Bite,bug,Sludge Bomb,poison,14.45,216,28.41,1846,true,false
+501,Solgaleo,791,psychic,steel,Zen Headbutt,psychic,Solar Beam,grass,14.45,576,36.31,4042,false,false
+502,Scizor,212,bug,steel,Fury Cutter,bug,X-Scissor,bug,14.43,367,32.40,3001,false,false
+503,Hydrapple,1019,dragon,grass,Dragon Tail,dragon,Outrage,dragon,14.41,503,35.02,3234,false,false
+504,Shadow Corviknight,823,flying,steel,Steel Wing,steel,Sky Attack,flying,14.41,407,33.22,2457,true,false
+505,Golurk,623,ghost,ground,Mud Slap,ground,Earth Power,ground,14.40,372,32.46,2854,false,false
+506,Dynamax Gyarados,130,flying,water,Waterfall,water,Hydro Pump,water,14.40,464,34.30,3391,false,false
+507,Gyarados,130,flying,water,Waterfall,water,Hydro Pump,water,14.40,464,34.30,3391,false,false
+508,Shadow Sudowoodo,185,rock,none,Rock Throw,rock,Meteor Beam,rock,14.39,297,30.67,2148,true,false
+509,Shadow Stantler,234,normal,none,Tackle,normal,Wild Charge,electric,14.39,233,28.87,2164,true,false
+510,Shadow Gothitelle,576,psychic,none,Confusion,psychic,Psychic,psychic,14.37,342,31.74,2419,true,false
+511,Arcanine,59,fire,none,Fire Fang,fire,Wild Charge,electric,14.37,401,33.02,3029,false,false
+512,Flygon,330,dragon,ground,Dragon Tail,dragon,Boomburst,normal,14.35,374,32.42,2661,false,false
+513,Shadow Sandslash,28,ground,none,Sand Attack,ground,Scorching Sands,ground,14.34,309,30.89,2374,true,false
+514,Shadow Alolan Sandslash,28,ice,steel,Metal Claw,steel,Blizzard,ice,14.34,341,31.67,2432,true,false
+515,Shadow Liepard,510,dark,none,Snarl,dark,Dark Pulse,dark,14.33,178,26.88,1846,true,false
+516,Tatsugiri,978,dragon,water,Water Gun,water,Outrage,dragon,14.32,331,31.40,2746,false,false
+517,Shadow Froslass,478,ghost,ice,Hex,ghost,Shadow Ball,ghost,14.30,255,29.40,2040,true,false
+518,Goodra,706,dragon,none,Dragon Breath,dragon,Draco Meteor,dragon,14.30,566,35.88,3505,false,false
+519,Flapple,841,dragon,grass,Dragon Breath,dragon,Fly,flying,14.30,295,30.47,2466,false,false
+520,Kilowattrel,941,electric,flying,Thunder Shock,electric,Thunderbolt,electric,14.30,273,29.88,2443,false,false
+521,Shadow Staravia,397,flying,normal,Quick Attack,normal,Fly,flying,14.29,145,25.51,1299,true,false
+522,Shadow Pidgeot,18,flying,normal,Wing Attack,flying,Brave Bird,flying,14.26,293,30.35,2129,true,false
+523,Salazzle,758,fire,poison,Poison Jab,poison,Fire Blast,fire,14.26,264,29.58,2479,false,false
+524,Shadow Dusknoir,477,ghost,none,Hex,ghost,Shadow Ball,ghost,14.25,317,30.95,2388,true,false
+525,Mr. Rime,866,ice,psychic,Confusion,psychic,Psychic,psychic,14.24,393,32.65,2827,false,false
+526,Kadabra,64,psychic,none,Confusion,psychic,Shadow Ball,ghost,14.24,176,26.70,2059,false,false
+527,Sawk,539,fighting,none,Low Kick,fighting,Focus Blast,fighting,14.22,325,31.10,2788,false,false
+528,Zamazenta - Hero of Many Battles,889,fighting,none,Metal Claw,steel,Close Combat,fighting,14.21,512,34.82,3829,false,false
+529,Crabominable,740,fighting,ice,Bubble,water,Crabhammer,water,14.20,353,31.71,2907,false,false
+530,Passimian,766,fighting,none,Counter,fighting,Superpower,fighting,14.20,414,33.00,3033,false,false
+531,Shadow Murkrow,198,dark,flying,Feint Attack,dark,Foul Play,dark,14.19,142,25.24,1562,true,false
+532,Victreebel,71,grass,poison,Magical Leaf,grass,Sludge Bomb,poison,14.19,303,30.49,2431,false,false
+533,Shadow Gliscor,472,flying,ground,Fury Cutter,bug,Earthquake,ground,14.18,381,32.27,2692,true,false
+534,Bisharp,625,dark,steel,Metal Claw,steel,Dark Pulse,dark,14.17,334,31.23,2844,false,false
+535,Shadow Alolan Ninetales,38,fairy,ice,Charm,fairy,Weather Ball Ice,ice,14.16,327,31.05,2309,true,false
+536,Wyrdeer,898,normal,psychic,Confusion,psychic,Psychic,psychic,14.16,385,32.34,2732,false,false
+537,Shadow Lapras,131,ice,water,Water Gun,water,Sparkling Aria,water,14.16,452,33.66,2641,true,false
+538,Mismagius,429,ghost,none,Sucker Punch,dark,Shadow Ball,ghost,14.15,337,31.27,2615,false,false
+539,Alolan Raichu,26,electric,psychic,Thunder Shock,electric,Wild Charge,electric,14.15,282,29.90,2286,false,false
+540,Espartha,956,psychic,none,Confusion,psychic,Psychic,psychic,14.14,322,30.89,2477,false,false
+541,Shadow Xatu,178,flying,psychic,Air Slash,flying,Shadow Ball,ghost,14.13,234,28.52,2188,true,false
+542,Shadow Cacnea,331,grass,none,Sucker Punch,dark,Grass Knot,grass,14.13,111,23.63,1242,true,false
+543,Shadow Golduck,55,water,none,Water Gun,water,Hydro Pump,water,14.13,297,30.24,2450,true,false
+544,Swanna,581,flying,water,Gust,flying,Fly,flying,14.12,282,29.86,2088,false,false
+545,Shadow Grumpig,326,psychic,none,Psywave,psychic,Psychic,psychic,14.11,340,31.26,2369,true,false
+546,Squawkabilly,931,flying,normal,Air Slash,flying,Fly,flying,14.09,244,28.75,1973,false,false
+547,Armarouge,936,fire,psychic,Incinerate,fire,Flamethrower,fire,14.09,391,32.33,3109,false,false
+548,Heliolisk,695,electric,normal,Quick Attack,normal,Thunderbolt,electric,14.09,310,30.50,2600,false,false
+549,Rhydon,112,ground,rock,Mud Slap,ground,Earthquake,ground,14.07,451,33.48,3179,false,false
+550,Mega Altaria,334,dragon,fairy,Dragon Breath,dragon,Dazzling Gleam,fairy,14.07,446,33.38,3163,false,true
+551,Shadow Abra,63,psychic,none,Zen Headbutt,psychic,Psyshock,psychic,14.05,85,22.04,1342,true,false
+552,Lilligant,549,grass,none,Magical Leaf,grass,Solar Beam,grass,14.04,310,30.42,2550,false,false
+553,Trevenant,709,ghost,grass,Shadow Claw,ghost,Shadow Ball,ghost,14.03,351,31.37,2559,false,false
+554,Shadow Venomoth,49,bug,poison,Bug Bite,bug,Bug Buzz,bug,14.03,240,28.52,2082,true,false
+555,Shadow Luxio,404,electric,none,Spark,electric,Wild Charge,electric,14.02,152,25.42,1486,true,false
+556,Leavanny,542,bug,grass,Bug Bite,bug,Leaf Storm,grass,14.02,343,31.18,2580,false,false
+557,Mabosstiff,943,dark,none,Snarl,dark,Payback,dark,14.01,365,31.65,2963,false,false
+558,Centiskorch,851,fire,bug,Bug Bite,bug,Bug Buzz,bug,14.00,403,32.44,2990,false,false
+559,Bewear,760,fighting,normal,Tackle,normal,Superpower,fighting,13.99,417,32.69,3117,false,false
+560,Pangoro,675,dark,fighting,Snarl,dark,Close Combat,fighting,13.99,361,31.54,2902,false,false
+561,Shadow Walrein,365,ice,water,Waterfall,water,Blizzard,ice,13.99,397,32.29,2726,true,false
+562,Shadow Hitmonchan,107,fighting,none,Counter,fighting,Close Combat,fighting,13.99,261,29.06,2332,true,false
+563,Cetitan,975,ice,none,Ice Shard,ice,Avalanche,ice,13.99,485,33.94,3113,false,false
+564,Shiftry,275,dark,grass,Snarl,dark,Leaf Blade,grass,13.98,293,29.90,2333,false,false
+565,Starmie,121,psychic,water,Psywave,psychic,Psychic,psychic,13.96,328,30.73,2584,false,false
+566,Shadow Malamar,687,dark,psychic,Psycho Cut,psychic,Foul Play,dark,13.96,312,30.35,2359,true,false
+567,Escavalier,589,bug,steel,Bug Bite,bug,Megahorn,bug,13.94,366,31.55,2889,false,false
+568,Galarian Rapidash,78,fairy,psychic,Psycho Cut,psychic,Psychic,psychic,13.91,304,30.08,2461,false,false
+569,Indeedee (Male),876,normal,psychic,Extrasensory,psychic,Psychic,psychic,13.89,297,29.87,2443,false,false
+570,Shadow Ferrothorn,598,grass,steel,Metal Claw,steel,Power Whip,grass,13.89,371,31.59,2321,true,false
+571,Mega Medicham,308,fighting,psychic,Counter,fighting,Dynamic Punch,fighting,13.89,318,30.39,2495,false,true
+572,Shadow Weezing,110,poison,none,Acid,poison,Sludge Bomb,poison,13.88,303,30.00,2293,true,false
+573,Mew,151,psychic,none,Snarl,dark,Psychic,psychic,13.88,520,34.33,3265,false,false
+574,Dodrio,85,flying,normal,Steel Wing,steel,Brave Bird,flying,13.87,254,28.69,2362,false,false
+575,Vanilluxe,584,ice,none,Frost Breath,ice,Avalanche,ice,13.86,362,31.33,2822,false,false
+576,Shadow Hisuian Sneasel,215,fighting,poison,Poison Jab,poison,Close Combat,fighting,13.85,208,27.26,2051,true,false
+577,Barraskewda,847,water,none,Waterfall,water,Close Combat,fighting,13.85,233,28.06,2656,false,false
+578,Granbull,210,fairy,none,Charm,fairy,Play Rough,fairy,13.85,312,30.16,2552,false,false
+579,Arceus,493,normal,none,Shadow Claw,ghost,Hyper Beam,normal,13.84,610,35.67,3982,false,false
+580,Scyther,123,bug,flying,Fury Cutter,bug,Bug Buzz,bug,13.82,332,30.59,2706,false,false
+581,Magneton,82,electric,steel,Thunder Shock,electric,Magnet Bomb,steel,13.81,268,28.99,2485,false,false
+582,Lycanroc (Dusk Form),745,rock,none,Rock Throw,rock,Stone Edge,rock,13.81,291,29.59,2678,false,false
+583,Lycanroc (Midday Form),745,rock,none,Rock Throw,rock,Stone Edge,rock,13.81,291,29.59,2678,false,false
+584,Carnivine,455,grass,none,Vine Whip,grass,Power Whip,grass,13.80,281,29.30,2159,false,false
+585,Stonjourner,874,rock,none,Rock Throw,rock,Rock Slide,rock,13.79,453,33.01,3218,false,false
+586,Scolipede,545,bug,poison,Poison Jab,poison,Sludge Bomb,poison,13.79,309,30.00,2447,false,false
+587,Fraxure,611,dragon,none,Dragon Tail,dragon,Dragon Claw,dragon,13.78,238,28.08,2234,false,false
+588,Accelgor,617,bug,none,Infestation,bug,Bug Buzz,bug,13.78,265,28.84,2441,false,false
+589,Aerodactyl,142,flying,rock,Rock Throw,rock,Rock Slide,rock,13.77,341,30.72,2783,false,false
+590,Shadow Carvanha,318,dark,water,Bite,dark,Crunch,dark,13.77,62,20.02,1020,true,false
+591,Copperajah,879,steel,none,Tackle,normal,Heavy Slam,steel,13.76,374,31.43,2980,false,false
+592,Shadow Bellossom,182,grass,none,Magical Leaf,grass,Leaf Blade,grass,13.74,313,30.01,2281,true,false
+593,Floatzel,419,water,none,Waterfall,water,Hydro Pump,water,13.72,262,28.67,2443,false,false
+594,Leafeon,470,grass,none,Razor Leaf,grass,Leaf Blade,grass,13.71,396,31.80,2944,false,false
+595,Shadow Bellsprout,69,grass,poison,Vine Whip,grass,Power Whip,grass,13.69,92,22.01,1033,true,false
+596,Talonflame,663,fire,flying,Fire Spin,fire,Fly,flying,13.69,325,30.22,2205,false,false
+597,Shadow Qwilfish,211,poison,water,Water Gun,water,Shadow Ball,ghost,13.68,216,27.25,2051,true,false
+598,Grafaiai,945,normal,poison,Poison Jab,poison,Sludge Bomb,poison,13.68,272,28.90,2264,false,false
+599,Shadow Ivysaur,2,grass,poison,Vine Whip,grass,Power Whip,grass,13.68,213,27.16,1699,true,false
+600,Hisuian Lilligant,549,fighting,grass,Magical Leaf,grass,Solar Beam,grass,13.67,309,29.79,2512,false,false
+601,Shadow Obstagoon,862,dark,normal,Lick,ghost,Hyper Beam,normal,13.67,350,30.74,2562,true,false
+602,Raichu,26,electric,none,Thunder Shock,electric,Wild Charge,electric,13.66,268,28.75,2182,false,false
+603,Aggron,306,rock,steel,Metal Sound,steel,Meteor Beam,rock,13.66,482,33.30,3000,false,false
+604,Aurorus,699,ice,rock,Rock Throw,rock,Meteor Beam,rock,13.66,472,33.12,2802,false,false
+605,Tapu Fini,788,fairy,water,Water Gun,water,Nature's Madness,fairy,13.65,477,33.18,2857,false,false
+606,Durant,632,bug,steel,Metal Claw,steel,X-Scissor,bug,13.64,319,29.99,2659,false,false
+607,Gogoat,673,grass,none,Vine Whip,grass,Leaf Blade,grass,13.63,427,32.24,2798,false,false
+608,Eelektross,604,electric,none,Volt Switch,electric,Thunderbolt,electric,13.61,336,30.33,2732,false,false
+609,Druddigon,621,dragon,none,Dragon Tail,dragon,Dragon Claw,dragon,13.61,348,30.59,2732,false,false
+610,Nidoking,34,ground,poison,Poison Jab,poison,Earth Power,ground,13.59,332,30.23,2567,false,false
+611,Zygarde (10% Forme),718,dragon,ground,Dragon Tail,dragon,Outrage,dragon,13.59,282,29.00,2375,false,false
+612,Mudsdale,750,ground,none,Mud Slap,ground,Earthquake,ground,13.57,427,32.15,3046,false,false
+613,Shadow Trumbeak,732,flying,normal,Peck,flying,Sky Attack,flying,13.56,145,24.54,1478,true,false
+614,Barbaracle,689,rock,water,Fury Cutter,bug,Razor Shell,water,13.56,396,31.51,2675,false,false
+615,Giratina (Altered Forme),487,dragon,ghost,Dragon Breath,dragon,Shadow Force,ghost,13.55,675,36.01,3379,false,false
+616,Togedemaru,777,electric,steel,Thunder Shock,electric,Wild Charge,electric,13.54,268,28.56,2160,false,false
+617,Shadow Seadra,117,water,none,Water Gun,water,Hydro Pump,water,13.54,216,27.05,2093,true,false
+618,Shadow Fletchinder,662,flying,fire,Peck,flying,Fly,flying,13.53,169,25.45,1469,true,false
+619,Shadow Trapinch,328,ground,none,Sand Attack,ground,Scorching Sands,ground,13.52,104,22.52,1274,true,false
+620,Crustle,558,bug,rock,Fury Cutter,bug,Rock Wrecker,rock,13.51,377,31.05,2542,false,false
+621,Zygarde (50% Forme),718,dragon,ground,Dragon Tail,dragon,Earthquake,ground,13.50,588,34.67,3410,false,false
+622,Shadow Throh,538,fighting,none,Low Kick,fighting,Focus Blast,fighting,13.49,376,30.99,2562,true,false
+623,Arboliva,930,grass,normal,Magical Leaf,grass,Seed Bomb,grass,13.49,384,31.15,2959,false,false
+624,Donphan,232,ground,none,Mud Slap,ground,Earthquake,ground,13.48,415,31.75,3013,false,false
+625,Shadow Galarian Weezing,110,fairy,poison,Fairy Wind,fairy,Play Rough,fairy,13.41,293,29.00,2293,true,false
+626,Wo-Chien,1001,dark,grass,Snarl,dark,Grass Knot,grass,13.41,510,33.30,2937,false,false
+627,Cinccino,573,normal,none,Pound,normal,Hyper Beam,normal,13.39,264,28.21,2242,false,false
+628,Golem,76,ground,rock,Rock Throw,rock,Earthquake,ground,13.39,406,31.41,2949,false,false
+629,Drednaw,834,rock,water,Waterfall,water,Surf,water,13.38,369,30.67,2838,false,false
+630,Fearow,22,flying,normal,Peck,flying,Fly,flying,13.38,245,27.66,1997,false,false
+631,Shadow Suicune,245,water,none,Snarl,dark,Hydro Pump,water,13.36,464,32.43,2983,true,false
+632,Shadow Regice,378,ice,none,Lock-On,normal,Blizzard,ice,13.36,513,33.26,3122,true,false
+633,Rotom Mow,479,electric,grass,Thunder Shock,electric,Leaf Storm,grass,13.34,329,29.73,2579,false,false
+634,Vileplume,45,grass,poison,Acid,poison,Sludge Bomb,poison,13.33,330,29.73,2559,false,false
+635,Rotom Heat,479,electric,fire,Thunder Shock,electric,Overheat,fire,13.31,329,29.67,2579,false,false
+636,Tangela,114,grass,none,Vine Whip,grass,Grass Knot,grass,13.30,302,29.05,2238,false,false
+637,Shadow Frogadier,657,water,none,Bubble,water,Surf,water,13.28,158,24.64,1636,true,false
+638,Noivern,715,dragon,flying,Air Slash,flying,Boomburst,normal,13.27,373,30.54,2764,false,false
+639,Cyclizar,967,dragon,normal,Dragon Tail,dragon,Dragon Claw,dragon,13.26,270,28.18,2354,false,false
+640,Swellow,277,flying,normal,Wing Attack,flying,Sky Attack,flying,13.25,217,26.66,1920,false,false
+641,Shadow Boldore,525,rock,none,Smack Down,rock,Rock Slide,rock,13.22,226,26.87,2029,true,false
+642,Simisear,514,fire,none,Fire Spin,fire,Flamethrower,fire,13.21,266,27.97,2350,false,false
+643,Houndstone,972,ghost,none,Lick,ghost,Shadow Ball,ghost,13.20,368,30.33,2514,false,false
+644,Ting-Lu,1003,dark,ground,Snarl,dark,Earthquake,ground,13.19,671,35.22,3532,false,false
+645,Gastly,92,ghost,poison,Lick,ghost,Sludge Bomb,poison,13.17,88,21.16,1229,false,false
+646,Shadow Butterfree,12,bug,flying,Bug Bite,bug,Bug Buzz,bug,13.17,197,25.89,1827,true,false
+647,Drifblim,426,flying,ghost,Hex,ghost,Shadow Ball,ghost,13.17,350,29.89,2382,false,false
+648,Manaphy,490,water,none,Bubble,water,Surf,water,13.16,493,32.57,3265,false,false
+649,Mesprit,481,psychic,none,Confusion,psychic,Future Sight,psychic,13.16,425,31.38,3058,false,false
+650,Heatmor,631,fire,none,Fire Spin,fire,Flamethrower,fire,13.16,280,28.26,2395,false,false
+651,Lycanroc (Midnight Form),745,rock,none,Rock Throw,rock,Stone Edge,rock,13.14,325,29.30,2744,false,false
+652,Ambipom,424,normal,none,Scratch,normal,Hyper Beam,normal,13.14,282,28.30,2418,false,false
+653,Primeape,57,fighting,none,Counter,fighting,Rage Fist,ghost,13.14,248,27.39,2288,false,false
+654,Meganium,154,grass,none,Vine Whip,grass,Frenzy Plant,grass,13.13,406,30.96,2410,false,false
+655,Rapidash,78,fire,none,Fire Spin,fire,Wild Charge,electric,13.13,287,28.40,2461,false,false
+656,Mega Malamar,687,dark,psychic,Psycho Cut,psychic,Foul Play,dark,13.12,464,32.00,3143,false,true
+657,Shadow Electrode,101,electric,none,Volt Switch,electric,Thunderbolt,electric,13.12,243,27.21,2099,true,false
+658,Shadow Bibarel,400,normal,water,Water Gun,water,Hyper Fang,normal,13.10,206,26.09,1823,true,false
+659,Mega Kangaskhan,115,normal,none,Mud Slap,ground,Outrage,dragon,13.09,507,32.65,3850,false,true
+660,Mega Steelix,208,ground,steel,Iron Tail,steel,Heavy Slam,steel,13.08,609,34.16,3670,false,true
+661,Hippowdon,450,ground,none,Sand Attack,ground,Earth Power,ground,13.08,475,32.10,3085,false,false
+662,Galvantula,596,bug,electric,Fury Cutter,bug,Bug Buzz,bug,13.05,242,27.09,2206,false,false
+663,Skuntank,435,dark,poison,Poison Jab,poison,Sludge Bomb,poison,13.04,326,29.16,2358,false,false
+664,Shadow Amoonguss,591,grass,poison,Feint Attack,dark,Grass Knot,grass,13.03,306,28.69,2140,true,false
+665,Shadow Glalie,362,ice,none,Frost Breath,ice,Avalanche,ice,13.02,273,27.88,2105,true,false
+666,Shadow Alolan Graveler,75,electric,rock,Rock Throw,rock,Thunderbolt,electric,13.02,217,26.31,1897,true,false
+667,Armored Mewtwo,150,psychic,none,Confusion,psychic,Psystrike,psychic,13.02,606,34.01,3187,false,false
+668,Simipour,516,water,none,Water Gun,water,Surf,water,13.02,262,27.57,2350,false,false
+669,Shadow Tentacruel,73,poison,water,Poison Jab,poison,Hydro Pump,water,13.01,346,29.54,2422,true,false
+670,Cramorant,845,flying,water,Water Gun,water,Fly,flying,13.01,300,28.51,2142,false,false
+671,Chatot,441,flying,normal,Steel Wing,steel,Sky Attack,flying,12.99,189,25.38,1791,false,false
+672,Sylveon,700,fairy,none,Charm,fairy,Dazzling Gleam,fairy,12.99,458,31.66,3069,false,false
+673,Ninjask,291,bug,flying,Fury Cutter,bug,Bug Buzz,bug,12.99,196,25.59,1969,false,false
+674,Lurantis,754,grass,none,Fury Cutter,bug,Leaf Storm,grass,12.98,310,28.70,2398,false,false
+675,Shadow Pignite,499,fire,fighting,Ember,fire,Flamethrower,fire,12.98,202,25.78,1924,true,false
+676,Shadow Raticate,20,normal,none,Quick Attack,normal,Hyper Fang,normal,12.98,186,25.26,1730,true,false
+677,Arctozolt,881,electric,ice,Thunder Shock,electric,Avalanche,ice,12.97,362,29.81,2566,false,false
+678,Shadow Skarmory,227,flying,steel,Steel Wing,steel,Sky Attack,flying,12.96,321,28.92,2108,true,false
+679,Shadow Noctowl,164,flying,normal,Wing Attack,flying,Sky Attack,flying,12.95,307,28.58,2024,true,false
+680,Alolan Dugtrio,51,ground,steel,Metal Claw,steel,Earthquake,ground,12.94,178,24.91,1897,false,false
+681,Shadow Lairon,305,rock,steel,Metal Claw,steel,Heavy Slam,steel,12.94,271,27.67,2056,true,false
+682,Shadow Regirock,377,rock,none,Rock Throw,rock,Stone Edge,rock,12.93,497,32.18,3122,true,false
+683,Sandaconda,844,ground,none,Mud Slap,ground,Earth Power,ground,12.92,380,30.10,2790,false,false
+684,Shadow Garbodor,569,poison,none,Infestation,bug,Gunk Shot,poison,12.92,274,27.73,2345,true,false
+685,Reuniclus,579,psychic,none,Zen Headbutt,psychic,Shadow Ball,ghost,12.91,375,29.97,2927,false,false
+686,Shadow Slaking,289,normal,none,Yawn,normal,Body Slam,normal,12.91,404,30.53,4431,true,false
+687,Hitmonlee,106,fighting,none,Double Kick,fighting,Blaze Kick,fire,12.90,267,27.50,2576,false,false
+688,Armaldo,348,bug,rock,Fury Cutter,bug,Rock Blast,rock,12.89,331,29.03,2848,false,false
+689,Shadow Forretress,205,bug,steel,Bug Bite,bug,Heavy Slam,steel,12.89,321,28.80,2282,true,false
+690,Alcremie,869,fairy,none,Charm,fairy,Dazzling Gleam,fairy,12.88,347,29.35,2682,false,false
+691,Alolan Muk,89,dark,poison,Snarl,dark,Gunk Shot,poison,12.87,414,30.66,2757,false,false
+692,Minior (Core),774,flying,rock,Rollout,rock,Power Gem,rock,12.87,222,26.22,2292,false,false
+693,Roselia,315,grass,poison,Poison Jab,poison,Sludge Bomb,poison,12.87,198,25.49,1870,false,false
+694,Shadow Shelgon,372,dragon,none,Dragon Breath,dragon,Dragon Pulse,dragon,12.87,225,26.31,2031,true,false
+695,Omastar,139,rock,water,Rock Throw,rock,Hydro Pump,water,12.86,360,29.58,2786,false,false
+696,Vaporeon,134,water,none,Water Gun,water,Hydro Pump,water,12.84,458,31.38,3114,false,false
+697,Rotom Frost,479,electric,ice,Thunder Shock,electric,Thunderbolt,electric,12.83,317,28.60,2579,false,false
+698,Rotom Wash,479,electric,water,Thunder Shock,electric,Thunderbolt,electric,12.83,317,28.60,2579,false,false
+699,Shadow Magnemite,81,electric,steel,Thunder Shock,electric,Thunderbolt,electric,12.83,109,21.91,1362,true,false
+700,Celesteela,797,flying,steel,Air Slash,flying,Heavy Slam,steel,12.83,446,31.14,3102,false,false
+701,Exploud,295,normal,none,Bite,dark,Boomburst,normal,12.80,334,28.92,2347,false,false
+702,Shadow Tyrunt,696,dragon,rock,Dragon Tail,dragon,Dragon Claw,dragon,12.79,170,24.41,1635,true,false
+703,Ribombee,743,bug,fairy,Charm,fairy,Dazzling Gleam,fairy,12.79,243,26.70,2200,false,false
+704,Ampharos,181,electric,none,Volt Switch,electric,Zap Cannon,electric,12.79,363,29.51,2852,false,false
+705,Electabuzz,125,electric,none,Thunder Shock,electric,Thunderbolt,electric,12.79,273,27.49,2334,false,false
+706,Maractus,556,grass,none,Poison Jab,poison,Solar Beam,grass,12.78,252,26.92,2274,false,false
+707,Lokix,920,bug,dark,Bug Bite,bug,Bug Buzz,bug,12.77,266,27.28,2317,false,false
+708,Hisuian Qwilfish,211,dark,poison,Poison Jab,poison,Sludge Bomb,poison,12.75,261,27.13,2136,false,false
+709,Rabsca,954,bug,psychic,Bug Bite,bug,Bug Buzz,bug,12.74,335,28.85,2623,false,false
+710,Shadow Corphish,341,water,none,Bubble,water,Razor Shell,water,12.74,118,22.21,1230,true,false
+711,Dracozolt,880,dragon,electric,Dragon Tail,dragon,Discharge,electric,12.74,353,29.23,2621,false,false
+712,Porygon2,233,normal,none,Lock-On,normal,Hyper Beam,normal,12.73,367,29.51,2711,false,false
+713,Galarian Slowbro,80,poison,psychic,Poison Jab,poison,Sludge Bomb,poison,12.73,349,29.13,2445,false,false
+714,Beartic,614,ice,none,Charm,fairy,Ice Punch,ice,12.71,340,28.92,3042,false,false
+715,Shadow Solosis,577,psychic,none,Zen Headbutt,psychic,Psyshock,psychic,12.71,103,21.45,1367,true,false
+716,Blastoise,9,water,none,Water Gun,water,Hydro Cannon,water,12.70,397,30.04,2466,false,false
+717,Mr. Mime,122,fairy,psychic,Psywave,psychic,Psychic,psychic,12.69,262,27.05,2228,false,false
+718,Shadow Hitmontop,237,fighting,none,Counter,fighting,Close Combat,fighting,12.68,248,26.65,2156,true,false
+719,Palossand,770,ghost,ground,Sand Attack,ground,Shadow Ball,ghost,12.68,362,29.30,2444,false,false
+720,Shadow Gloom,44,grass,poison,Acid,poison,Sludge Bomb,poison,12.68,188,24.88,1681,true,false
+721,Muk,89,poison,none,Poison Jab,poison,Gunk Shot,poison,12.67,408,30.18,2757,false,false
+722,Kabutops,141,rock,water,Waterfall,water,Stone Edge,rock,12.67,300,27.96,2713,false,false
+723,Krabby,98,water,none,Bubble,water,Razor Shell,water,12.66,143,23.21,1561,false,false
+724,Crobat,169,flying,poison,Air Slash,flying,Sludge Bomb,poison,12.66,361,29.26,2646,false,false
+725,Swoobat,528,flying,psychic,Confusion,psychic,Fly,flying,12.65,214,25.67,1716,false,false
+726,Camerupt,323,fire,ground,Incinerate,fire,Earth Power,ground,12.64,248,26.60,2193,false,false
+727,Serperior,497,grass,none,Vine Whip,grass,Frenzy Plant,grass,12.63,376,29.51,2277,false,false
+728,Wugtrio,961,water,none,Water Gun,water,Surf,water,12.62,167,24.05,1895,false,false
+729,Abomasnow,460,grass,ice,Leafage,grass,Weather Ball Ice,ice,12.61,336,28.66,2362,false,false
+730,Zygarde (Complete Forme),718,dragon,ground,Dragon Tail,dragon,Earthquake,ground,12.61,785,35.41,3722,false,false
+731,Shadow Alolan Marowak,105,fire,ghost,Fire Spin,fire,Shadow Ball,ghost,12.60,249,26.56,1835,true,false
+732,Kingdra,230,dragon,water,Dragon Breath,dragon,Outrage,dragon,12.59,358,29.08,2641,false,false
+733,Shadow Tranquill,520,flying,normal,Air Slash,flying,Sky Attack,flying,12.59,154,23.52,1442,true,false
+734,Poliwrath,62,fighting,water,Counter,fighting,Dynamic Punch,fighting,12.59,386,29.61,2586,false,false
+735,Girafarig,203,normal,psychic,Confusion,psychic,Psychic,psychic,12.57,241,26.31,2046,false,false
+736,Shadow Grotle,388,grass,none,Razor Leaf,grass,Solar Beam,grass,12.57,225,25.85,1890,true,false
+737,Shadow Graveler,75,ground,rock,Rock Throw,rock,Rock Slide,rock,12.56,209,25.38,1897,true,false
+738,Shadow Gurdurr,533,fighting,none,Low Kick,fighting,Brick Break,fighting,12.55,230,25.97,2169,true,false
+739,Shadow Cradily,346,grass,rock,Infestation,bug,Grass Knot,grass,12.54,326,28.31,2211,true,false
+740,Bruxish,779,psychic,water,Confusion,psychic,Psyshock,psychic,12.54,256,26.66,2389,false,false
+741,Stakataka,805,rock,steel,Rock Throw,rock,Stone Edge,rock,12.54,466,30.95,3294,false,false
+742,Shadow Arbok,24,poison,none,Acid,poison,Gunk Shot,poison,12.53,207,25.27,1921,true,false
+743,Sneasel,215,dark,ice,Feint Attack,dark,Avalanche,ice,12.53,226,25.81,2051,false,false
+744,Shadow Charmeleon,5,fire,none,Fire Fang,fire,Flamethrower,fire,12.53,170,24.03,1653,true,false
+745,Shadow Nuzleaf,274,dark,grass,Feint Attack,dark,Grass Knot,grass,12.53,126,22.31,1227,true,false
+746,Weepinbell,70,grass,poison,Acid,poison,Power Whip,grass,12.49,165,23.82,1611,false,false
+747,Hisuian Electrode,101,electric,grass,Thunder Shock,electric,Wild Charge,electric,12.48,281,27.20,2149,false,false
+748,Rotom Fan,479,electric,flying,Air Slash,flying,Thunderbolt,electric,12.48,308,27.82,2579,false,false
+749,Doublade,680,ghost,steel,Fury Cutter,bug,Sacred Sword,fighting,12.47,321,28.10,2443,false,false
+750,Machoke,67,fighting,none,Karate Chop,fighting,Dynamic Punch,fighting,12.46,248,26.32,2031,false,false
+751,Shadow Watchog,505,normal,none,Bite,dark,Hyper Fang,normal,12.46,189,24.57,1819,true,false
+752,Avalugg,713,ice,none,Ice Fang,ice,Avalanche,ice,12.45,509,31.49,3198,false,false
+753,Shadow Purugly,432,normal,none,Scratch,normal,Play Rough,fairy,12.45,201,24.96,1953,true,false
+754,Hisuian Avalugg,713,ice,rock,Bite,dark,Blizzard,ice,12.44,505,31.39,3457,false,false
+755,Shadow Drilbur,529,ground,none,Mud Slap,ground,Drill Run,ground,12.44,122,22.02,1376,true,false
+756,Seismitoad,537,ground,water,Bubble,water,Earth Power,ground,12.43,353,28.68,2564,false,false
+757,Indeedee (Female),876,normal,psychic,Extrasensory,psychic,Psychic,psychic,12.42,321,28.00,2397,false,false
+758,Deoxys (Speed Forme),386,psychic,none,Zen Headbutt,psychic,Thunderbolt,electric,12.40,305,27.61,2879,false,false
+759,Duosion,578,psychic,none,Zen Headbutt,psychic,Psyshock,psychic,12.39,181,24.22,2018,false,false
+760,Shadow Mightyena,262,dark,none,Bite,dark,Play Rough,fairy,12.38,197,24.73,1926,true,false
+761,Shadow Braixen,654,fire,none,Ember,fire,Flamethrower,fire,12.38,174,23.98,1813,true,false
+762,Shadow Alolan Grimer,88,dark,poison,Poison Jab,poison,Sludge Bomb,poison,12.37,154,23.24,1374,true,false
+763,Shadow Grimer,88,poison,none,Poison Jab,poison,Sludge Bomb,poison,12.37,154,23.24,1374,true,false
+764,Shadow Dragonair,148,dragon,none,Dragon Breath,dragon,Dragon Pulse,dragon,12.37,183,24.27,1780,true,false
+765,Grapploct,853,fighting,none,Rock Smash,fighting,Superpower,fighting,12.36,311,27.68,2664,false,false
+766,Gourgeist - Super Size,711,ghost,grass,Razor Leaf,grass,Shadow Ball,ghost,12.36,393,29.34,2633,false,false
+767,Shadow Golbat,42,flying,poison,Wing Attack,flying,Shadow Ball,ghost,12.35,231,25.68,1976,true,false
+768,Falinks,870,fighting,none,Counter,fighting,Superpower,fighting,12.35,282,26.99,2357,false,false
+769,Pelipper,279,flying,water,Wing Attack,flying,Weather Ball Water,water,12.33,275,26.80,2127,false,false
+770,Lunatone,337,psychic,rock,Psywave,psychic,Psychic,psychic,12.32,319,27.80,2327,false,false
+771,Solrock,338,psychic,rock,Psywave,psychic,Psychic,psychic,12.32,319,27.80,2327,false,false
+772,Galarian Mr. Mime,122,ice,psychic,Confusion,psychic,Psychic,psychic,12.32,239,25.86,2068,false,false
+773,Shadow Marshtomp,259,ground,water,Water Gun,water,Surf,water,12.31,197,24.63,1776,true,false
+774,Carracosta,565,rock,water,Rock Throw,rock,Surf,water,12.31,351,28.46,2621,false,false
+775,Stoutland,508,normal,none,Lick,ghost,Wild Charge,electric,12.29,358,28.54,2827,false,false
+776,Mothim,414,bug,flying,Bug Bite,bug,Bug Buzz,bug,12.28,180,24.04,1815,false,false
+777,Politoed,186,water,none,Bubble,water,Weather Ball Water,water,12.26,367,28.67,2449,false,false
+778,Snorlax,143,normal,none,Lick,ghost,Hyper Beam,normal,12.26,540,31.59,3225,false,false
+779,Gumshoos,735,normal,none,Bite,dark,Hyper Fang,normal,12.26,239,25.75,2185,false,false
+780,Rufflet,627,flying,normal,Wing Attack,flying,Fly,flying,12.24,178,23.90,1491,false,false
+781,Dragalge,691,dragon,poison,Dragon Tail,dragon,Sludge Bomb,poison,12.23,335,27.98,2383,false,false
+782,Sawsbuck,586,grass,normal,Feint Attack,dark,Solar Beam,grass,12.23,280,26.75,2416,false,false
+783,Shadow Mawile,303,fairy,steel,Fairy Wind,fairy,Play Rough,fairy,12.23,168,23.53,1634,true,false
+784,Drakloak,886,dragon,ghost,Dragon Tail,dragon,Shadow Ball,ghost,12.23,187,24.19,1651,false,false
+785,Shadow Dugtrio,51,ground,none,Mud Slap,ground,Mud Bomb,ground,12.19,134,22.20,1567,true,false
+786,Ludicolo,272,grass,water,Bubble,water,Weather Ball Water,water,12.19,331,27.82,2323,false,false
+787,Shadow Zweilous,634,dark,dragon,Bite,dark,Dragon Pulse,dragon,12.17,202,24.55,1839,true,false
+788,Shadow Altaria,334,dragon,flying,Dragon Breath,dragon,Sky Attack,flying,12.16,298,27.06,2004,true,false
+789,Cursola,864,ghost,none,Tackle,normal,Night Shade,ghost,12.16,283,26.70,3063,false,false
+790,Slowbro,80,psychic,water,Confusion,psychic,Psychic,psychic,12.14,379,28.70,2545,false,false
+791,Slowking,199,psychic,water,Confusion,psychic,Psychic,psychic,12.14,379,28.70,2545,false,false
+792,Gorebyss,368,water,none,Water Gun,water,Psychic,psychic,12.14,263,26.18,2494,false,false
+793,Shadow Nidorino,33,poison,none,Poison Jab,poison,Sludge Bomb,poison,12.12,151,22.77,1393,true,false
+794,Cranidos,408,rock,none,Zen Headbutt,psychic,Ancient Power,rock,12.12,132,22.00,1820,false,true
+795,Shadow Hypno,97,psychic,none,Confusion,psychic,Psychic,psychic,12.12,311,27.27,2090,true,false
+796,Bellibolt,939,electric,none,Thunder Shock,electric,Zap Cannon,electric,12.12,386,28.79,2662,false,false
+797,Gourgeist - Large Size,711,ghost,grass,Razor Leaf,grass,Shadow Ball,ghost,12.12,364,28.37,2521,false,false
+798,Ninetales,38,fire,none,Fire Spin,fire,Weather Ball Fire,fire,12.11,331,27.69,2279,false,false
+799,Cloyster,91,ice,water,Frost Breath,ice,Razor Shell,water,12.11,346,28.00,2547,false,false
+800,Sunflora,192,grass,none,Razor Leaf,grass,Solar Beam,grass,12.11,247,25.74,2141,false,false
+801,Florges,671,fairy,none,Vine Whip,grass,Psychic,psychic,12.10,437,29.66,3234,false,false
+802,Nidoqueen,31,ground,poison,Poison Jab,poison,Earth Power,ground,12.10,350,28.07,2488,false,false
+803,Arctibax,997,dragon,ice,Dragon Breath,dragon,Avalanche,ice,12.09,266,26.19,2092,false,false
+804,Kubfu,891,fighting,none,Counter,fighting,Dynamic Punch,fighting,12.08,181,23.77,1697,false,false
+805,Shadow Pikipek,731,flying,normal,Peck,flying,Sky Attack,flying,12.06,65,18.38,910,true,false
+806,Wailord,321,water,none,Water Gun,water,Surf,water,12.06,309,27.14,2280,false,false
+807,Perrserker,863,steel,none,Metal Claw,steel,Iron Head,steel,12.06,277,26.40,2386,false,false
+808,Galarian Slowking,199,poison,psychic,Confusion,psychic,Future Sight,psychic,12.05,377,28.50,2717,false,false
+809,Magmar,126,fire,none,Karate Chop,fighting,Flamethrower,fire,12.05,252,25.76,2394,false,false
+810,Shadow Quagsire,195,ground,water,Water Gun,water,Earthquake,ground,12.05,254,25.83,1992,true,false
+811,Drapion,452,dark,poison,Bite,dark,Sludge Bomb,poison,12.05,339,27.75,2453,false,false
+812,Articuno,144,flying,ice,Frost Breath,ice,Triple Axel,ice,12.05,466,30.04,3051,false,false
+813,Archen,566,flying,rock,Wing Attack,flying,Dragon Claw,dragon,12.04,140,22.23,1842,false,false
+814,Beautifly,267,bug,flying,Infestation,bug,Bug Buzz,bug,12.04,161,23.00,1765,false,false
+815,Shadow Darumaka,554,fire,none,Fire Fang,fire,Fire Punch,fire,12.02,131,21.86,1442,true,false
+816,Spiritomb,442,dark,ghost,Sucker Punch,dark,Shadow Ball,ghost,12.02,271,26.20,2072,false,false
+817,Piloswine,221,ground,ice,Ice Shard,ice,Avalanche,ice,12.01,306,26.99,2345,false,false
+818,Alolan Sandslash,28,ice,steel,Metal Claw,steel,Blizzard,ice,12.01,343,27.77,2432,false,false
+819,Shadow Metang,375,psychic,steel,Metal Claw,steel,Psychic,psychic,12.01,226,25.00,1721,true,false
+820,Drizzile,817,water,none,Pound,normal,Surf,water,12.00,190,23.93,1894,false,false
+821,Milotic,350,water,none,Waterfall,water,Surf,water,12.00,450,29.70,3005,false,false
+822,Shadow Combusken,256,fighting,fire,Ember,fire,Flamethrower,fire,11.99,153,22.67,1652,true,false
+823,Silvally,773,normal,none,Tackle,normal,Tri-Attack,normal,11.99,409,28.98,2950,false,false
+824,Sudowoodo,185,rock,none,Rock Throw,rock,Meteor Beam,rock,11.99,297,26.74,2148,false,false
+825,Shadow Lampent,608,fire,ghost,Ember,fire,Flame Burst,fire,11.98,153,22.66,1708,true,false
+826,Paldean Tauros - Aqua Breed,128,fighting,water,Double Kick,fighting,Earthquake,ground,11.98,339,27.62,2837,false,false
+827,Paldean Tauros - Blaze Breed,128,fighting,fire,Double Kick,fighting,Earthquake,ground,11.98,339,27.62,2837,false,false
+828,Cryogonal,615,ice,none,Frost Breath,ice,Triple Axel,ice,11.97,397,28.72,2798,false,false
+829,Beedrill,15,bug,poison,Bug Bite,bug,Sludge Bomb,poison,11.97,214,24.62,1846,false,false
+830,Glimmet,969,poison,rock,Rock Throw,rock,Rock Slide,rock,11.96,147,22.40,1679,false,false
+831,Grovyle,253,grass,none,Quick Attack,normal,Grass Knot,grass,11.95,170,23.22,1673,false,false
+832,Rotom,479,electric,ghost,Thunder Shock,electric,Thunderbolt,electric,11.95,219,24.73,2031,false,false
+833,Corviknight,823,flying,steel,Steel Wing,steel,Sky Attack,flying,11.92,404,28.77,2457,false,false
+834,Stantler,234,normal,none,Tackle,normal,Wild Charge,electric,11.91,232,25.01,2164,false,false
+835,Gothitelle,576,psychic,none,Confusion,psychic,Psychic,psychic,11.90,340,27.51,2419,false,false
+836,Sandslash,28,ground,none,Sand Attack,ground,Scorching Sands,ground,11.90,307,26.82,2374,false,false
+837,Shadow Gabite,444,dragon,ground,Mud Shot,ground,Dig,ground,11.88,177,23.34,1874,true,false
+838,Clefable,36,fairy,none,Fairy Wind,fairy,Meteor Mash,steel,11.88,337,27.42,2437,false,false
+839,Shadow Anorith,347,bug,rock,Scratch,normal,Ancient Power,rock,11.88,113,20.86,1529,true,false
+840,Gliscor,472,flying,ground,Sand Attack,ground,Earthquake,ground,11.87,383,28.28,2692,false,false
+841,Eiscue (Noice Face),875,ice,none,Powder Snow,ice,Weather Ball Ice,ice,11.87,249,25.39,2040,false,false
+842,Pidgeot,18,flying,normal,Wing Attack,flying,Brave Bird,flying,11.86,292,26.42,2129,false,false
+843,Dusknoir,477,ghost,none,Hex,ghost,Shadow Ball,ghost,11.84,316,26.92,2388,false,false
+844,Shadow Porygon,137,normal,none,Tackle,normal,Hyper Beam,normal,11.84,184,23.51,1720,true,false
+845,Liepard,510,dark,none,Snarl,dark,Dark Pulse,dark,11.84,176,23.24,1846,false,false
+846,Shadow Cresselia,488,psychic,none,Confusion,psychic,Future Sight,psychic,11.82,513,30.35,2857,true,false
+847,Hisuian Zorua,570,ghost,normal,Scratch,normal,Shadow Ball,ghost,11.82,97,20.01,1203,false,false
+848,Gourgeist - Average Size,711,ghost,grass,Razor Leaf,grass,Shadow Ball,ghost,11.81,333,27.20,2390,false,false
+849,Golduck,55,water,none,Water Gun,water,Hydro Pump,water,11.80,297,26.44,2450,false,false
+850,Shadow Monferno,391,fighting,fire,Ember,fire,Flamethrower,fire,11.80,145,22.09,1574,true,false
+851,Froslass,478,ghost,ice,Hex,ghost,Shadow Ball,ghost,11.79,253,25.37,2040,false,false
+852,Mega Mawile,303,fairy,steel,Fairy Wind,fairy,Play Rough,fairy,11.79,289,26.22,2380,false,true
+853,Shadow Vigoroth,288,normal,none,Scratch,normal,Body Slam,normal,11.79,224,24.60,1968,true,false
+854,Shadow Houndour,228,dark,fire,Feint Attack,dark,Flamethrower,fire,11.78,96,19.88,1234,true,false
+855,Staravia,397,flying,normal,Quick Attack,normal,Fly,flying,11.75,143,21.95,1299,false,false
+856,Hitmonchan,107,fighting,none,Counter,fighting,Close Combat,fighting,11.71,262,25.47,2332,false,false
+857,Grumpig,326,psychic,none,Psywave,psychic,Psychic,psychic,11.71,338,27.14,2369,false,false
+858,Alolan Ninetales,38,fairy,ice,Charm,fairy,Weather Ball Ice,ice,11.69,324,26.82,2309,false,false
+859,Xatu,178,flying,psychic,Air Slash,flying,Shadow Ball,ghost,11.68,232,24.67,2188,false,false
+860,Shadow Dewott,502,water,none,Water Gun,water,Aqua Tail,water,11.68,173,22.92,1741,true,false
+861,Lapras,131,ice,water,Water Gun,water,Sparkling Aria,water,11.67,447,29.02,2641,false,false
+862,Murkrow,198,dark,flying,Feint Attack,dark,Foul Play,dark,11.65,140,21.71,1562,false,false
+863,Parasect,47,bug,grass,Fury Cutter,bug,Solar Beam,grass,11.63,221,24.29,1859,false,false
+864,Shadow Gothorita,575,psychic,none,Confusion,psychic,Psychic,psychic,11.63,192,23.46,1604,true,false
+865,Venomoth,49,bug,poison,Bug Bite,bug,Bug Buzz,bug,11.62,238,24.74,2082,false,false
+866,Vivillon,666,bug,flying,Gust,flying,Bug Buzz,bug,11.62,195,23.52,1855,false,false
+867,Diancie,719,fairy,rock,Rock Throw,rock,Rock Slide,rock,11.62,368,27.55,2734,false,false
+868,Walrein,365,ice,water,Waterfall,water,Blizzard,ice,11.61,396,28.05,2726,false,false
+869,Abra,63,psychic,none,Zen Headbutt,psychic,Shadow Ball,ghost,11.60,84,19.05,1342,false,false
+870,Shadow Galarian Linoone,264,dark,normal,Snarl,dark,Grass Knot,grass,11.60,193,23.43,1662,true,false
+871,Cacnea,331,grass,none,Sucker Punch,dark,Grass Knot,grass,11.59,109,20.29,1242,false,false
+872,Malamar,687,dark,psychic,Psycho Cut,psychic,Foul Play,dark,11.59,311,26.37,2359,false,false
+873,Hisuian Sneasel,215,fighting,poison,Poison Jab,poison,Close Combat,fighting,11.59,208,23.86,2051,false,false
+874,Thwackey,811,grass,none,Razor Leaf,grass,Grass Knot,grass,11.58,224,24.28,1876,false,false
+875,Ferrothorn,598,grass,steel,Metal Claw,steel,Power Whip,grass,11.58,371,27.54,2321,false,false
+876,Shadow Quilava,156,fire,none,Ember,fire,Flamethrower,fire,11.56,156,22.17,1653,true,false
+877,Klawf,950,rock,none,Rock Throw,rock,Rock Slide,rock,11.55,300,26.06,2403,false,false
+878,Shadow Axew,610,dragon,none,Scratch,normal,Dragon Claw,dragon,11.55,112,20.39,1368,true,false
+879,Shadow Charjabug,737,bug,electric,Bug Bite,bug,Discharge,electric,11.54,193,23.32,1697,true,false
+880,Luxio,404,electric,none,Spark,electric,Wild Charge,electric,11.53,150,21.88,1486,false,false
+881,Oranguru,765,normal,psychic,Confusion,psychic,Psychic,psychic,11.52,368,27.38,2450,false,false
+882,Komala,775,normal,none,Rollout,rock,Play Rough,fairy,11.51,256,25.00,2582,false,false
+883,Wigglytuff,40,fairy,normal,Pound,normal,Hyper Beam,normal,11.51,260,25.10,1926,false,false
+884,Shadow Steelix,208,ground,steel,Iron Tail,steel,Heavy Slam,steel,11.51,374,27.48,2414,true,false
+885,Weezing,110,poison,none,Acid,poison,Sludge Bomb,poison,11.50,301,26.02,2293,false,false
+886,Gourgeist - Small Size,711,ghost,grass,Razor Leaf,grass,Shadow Ball,ghost,11.50,301,26.00,2254,false,false
+887,Shadow Flaaffy,180,electric,none,Charge Beam,electric,Thunderbolt,electric,11.50,154,22.00,1521,true,false
+888,Shadow Sableye,302,dark,ghost,Shadow Claw,ghost,Foul Play,dark,11.48,152,21.90,1476,true,false
+889,Whimsicott,547,fairy,grass,Fairy Wind,fairy,Grass Knot,grass,11.47,259,24.99,2014,false,false
+890,Mimikyu,778,fairy,ghost,Shadow Claw,ghost,Play Rough,fairy,11.46,274,25.35,2225,false,false
+891,Oricorio (Baile Style),741,fire,flying,Pound,normal,Hurricane,flying,11.45,249,24.73,2333,false,false
+892,Oricorio (Pa&#039;u Style),741,flying,psychic,Pound,normal,Hurricane,flying,11.45,249,24.73,2333,false,false
+893,Oricorio (Pom-Pom Style),741,electric,flying,Pound,normal,Hurricane,flying,11.45,249,24.73,2333,false,false
+894,Oricorio (Sensu Style),741,flying,ghost,Pound,normal,Hurricane,flying,11.45,249,24.73,2333,false,false
+895,Meowstic - Female,678,psychic,none,Confusion,psychic,Psychic,psychic,11.43,280,25.43,2124,false,false
+896,Meowstic - Male,678,psychic,none,Confusion,psychic,Psychic,psychic,11.43,280,25.43,2124,false,false
+897,Pincurchin,871,electric,none,Thunder Shock,electric,Thunderbolt,electric,11.42,208,23.59,1931,false,false
+898,Bouffalant,626,normal,none,Mud Shot,ground,Skull Bash,normal,11.42,361,27.07,2797,false,false
+899,Shadow Snubbull,209,fairy,none,Bite,dark,Dazzling Gleam,fairy,11.38,112,20.16,1237,true,false
+900,Zangoose,335,normal,none,Fury Cutter,bug,Close Combat,fighting,11.38,211,23.61,2418,false,false
+901,Appletun,842,dragon,grass,Bullet Seed,grass,Outrage,dragon,11.38,327,26.33,2452,false,false
+902,Obstagoon,862,dark,normal,Lick,ghost,Hyper Beam,normal,11.37,374,27.23,2652,false,false
+903,Shadow Prinplup,394,water,none,Bubble,water,Hydro Pump,water,11.37,179,22.65,1701,true,false
+904,Gastrodon - East Sea,423,ground,water,Mud Slap,ground,Earth Power,ground,11.37,323,26.24,2324,false,false
+905,Gastrodon - West Sea,423,ground,water,Mud Slap,ground,Earth Power,ground,11.37,323,26.24,2324,false,false
+906,Jellicent,593,ghost,water,Bubble,water,Shadow Ball,ghost,11.36,365,27.06,2338,false,false
+907,Seadra,117,water,none,Water Gun,water,Hydro Pump,water,11.36,217,23.76,2093,false,false
+908,Floragato,907,grass,none,Leafage,grass,Grass Knot,grass,11.36,193,23.06,1679,false,false
+909,Shadow Karrablast,588,bug,none,Fury Cutter,bug,X-Scissor,bug,11.36,102,19.65,1182,true,false
+910,Shadow Servine,496,grass,none,Vine Whip,grass,Grass Knot,grass,11.36,186,22.86,1441,true,false
+911,Ivysaur,2,grass,poison,Vine Whip,grass,Power Whip,grass,11.35,212,23.59,1699,false,false
+912,Bellossom,182,grass,none,Magical Leaf,grass,Leaf Blade,grass,11.35,310,25.95,2281,false,false
+913,Shadow Vibrava,329,dragon,ground,Dragon Breath,dragon,Scorching Sands,ground,11.35,114,20.19,1225,true,false
+914,Dondozo,977,water,none,Waterfall,water,Surf,water,11.34,497,29.18,2996,false,false
+915,Qwilfish,211,poison,water,Water Gun,water,Shadow Ball,ghost,11.34,214,23.64,2051,false,false
+916,Pawmo,922,electric,none,Thunder Shock,electric,Wild Charge,electric,11.30,129,20.79,1299,false,false
+917,Calyrex,898,grass,psychic,Confusion,psychic,Psychic,psychic,11.30,333,26.33,2278,false,false
+918,Type: Null,772,normal,none,Tackle,normal,Tri-Attack,normal,11.29,360,26.84,2664,false,false
+919,Cofagrigus,563,ghost,none,Shadow Claw,ghost,Shadow Ball,ghost,11.27,327,26.16,2273,false,false
+920,Runerigus,867,ghost,ground,Shadow Claw,ghost,Shadow Ball,ghost,11.27,327,26.16,2273,false,false
+921,Shadow Whiscash,340,ground,water,Water Gun,water,Mud Bomb,ground,11.27,261,24.72,2075,true,false
+922,Bellsprout,69,grass,poison,Vine Whip,grass,Power Whip,grass,11.24,90,18.91,1033,false,false
+923,Throh,538,fighting,none,Low Kick,fighting,Focus Blast,fighting,11.23,375,27.00,2562,false,false
+924,Huntail,367,water,none,Water Gun,water,Aqua Tail,water,11.23,243,24.23,2340,false,false
+925,Octillery,224,water,none,Water Gun,water,Gunk Shot,poison,11.22,238,24.09,2315,false,false
+926,Mudbray,749,ground,none,Mud Slap,ground,Earthquake,ground,11.22,198,22.99,1892,false,false
+927,Turtonator,776,dragon,fire,Fire Spin,fire,Overheat,fire,11.22,304,25.60,2223,false,false
+928,Regice,378,ice,none,Lock-On,normal,Blizzard,ice,11.20,516,29.19,3122,false,false
+929,Shadow Amaura,698,ice,rock,Frost Breath,ice,Weather Ball Ice,ice,11.20,160,21.78,1363,true,false
+930,Carvanha,318,dark,water,Bite,dark,Crunch,dark,11.19,60,17.02,1020,false,false
+931,Shadow Treecko,252,grass,none,Pound,normal,Grass Knot,grass,11.18,95,19.10,1053,true,false
+932,Shadow Bulbasaur,1,grass,poison,Vine Whip,grass,Power Whip,grass,11.17,116,20.07,1115,true,false
+933,Shadow Alolan Raticate,20,dark,normal,Quick Attack,normal,Hyper Fang,normal,11.17,214,23.37,1705,true,false
+934,Tauros,128,normal,none,Tackle,normal,Earthquake,ground,11.17,301,25.45,2620,false,false
+935,Suicune,245,water,none,Water Gun,water,Hydro Pump,water,11.17,465,28.37,2983,false,false
+936,Musharna,518,psychic,none,Zen Headbutt,psychic,Future Sight,psychic,11.15,375,26.85,2723,false,false
+937,Trapinch,328,ground,none,Sand Attack,ground,Scorching Sands,ground,11.14,103,19.42,1274,false,false
+938,Trumbeak,732,flying,normal,Peck,flying,Sky Attack,flying,11.14,143,21.10,1478,false,false
+939,Shadow Sealeo,364,ice,water,Water Gun,water,Surf,water,11.14,210,23.22,1714,true,false
+940,Cherrim (Overcast Form),421,grass,none,Razor Leaf,grass,Solar Beam,grass,11.13,243,24.04,2048,false,false
+941,Cherrim (Sunshine Form),421,grass,none,Razor Leaf,grass,Solar Beam,grass,11.13,243,24.04,2048,false,false
+942,Galarian Weezing,110,fairy,poison,Fairy Wind,fairy,Play Rough,fairy,11.12,291,25.16,2293,false,false
+943,Shadow Drifloon,425,flying,ghost,Hex,ghost,Shadow Ball,ghost,11.12,136,20.77,1197,true,false
+944,Basculin,550,water,none,Water Gun,water,Aqua Tail,water,11.11,208,23.09,2090,false,false
+945,Fletchinder,662,fire,flying,Peck,flying,Fly,flying,11.11,167,21.86,1469,false,false
+946,Shadow Marowak,105,ground,none,Mud Slap,ground,Earthquake,ground,11.09,219,23.38,1835,true,false
+947,Shadow Persian,53,normal,none,Scratch,normal,Foul Play,dark,11.09,172,22.02,1689,true,false
+948,Shadow Oddish,43,grass,poison,Acid,poison,Sludge Bomb,poison,11.07,116,19.93,1228,true,false
+949,Shadow Stufful,759,fighting,normal,Tackle,normal,Superpower,fighting,11.07,132,20.55,1352,true,false
+950,Galarian Farfetch'd,83,fighting,none,Fury Cutter,bug,Brave Bird,flying,11.03,154,21.31,1674,false,false
+951,Slurpuff,685,fairy,none,Charm,fairy,Play Rough,fairy,11.02,283,24.81,2199,false,false
+952,Shadow Stunky,434,dark,poison,Bite,dark,Sludge Bomb,poison,11.01,117,19.88,1151,true,false
+953,Dedenne,702,electric,fairy,Thunder Shock,electric,Play Rough,fairy,11.01,207,22.92,1841,false,false
+954,Scrafty,560,dark,fighting,Snarl,dark,Foul Play,dark,10.98,322,25.54,2283,false,false
+955,Frogadier,657,water,none,Bubble,water,Surf,water,10.98,156,21.33,1636,false,false
+956,Shadow Omanyte,138,rock,water,Water Gun,water,Rock Blast,rock,10.97,134,20.53,1544,true,false
+957,Bronzong,437,psychic,steel,Confusion,psychic,Psychic,psychic,10.96,316,25.38,2239,false,false
+958,Dudunsparce,982,normal,none,Dragon Tail,dragon,Body Slam,normal,10.95,355,26.13,2739,false,false
+959,Paldean Tauros - Combat Breed,128,fighting,none,Tackle,normal,Earthquake,ground,10.94,309,25.22,2837,false,false
+960,Chimecho,358,psychic,none,Extrasensory,psychic,Shadow Ball,ghost,10.93,275,24.49,2259,false,false
+961,Boldore,525,rock,none,Smack Down,rock,Rock Slide,rock,10.93,224,23.26,2029,false,false
+962,Butterfree,12,bug,flying,Bug Bite,bug,Bug Buzz,bug,10.92,196,22.47,1827,false,false
+963,Shadow Bayleef,153,grass,none,Magical Leaf,grass,Grass Knot,grass,10.92,183,22.08,1454,true,false
+964,Shadow Misdreavus,200,ghost,none,Hex,ghost,Ominous Wind,ghost,10.91,181,22.04,1926,true,false
+965,Shadow Starly,396,flying,normal,Quick Attack,normal,Fly,flying,10.91,62,16.86,719,true,false
+966,Shadow Mankey,56,fighting,none,Karate Chop,fighting,Brick Break,fighting,10.91,83,18.10,1164,true,false
+967,Shadow Registeel,379,steel,none,Metal Claw,steel,Flash Cannon,steel,10.91,388,26.63,2447,true,false
+968,Oinkologne (Male),916,normal,none,Tackle,normal,Body Slam,normal,10.90,327,25.49,2608,false,false
+969,Kricketune,402,bug,none,Fury Cutter,bug,Bug Buzz,bug,10.88,173,21.71,1653,false,false
+970,Electrode,101,electric,none,Volt Switch,electric,Thunderbolt,electric,10.87,241,23.59,2099,false,false
+971,Shadow Corvisquire,822,flying,none,Air Slash,flying,Brave Bird,flying,10.86,145,20.74,1363,true,false
+972,Tentacruel,73,poison,water,Poison Jab,poison,Hydro Pump,water,10.85,346,25.79,2422,false,false
+973,Toedscruel,949,grass,ground,Mud Slap,ground,Earth Power,ground,10.84,346,25.76,2422,false,false
+974,Dracovish,882,dragon,water,Dragon Breath,dragon,Dragon Pulse,dragon,10.83,334,25.51,2500,false,false
+975,Bibarel,400,normal,water,Water Gun,water,Hyper Fang,normal,10.82,204,22.56,1823,false,false
+976,Regirock,377,rock,none,Rock Throw,rock,Stone Edge,rock,10.81,498,28.16,3122,false,false
+977,Lairon,305,rock,steel,Metal Claw,steel,Heavy Slam,steel,10.81,272,24.19,2056,false,false
+978,Shadow Wailmer,320,water,none,Water Gun,water,Heavy Slam,steel,10.81,152,20.91,1468,true,false
+979,Alolan Graveler,75,electric,rock,Rock Throw,rock,Thunderbolt,electric,10.79,216,22.83,1897,false,false
+980,Doduo,84,flying,normal,Quick Attack,normal,Brave Bird,flying,10.78,92,18.45,1200,false,false
+981,Shadow Alolan Geodude,74,electric,rock,Rock Throw,rock,Thunderbolt,electric,10.78,124,19.84,1293,true,false
+982,Shadow Phantump,708,ghost,grass,Tackle,normal,Shadow Ball,ghost,10.77,103,18.94,1123,true,false
+983,Boltund,836,electric,none,Spark,electric,Thunder,electric,10.77,202,22.41,2176,false,false
+984,Shadow Teddiursa,216,normal,none,Scratch,normal,Play Rough,fairy,10.77,114,19.44,1328,true,false
+985,Skarmory,227,flying,steel,Steel Wing,steel,Sky Attack,flying,10.77,321,25.15,2108,false,false
+986,Shadow Pupitar,247,ground,rock,Bite,dark,Dig,ground,10.76,172,21.53,1766,true,false
+987,Garbodor,569,poison,none,Infestation,bug,Gunk Shot,poison,10.75,274,24.15,2345,false,false
+988,Forretress,205,bug,steel,Bug Bite,bug,Heavy Slam,steel,10.75,322,25.14,2282,false,false
+989,Glalie,362,ice,none,Frost Breath,ice,Avalanche,ice,10.75,271,24.08,2105,false,false
+990,Purugly,432,normal,none,Scratch,normal,Return,normal,10.75,209,22.57,1953,false,false
+991,Raticate,20,normal,none,Quick Attack,normal,Hyper Fang,normal,10.75,185,21.90,1730,false,false
+992,Veluza,976,psychic,water,Zen Headbutt,psychic,Drill Run,ground,10.75,255,23.72,2436,false,false
+993,Plusle,311,electric,none,Spark,electric,Thunderbolt,electric,10.74,183,21.81,1778,false,false
+994,Shadow Croagunk,453,fighting,poison,Poison Jab,poison,Sludge Bomb,poison,10.72,84,17.95,952,true,false
+995,Shadow Natu,177,flying,psychic,Peck,flying,Drill Peck,flying,10.71,87,18.07,1102,true,false
+996,Magnemite,81,electric,steel,Thunder Shock,electric,Thunderbolt,electric,10.70,109,19.12,1362,false,false
+997,Lopunny,428,normal,none,Pound,normal,Hyper Beam,normal,10.70,276,24.11,2059,false,false
+998,Shadow Shiinotic,756,fairy,grass,Astonish,ghost,Seed Bomb,grass,10.70,193,22.03,1861,true,false
+999,Shadow Quilladin,651,grass,none,Vine Whip,grass,Energy Ball,grass,10.70,181,21.69,1719,true,false
+1000,Shelgon,372,dragon,none,Dragon Breath,dragon,Dragon Pulse,dragon,10.70,225,22.90,2031,false,false
+1001,Dynamax Noctowl,164,flying,normal,Wing Attack,flying,Sky Attack,flying,10.69,304,24.69,2024,false,false
+1002,Noctowl,164,flying,normal,Wing Attack,flying,Sky Attack,flying,10.69,304,24.69,2024,false,false
+1003,Amoonguss,591,grass,poison,Feint Attack,dark,Grass Knot,grass,10.69,302,24.63,2140,false,false
+1004,Sigilyph,561,flying,psychic,Air Slash,flying,Psybeam,psychic,10.68,258,23.67,2550,false,false
+1005,Klinklang,601,steel,none,Metal Sound,steel,Hyper Beam,normal,10.68,288,24.34,2637,false,false
+1006,Hattrem,857,psychic,none,Confusion,psychic,Psychic,psychic,10.67,180,21.62,1634,false,false
+1007,Pignite,499,fighting,fire,Ember,fire,Flamethrower,fire,10.67,199,22.17,1924,false,false
+1008,Shadow Tirtouga,564,rock,water,Water Gun,water,Surf,water,10.65,158,20.89,1488,true,false
+1009,Aromatisse,683,fairy,none,Charm,fairy,Psychic,psychic,10.63,293,24.36,2341,false,false
+1010,Hitmontop,237,fighting,none,Counter,fighting,Close Combat,fighting,10.63,249,23.38,2156,false,false
+1011,Shadow Dewgong,87,ice,water,Frost Breath,ice,Blizzard,ice,10.63,262,23.68,1985,true,false
+1012,Orbeetle,826,bug,psychic,Psycho Cut,psychic,Psychic,psychic,10.62,319,24.86,2223,false,false
+1013,Garganacl,934,rock,none,Smack Down,rock,Rock Slide,rock,10.61,401,26.30,2711,false,false
+1014,Torracat,726,fire,none,Ember,fire,Flamethrower,fire,10.61,155,20.73,1710,false,false
+1015,Emolga,587,electric,flying,Thunder Shock,electric,Thunderbolt,electric,10.59,168,21.13,1633,false,false
+1016,Tyrunt,696,dragon,rock,Dragon Tail,dragon,Dragon Claw,dragon,10.58,168,21.13,1635,false,false
+1017,Elgyem,605,psychic,none,Confusion,psychic,Psychic,psychic,10.54,135,19.96,1385,false,false
+1018,Shadow Alolan Sandshrew,27,ice,steel,Metal Claw,steel,Blizzard,ice,10.52,133,19.84,1293,true,false
+1019,Shadow Probopass,476,rock,steel,Rock Throw,rock,Magnet Bomb,steel,10.51,300,24.29,2080,true,false
+1020,Shadow Machop,66,fighting,none,Karate Chop,fighting,Cross Chop,fighting,10.48,110,18.87,1278,true,false
+1021,Corphish,341,water,none,Bubble,water,Razor Shell,water,10.48,116,19.11,1230,false,false
+1022,Gloom,44,grass,poison,Acid,poison,Sludge Bomb,poison,10.47,187,21.51,1681,false,false
+1023,Arbok,24,poison,none,Acid,poison,Gunk Shot,poison,10.47,208,22.09,1921,false,false
+1024,Torkoal,324,fire,none,Fire Spin,fire,Overheat,fire,10.46,296,24.11,2093,false,false
+1025,Grotle,388,grass,none,Razor Leaf,grass,Solar Beam,grass,10.44,224,22.49,1890,false,false
+1026,Alolan Marowak,105,fire,ghost,Fire Spin,fire,Shadow Ball,ghost,10.44,248,23.04,1835,false,false
+1027,Lickilicky,463,normal,none,Lick,ghost,Hyper Beam,normal,10.43,365,25.37,2467,false,false
+1028,Graveler,75,ground,rock,Rock Throw,rock,Rock Slide,rock,10.43,209,22.05,1897,false,false
+1029,Solosis,577,psychic,none,Zen Headbutt,psychic,Psyshock,psychic,10.42,101,18.40,1367,false,false
+1030,Larvesta,636,bug,fire,Bug Bite,bug,Bug Buzz,bug,10.42,142,20.02,1496,false,false
+1031,Poipole,803,poison,none,Poison Jab,poison,Sludge Bomb,poison,10.42,195,21.66,1640,false,false
+1032,Gurdurr,533,fighting,none,Low Kick,fighting,Brick Break,fighting,10.41,229,22.55,2169,false,false
+1033,Shadow Geodude,74,ground,rock,Rock Throw,rock,Rock Slide,rock,10.40,119,19.14,1293,true,false
+1034,Charmeleon,5,fire,none,Fire Fang,fire,Flamethrower,fire,10.38,169,20.84,1653,false,false
+1035,Shadow Growlithe,58,fire,none,Ember,fire,Flamethrower,fire,10.38,104,18.49,1243,true,false
+1036,Cradily,346,grass,rock,Infestation,bug,Grass Knot,grass,10.37,323,24.50,2211,false,false
+1037,Slaking,289,normal,none,Yawn,normal,Body Slam,normal,10.35,389,25.63,4431,false,false
+1038,Tranquill,520,flying,normal,Air Slash,flying,Sky Attack,flying,10.35,152,20.24,1442,false,false
+1039,Dartrix,723,flying,grass,Leafage,grass,Brave Bird,flying,10.34,222,22.27,1725,false,false
+1040,Seviper,336,poison,none,Poison Jab,poison,Crunch,dark,10.34,183,21.21,2105,false,false
+1041,Krokorok,552,dark,ground,Bite,dark,Earthquake,ground,10.34,128,19.39,1418,false,false
+1042,Alolan Persian,53,dark,none,Feint Attack,dark,Foul Play,dark,10.33,193,21.47,1771,false,false
+1043,Watchog,505,normal,none,Bite,dark,Hyper Fang,normal,10.32,188,21.31,1819,false,false
+1044,Thievul,828,dark,none,Snarl,dark,Play Rough,fairy,10.31,239,22.63,2136,false,false
+1045,Mightyena,262,dark,none,Bite,dark,Play Rough,fairy,10.30,197,21.53,1926,false,false
+1046,Mega Audino,531,fairy,normal,Pound,normal,Hyper Beam,normal,10.28,444,26.35,2524,false,true
+1047,Crocalor,910,fire,none,Incinerate,fire,Flamethrower,fire,10.27,219,22.07,1936,false,false
+1048,Dragonair,148,dragon,none,Dragon Breath,dragon,Dragon Pulse,dragon,10.27,183,21.10,1780,false,false
+1049,Relicanth,369,rock,water,Water Gun,water,Hydro Pump,water,10.26,373,25.19,2528,false,false
+1050,Shadow Kirlia,281,fairy,psychic,Confusion,psychic,Psychic,psychic,10.26,82,17.23,966,true,false
+1051,Galarian Stunfisk,618,ground,steel,Metal Claw,steel,Earthquake,ground,10.26,338,24.56,2162,false,false
+1052,Dachsbun,927,fairy,none,Charm,fairy,Play Rough,fairy,10.25,265,23.11,2096,false,false
+1053,Morgrem,860,dark,fairy,Sucker Punch,dark,Play Rough,fairy,10.25,148,19.98,1442,false,false
+1054,Raboot,814,fire,none,Ember,fire,Flamethrower,fire,10.24,177,20.88,1824,false,false
+1055,Shadow Electrike,309,electric,none,Spark,electric,Thunderbolt,electric,10.24,74,16.81,965,true,false
+1056,Nuzleaf,274,dark,grass,Feint Attack,dark,Grass Knot,grass,10.24,124,19.08,1227,false,false
+1057,Marshtomp,259,ground,water,Water Gun,water,Surf,water,10.23,197,21.42,1776,false,false
+1058,Braixen,654,fire,none,Ember,fire,Flamethrower,fire,10.23,173,20.75,1813,false,false
+1059,Delibird,225,flying,ice,Quick Attack,normal,Fly,flying,10.23,107,18.38,1094,false,false
+1060,Drilbur,529,ground,none,Mud Slap,ground,Drill Run,ground,10.22,121,18.94,1376,false,false
+1061,Golbat,42,flying,poison,Wing Attack,flying,Shadow Ball,ghost,10.22,229,22.25,1976,false,false
+1062,Zorua,570,dark,none,Feint Attack,dark,Foul Play,dark,10.21,89,17.55,1175,false,false
+1063,Dugtrio,51,ground,none,Mud Slap,ground,Earthquake,ground,10.20,135,19.45,1567,false,false
+1064,Seaking,119,water,none,Waterfall,water,Megahorn,bug,10.20,235,22.35,2162,false,false
+1065,Shadow Blitzle,522,electric,none,Spark,electric,Discharge,electric,10.19,67,16.29,882,true,false
+1066,Shadow Froakie,656,water,none,Pound,normal,Surf,water,10.18,79,17.00,992,true,false
+1067,Eldegoss,830,grass,none,Razor Leaf,grass,Grass Knot,grass,10.16,271,23.09,1995,false,false
+1068,Alolan Grimer,88,dark,poison,Poison Jab,poison,Sludge Bomb,poison,10.16,152,19.97,1374,false,false
+1069,Grimer,88,poison,none,Poison Jab,poison,Sludge Bomb,poison,10.16,152,19.97,1374,false,false
+1070,Eelektrik,603,electric,none,Spark,electric,Thunderbolt,electric,10.15,182,20.89,1715,false,false
+1071,Shadow Nidorina,30,poison,none,Poison Sting,poison,Sludge Bomb,poison,10.15,148,19.85,1309,true,false
+1072,Castform,351,normal,none,Tackle,normal,Weather Ball,normal,10.15,203,21.45,1632,false,false
+1073,Castform (Rainy),351,water,none,Water Gun,water,Weather Ball Water,water,10.15,203,21.45,1632,false,false
+1074,Shadow Gligar,207,flying,ground,Wing Attack,flying,Dig,ground,10.14,208,21.58,1857,true,false
+1075,Shadow Timburr,532,fighting,none,Low Kick,fighting,Brick Break,fighting,10.14,117,18.70,1315,true,false
+1076,Altaria,334,dragon,flying,Dragon Breath,dragon,Sky Attack,flying,10.14,298,23.60,2004,false,false
+1077,Shadow Fletchling,661,flying,normal,Quick Attack,normal,Fly,flying,10.14,80,16.97,800,true,false
+1078,Mawile,303,fairy,steel,Fairy Wind,fairy,Play Rough,fairy,10.12,167,20.39,1634,false,false
+1079,Shadow Shinx,403,electric,none,Spark,electric,Discharge,electric,10.12,66,16.18,876,true,false
+1080,Furfrou,676,normal,none,Sucker Punch,dark,Grass Knot,grass,10.10,250,22.53,2111,false,false
+1081,Zweilous,634,dark,dragon,Bite,dark,Dragon Pulse,dragon,10.10,201,21.33,1839,false,false
+1082,Porygon,137,normal,none,Quick Attack,normal,Hyper Beam,normal,10.10,188,20.98,1720,false,false
+1083,Shadow Slowpoke,79,psychic,water,Confusion,psychic,Psychic,psychic,10.08,146,19.67,1226,true,false
+1084,Quaxwell,913,water,none,Water Gun,water,Liquidation,water,10.08,181,20.73,1775,false,false
+1085,Shadow Mareep,179,electric,none,Thunder Shock,electric,Thunderbolt,electric,10.08,88,17.34,991,true,false
+1086,Eiscue (Ice Face),875,ice,none,Powder Snow,ice,Weather Ball Ice,ice,10.08,288,23.30,2065,false,false
+1087,Shadow Araquanid,752,bug,water,Bug Bite,bug,Bug Buzz,bug,10.08,251,22.51,1827,true,false
+1088,Masquerain,284,bug,flying,Air Slash,flying,Silver Wind,bug,10.07,216,21.67,2270,false,false
+1089,Comfey,764,fairy,none,Vine Whip,grass,Grass Knot,grass,10.07,248,22.42,2115,false,false
+1090,Mienfoo,619,fighting,none,Low Kick,fighting,Focus Blast,fighting,10.06,113,18.41,1389,false,false
+1091,Shadow Rhyhorn,111,ground,rock,Mud Slap,ground,Bulldoze,ground,10.06,169,20.38,1651,true,false
+1092,Quagsire,195,ground,water,Water Gun,water,Earthquake,ground,10.06,255,22.56,1992,false,false
+1093,Vigoroth,288,normal,none,Scratch,normal,Return,normal,10.03,228,21.92,1968,false,false
+1094,Hypno,97,psychic,none,Confusion,psychic,Psychic,psychic,10.03,308,23.62,2090,false,false
+1095,Kangaskhan,115,normal,none,Mud Slap,ground,Outrage,dragon,10.03,311,23.65,2586,false,false
+1096,Smoochum,238,ice,psychic,Pound,normal,Ice Beam,ice,10.01,105,18.03,1291,false,false
+1097,Metang,375,psychic,steel,Metal Claw,steel,Psychic,psychic,10.01,226,21.80,1721,false,false
+1098,Nidorino,33,poison,none,Poison Jab,poison,Sludge Bomb,poison,10.00,150,19.67,1393,false,false
+1099,Furret,162,normal,none,Quick Attack,normal,Hyper Beam,normal,10.00,207,21.33,1758,false,false
+1100,Oinkologne (Female),916,normal,none,Tackle,normal,Body Slam,normal,10.00,327,23.90,2493,false,false
+1101,Shadow Koffing,109,poison,none,Acid,poison,Sludge Bomb,poison,9.98,122,18.64,1214,true,false
+1102,Gimmighoul (Roaming Form),999,ghost,none,Astonish,ghost,Shadow Ball,ghost,9.97,90,17.28,1104,false,false
+1103,Frigibax,996,dragon,ice,Dragon Breath,dragon,Avalanche,ice,9.95,124,18.70,1247,false,false
+1104,Sliggoo,705,dragon,none,Dragon Breath,dragon,Dragon Pulse,dragon,9.94,243,22.09,2037,false,false
+1105,Shadow Torchic,255,fire,none,Scratch,normal,Flamethrower,fire,9.94,84,16.94,1093,true,false
+1106,Shadow Loudred,294,normal,none,Bite,dark,Stomp,normal,9.93,117,18.39,1327,true,false
+1107,Ariados,168,bug,poison,Infestation,bug,Megahorn,bug,9.92,179,20.45,1772,false,false
+1108,Uxie,480,psychic,none,Confusion,psychic,Future Sight,psychic,9.92,385,24.76,2524,false,false
+1109,Lanturn,171,electric,water,Water Gun,water,Thunderbolt,electric,9.92,296,23.18,2085,false,false
+1110,Combusken,256,fighting,fire,Ember,fire,Flamethrower,fire,9.90,152,19.59,1652,false,false
+1111,Darumaka,554,fire,none,Fire Fang,fire,Fire Punch,fire,9.90,130,18.84,1442,false,false
+1112,Mega Sableye,302,dark,ghost,Shadow Claw,ghost,Foul Play,dark,9.90,241,21.99,1942,false,true
+1113,Lampent,608,fire,ghost,Ember,fire,Flame Burst,fire,9.89,152,19.58,1708,false,false
+1114,Galarian Darumaka,554,ice,none,Tackle,normal,Ice Beam,ice,9.89,130,18.82,1442,false,false
+1115,Pikipek,731,flying,normal,Peck,flying,Sky Attack,flying,9.89,64,15.77,910,false,false
+1116,Shadow Shuppet,353,ghost,none,Feint Attack,dark,Ominous Wind,ghost,9.89,65,15.83,1018,true,false
+1117,Klefki,707,fairy,steel,Tackle,normal,Play Rough,fairy,9.88,218,21.42,1949,false,false
+1118,Shadow Helioptile,694,electric,normal,Thunder Shock,electric,Discharge,electric,9.88,75,16.42,933,true,false
+1119,Dubwool,832,normal,none,Tackle,normal,Wild Charge,electric,9.87,279,22.74,2191,false,false
+1120,Shadow Shellder,90,water,none,Tackle,normal,Razor Shell,water,9.86,99,17.56,1080,true,false
+1121,Cresselia,488,psychic,none,Psycho Cut,psychic,Future Sight,psychic,9.85,513,26.47,2857,false,false
+1122,Galarian Ponyta,77,psychic,none,Psycho Cut,psychic,Play Rough,fairy,9.84,147,19.37,1697,false,false
+1123,Gabite,444,dragon,ground,Mud Shot,ground,Dig,ground,9.82,176,20.19,1874,false,false
+1124,Sinistea,854,ghost,none,Sucker Punch,dark,Shadow Ball,ghost,9.82,102,17.63,1139,false,false
+1125,Shadow Kabuto,140,rock,water,Scratch,normal,Ancient Power,rock,9.81,103,17.66,1370,true,false
+1126,Castform (Sunny),351,fire,none,Ember,fire,Weather Ball Fire,fire,9.80,196,20.72,1632,false,false
+1127,Shadow Grubbin,736,bug,none,Bug Bite,bug,X-Scissor,bug,9.80,83,16.73,984,true,false
+1128,Ponyta,77,fire,none,Ember,fire,Fire Blast,fire,9.79,147,19.25,1697,false,false
+1129,Anorith,347,bug,rock,Scratch,normal,Ancient Power,rock,9.78,112,17.98,1529,false,false
+1130,Castform (Snowy),351,ice,none,Powder Snow,ice,Weather Ball Ice,ice,9.78,195,20.67,1632,false,false
+1131,Orthworm,968,steel,none,Iron Tail,steel,Iron Head,steel,9.76,297,22.92,2299,false,false
+1132,Shadow Turtwig,387,grass,none,Razor Leaf,grass,Seed Bomb,grass,9.74,113,17.99,1187,true,false
+1133,Shadow Wartortle,8,water,none,Water Gun,water,Hydro Pump,water,9.73,161,19.62,1488,true,false
+1134,Monferno,391,fighting,fire,Ember,fire,Flamethrower,fire,9.72,143,19.06,1574,false,false
+1135,Houndour,228,dark,fire,Feint Attack,dark,Flamethrower,fire,9.72,95,17.17,1234,false,false
+1136,Shadow Croconaw,159,water,none,Water Gun,water,Water Pulse,water,9.72,157,19.49,1722,true,false
+1137,Arctovish,883,ice,water,Water Gun,water,Brine,water,9.71,299,22.87,2447,false,false
+1138,Shadow Spoink,325,psychic,none,Zen Headbutt,psychic,Shadow Ball,ghost,9.66,130,18.51,1334,true,false
+1139,Dewott,502,water,none,Water Gun,water,Aqua Tail,water,9.66,172,19.84,1741,false,false
+1140,Hakamo-o,783,dragon,fighting,Dragon Tail,dragon,Dragon Claw,dragon,9.66,191,20.36,1686,false,false
+1141,Claydol,344,ground,psychic,Confusion,psychic,Psychic,psychic,9.63,277,22.30,1971,false,false
+1142,Gothorita,575,psychic,none,Confusion,psychic,Psychic,psychic,9.63,191,20.31,1604,false,false
+1143,Shadow Aron,304,rock,steel,Metal Claw,steel,Iron Head,steel,9.62,132,18.51,1307,true,false
+1144,Galarian Linoone,264,dark,normal,Snarl,dark,Grass Knot,grass,9.60,192,20.30,1662,false,false
+1145,Charjabug,737,bug,electric,Bug Bite,bug,Discharge,electric,9.58,192,20.27,1697,false,false
+1146,Steelix,208,ground,steel,Iron Tail,steel,Heavy Slam,steel,9.58,374,23.95,2414,false,false
+1147,Persian,53,normal,none,Scratch,normal,Return,normal,9.57,179,19.90,1689,false,false
+1148,Blissey,242,normal,none,Pound,normal,Hyper Beam,normal,9.57,625,27.21,2757,false,false
+1149,Shadow Chespin,650,grass,none,Vine Whip,grass,Seed Bomb,grass,9.57,109,17.59,1096,true,false
+1150,Crabrawler,739,fighting,none,Bubble,water,Crabhammer,water,9.57,116,17.87,1363,false,false
+1151,Greedent,820,normal,none,Tackle,normal,Body Slam,normal,9.57,312,22.87,2370,false,false
+1152,Sableye,302,dark,ghost,Shadow Claw,ghost,Foul Play,dark,9.57,152,19.11,1476,false,false
+1153,Shadow Diggersby,660,ground,normal,Quick Attack,normal,Scorching Sands,ground,9.57,200,20.46,1509,true,false
+1154,Quilava,156,fire,none,Ember,fire,Flamethrower,fire,9.56,155,19.19,1653,false,false
+1155,Axew,610,dragon,none,Scratch,normal,Dragon Claw,dragon,9.54,111,17.63,1368,false,false
+1156,Minun,312,electric,none,Spark,electric,Thunderbolt,electric,9.54,186,20.03,1694,false,false
+1157,Prinplup,394,water,none,Metal Claw,steel,Hydro Pump,water,9.54,180,19.89,1701,false,false
+1158,Shadow Exeggcute,102,grass,psychic,Confusion,psychic,Psychic,psychic,9.52,131,18.34,1175,true,false
+1159,Shadow Nidoran♂,32,poison,none,Poison Sting,poison,Sludge Bomb,poison,9.51,73,15.81,860,true,false
+1160,Shadow Ekans,23,poison,none,Acid,poison,Sludge Bomb,poison,9.50,78,16.06,927,true,false
+1161,Shadow Delibird,225,flying,ice,Ice Shard,ice,Ice Punch,ice,9.49,82,16.29,1094,true,false
+1162,Vanillish,583,ice,none,Frost Breath,ice,Ice Beam,ice,9.47,155,19.04,1591,false,false
+1163,Flaaffy,180,electric,none,Charge Beam,electric,Thunderbolt,electric,9.46,152,18.95,1521,false,false
+1164,Shadow Deino,633,dark,dragon,Dragon Breath,dragon,Dragon Pulse,dragon,9.46,92,16.71,1062,true,false
+1165,Servine,496,grass,none,Vine Whip,grass,Grass Knot,grass,9.45,186,19.92,1441,false,false
+1166,Kecleon,352,normal,none,Lick,ghost,Dynamic Punch,fighting,9.45,227,20.93,2047,false,false
+1167,Shadow Roggenrola,524,rock,none,Smack Down,rock,Power Gem,rock,9.44,110,17.44,1205,true,false
+1168,Stunfisk,618,electric,ground,Thunder Shock,electric,Discharge,electric,9.42,310,22.56,2162,false,false
+1169,Shadow Dwebble,557,bug,rock,Smack Down,rock,X-Scissor,bug,9.41,118,17.73,1224,true,false
+1170,Swalot,317,poison,none,Infestation,bug,Sludge Bomb,poison,9.41,273,21.83,1978,false,false
+1171,Teddiursa,216,normal,none,Scratch,normal,Return,normal,9.41,120,17.77,1328,false,false
+1172,Shadow Aipom,190,normal,none,Scratch,normal,Swift,normal,9.40,111,17.44,1348,true,false
+1173,Shadow Psyduck,54,water,none,Water Gun,water,Aqua Tail,water,9.40,91,16.57,1106,true,false
+1174,Shadow Staryu,120,water,none,Water Gun,water,Bubble Beam,water,9.39,81,16.08,1157,true,false
+1175,Karrablast,588,bug,none,Fury Cutter,bug,X-Scissor,bug,9.39,101,17.01,1182,false,false
+1176,Litleo,667,fire,normal,Fire Fang,fire,Flamethrower,fire,9.37,143,18.52,1425,false,false
+1177,Shadow Jumpluff,189,flying,grass,Infestation,bug,Solar Beam,grass,9.36,210,20.37,1636,true,false
+1178,Snubbull,209,fairy,none,Bite,dark,Dazzling Gleam,fairy,9.35,110,17.32,1237,false,false
+1179,Magcargo,219,fire,rock,Rock Throw,rock,Overheat,fire,9.34,203,20.17,1702,false,false
+1180,Tropius,357,flying,grass,Razor Leaf,grass,Leaf Blade,grass,9.34,275,21.75,1941,false,false
+1181,Elekid,239,electric,none,Thunder Shock,electric,Thunderbolt,electric,9.33,107,17.18,1206,false,false
+1182,Whiscash,340,ground,water,Water Gun,water,Mud Bomb,ground,9.32,259,21.41,2075,false,false
+1183,Shroodle,944,normal,poison,Poison Jab,poison,Sludge Bomb,poison,9.31,74,15.64,929,false,false
+1184,Wormadam (Plant Cloak),413,bug,grass,Bug Bite,bug,Bug Buzz,bug,9.31,214,20.39,1773,false,false
+1185,Wormadam (Sandy Cloak),413,bug,ground,Bug Bite,bug,Bug Buzz,bug,9.31,214,20.39,1773,false,false
+1186,Coalossal,839,fire,rock,Incinerate,fire,Rock Slide,rock,9.31,354,23.11,2352,false,false
+1187,Salandit,757,fire,poison,Poison Jab,poison,Flamethrower,fire,9.31,91,16.48,1122,false,false
+1188,Bulbasaur,1,grass,poison,Vine Whip,grass,Power Whip,grass,9.29,116,17.46,1115,false,false
+1189,Alomomola,594,water,none,Waterfall,water,Hydro Pump,water,9.28,332,22.71,2169,false,false
+1190,Alolan Raticate,20,dark,normal,Bite,dark,Hyper Fang,normal,9.28,213,20.32,1705,false,false
+1191,Capsakid,951,grass,none,Leafage,grass,Grass Knot,grass,9.27,89,16.32,976,false,false
+1192,Miltank,241,normal,none,Tackle,normal,Body Slam,normal,9.26,309,22.26,2354,false,false
+1193,Marowak,105,ground,none,Mud Slap,ground,Earthquake,ground,9.26,220,20.44,1835,false,false
+1194,Treecko,252,grass,none,Pound,normal,Grass Knot,grass,9.26,95,16.55,1053,false,false
+1195,Magby,240,fire,none,Karate Chop,fighting,Flamethrower,fire,9.26,105,16.98,1323,false,false
+1196,Sealeo,364,ice,water,Water Gun,water,Surf,water,9.26,210,20.20,1714,false,false
+1197,Linoone,264,normal,none,Tackle,normal,Grass Knot,grass,9.23,184,19.50,1662,false,false
+1198,Shadow Snover,459,grass,ice,Ice Shard,ice,Ice Beam,ice,9.22,109,17.09,1159,true,false
+1199,Shadow Joltik,595,bug,electric,Sucker Punch,dark,Discharge,electric,9.21,91,16.34,1023,true,false
+1200,Shadow Oshawott,501,water,none,Water Gun,water,Aqua Tail,water,9.21,86,16.08,1046,true,false
+1201,Shadow Lileep,345,grass,rock,Infestation,bug,Grass Knot,grass,9.20,158,18.74,1291,true,false
+1202,Shadow Gible,443,dragon,ground,Mud Shot,ground,Dig,ground,9.20,87,16.14,1112,true,false
+1203,Registeel,379,steel,none,Metal Claw,steel,Flash Cannon,steel,9.19,392,23.50,2447,false,false
+1204,Amaura,698,ice,rock,Frost Breath,ice,Weather Ball Ice,ice,9.18,157,18.68,1363,false,false
+1205,Pawniard,624,dark,steel,Fury Cutter,bug,Iron Head,steel,9.18,118,17.36,1433,false,false
+1206,Sandygast,769,ghost,ground,Sand Attack,ground,Shadow Ball,ghost,9.16,136,17.99,1233,false,false
+1207,Spidops,918,bug,none,Bug Bite,bug,Grass Knot,grass,9.16,196,19.70,1687,false,false
+1208,Shadow Tepig,498,fire,none,Ember,fire,Flamethrower,fire,9.16,94,16.41,1083,true,false
+1209,Sobble,816,water,none,Pound,normal,Surf,water,9.16,91,16.25,1097,false,false
+1210,Oddish,43,grass,poison,Acid,poison,Sludge Bomb,poison,9.15,115,17.25,1228,false,false
+1211,Togetic,176,fairy,flying,Fairy Wind,fairy,Dazzling Gleam,fairy,9.15,201,19.80,1708,false,false
+1212,Shadow Sandshrew,27,ground,none,Sand Attack,ground,Dig,ground,9.15,109,16.99,1261,true,false
+1213,Yanma,193,bug,flying,Wing Attack,flying,Aerial Ace,flying,9.15,123,17.53,1470,false,false
+1214,Omanyte,138,rock,water,Water Gun,water,Rock Blast,rock,9.14,134,17.90,1544,false,false
+1215,Shadow Bagon,371,dragon,none,Bite,dark,Flamethrower,fire,9.14,82,15.81,1156,true,false
+1216,Shadow Hippopotas,449,ground,none,Sand Attack,ground,Dig,ground,9.14,129,17.73,1358,true,false
+1217,Stufful,759,fighting,normal,Tackle,normal,Superpower,fighting,9.14,130,17.76,1352,false,false
+1218,Floette,670,fairy,none,Vine Whip,grass,Dazzling Gleam,fairy,9.14,167,18.90,1532,false,false
+1219,Stunky,434,dark,poison,Bite,dark,Sludge Bomb,poison,9.09,116,17.18,1151,false,false
+1220,Misdreavus,200,ghost,none,Psywave,psychic,Ominous Wind,ghost,9.09,181,19.21,1926,false,false
+1221,Mandibuzz,630,dark,flying,Snarl,dark,Foul Play,dark,9.08,356,22.73,2138,false,false
+1222,Shadow Golett,622,ghost,ground,Mud Slap,ground,Night Shade,ghost,9.07,94,16.29,1189,true,false
+1223,Pikachu Libre,25,electric,none,Thunder Shock,electric,Flying Press,fighting,9.07,88,16.00,938,false,false
+1224,Sprigatito,906,grass,none,Leafage,grass,Grass Knot,grass,9.07,94,16.27,1030,false,false
+1225,Drifloon,425,flying,ghost,Hex,ghost,Shadow Ball,ghost,9.07,133,17.73,1197,false,false
+1226,Grookey,810,grass,none,Razor Leaf,grass,Grass Knot,grass,9.07,101,16.58,1086,false,false
+1227,Shadow Chikorita,152,grass,none,Vine Whip,grass,Grass Knot,grass,9.05,103,16.61,935,true,false
+1228,Hisuian Growlithe,58,fire,rock,Bite,dark,Rock Slide,rock,9.05,114,17.06,1322,false,false
+1229,Corvisquire,822,flying,none,Air Slash,flying,Brave Bird,flying,9.04,144,18.07,1363,false,false
+1230,Bayleef,153,grass,none,Magical Leaf,grass,Grass Knot,grass,9.04,181,19.13,1454,false,false
+1231,Mankey,56,fighting,none,Karate Chop,fighting,Cross Chop,fighting,9.02,82,15.67,1164,false,false
+1232,Shadow Poliwhirl,61,water,none,Bubble,water,Bubble Beam,water,9.00,128,17.47,1419,true,false
+1233,Clodsire ,980,ground,poison,Poison Sting,poison,Sludge Bomb,poison,8.99,303,21.66,1952,false,false
+1234,Shadow Voltorb,100,electric,none,Spark,electric,Thunderbolt,electric,8.98,88,15.91,1010,true,false
+1235,Shadow Horsea,116,water,none,Water Gun,water,Bubble Beam,water,8.98,72,15.10,1056,true,false
+1236,Maschiff,942,dark,none,Snarl,dark,Payback,dark,8.98,130,17.52,1399,false,false
+1237,Starly,396,flying,normal,Quick Attack,normal,Fly,flying,8.96,61,14.49,719,false,false
+1238,Shadow Whirlipede,544,bug,poison,Bug Bite,bug,Sludge Bomb,poison,8.96,132,17.53,1144,true,false
+1239,Palpitoad,536,ground,water,Bubble,water,Earth Power,ground,8.96,151,18.15,1392,false,false
+1240,Alolan Geodude,74,electric,rock,Rock Throw,rock,Thunderbolt,electric,8.95,123,17.23,1293,false,false
+1241,Spearow,21,flying,normal,Quick Attack,normal,Sky Attack,flying,8.94,63,14.56,798,false,false
+1242,Aipom,190,normal,none,Scratch,normal,Return,normal,8.94,127,17.35,1348,false,false
+1243,Dolliv,929,grass,normal,Razor Leaf,grass,Seed Bomb,grass,8.93,141,17.81,1432,false,false
+1244,Shadow Foongus,590,grass,poison,Feint Attack,dark,Grass Knot,grass,8.93,101,16.39,979,true,false
+1245,Yungoos,734,normal,none,Tackle,normal,Hyper Fang,normal,8.93,66,14.70,880,false,false
+1246,Quilladin,651,grass,none,Vine Whip,grass,Energy Ball,grass,8.93,181,18.95,1719,false,false
+1247,Shadow Charmander,4,fire,none,Scratch,normal,Flamethrower,fire,8.93,74,15.15,980,true,false
+1248,Shadow Alolan Rattata,19,dark,normal,Tackle,normal,Hyper Fang,normal,8.92,51,13.82,734,true,false
+1249,Shadow Rattata,19,normal,none,Tackle,normal,Hyper Fang,normal,8.92,51,13.82,734,true,false
+1250,Brionne,729,water,none,Water Gun,water,Water Pulse,water,8.92,168,18.59,1885,false,false
+1251,Pupitar,247,ground,rock,Bite,dark,Dig,ground,8.92,171,18.67,1766,false,false
+1252,Phione,489,water,none,Bubble,water,Bubble Beam,water,8.91,225,19.97,2105,false,false
+1253,Phantump,708,ghost,grass,Tackle,normal,Shadow Ball,ghost,8.90,102,16.38,1123,false,false
+1254,Tirtouga,564,rock,water,Water Gun,water,Surf,water,8.90,158,18.26,1488,false,false
+1255,Wailmer,320,water,none,Water Gun,water,Heavy Slam,steel,8.88,149,17.98,1468,false,false
+1256,Shadow Cyndaquil,155,fire,none,Ember,fire,Flamethrower,fire,8.88,74,15.07,980,true,false
+1257,Alolan Sandshrew,27,ice,steel,Metal Claw,steel,Blizzard,ice,8.87,135,17.51,1293,false,false
+1258,Shadow Fennekin,653,fire,none,Scratch,normal,Flamethrower,fire,8.87,81,15.42,1028,true,false
+1259,Shadow Chimchar,390,fire,none,Scratch,normal,Flamethrower,fire,8.86,74,15.04,957,true,false
+1260,Dewgong,87,ice,water,Frost Breath,ice,Blizzard,ice,8.85,262,20.64,1985,false,false
+1261,Shadow Vulpix,37,fire,none,Quick Attack,normal,Weather Ball Fire,fire,8.85,83,15.49,883,true,false
+1262,Cetoddle,974,ice,none,Ice Shard,ice,Avalanche,ice,8.84,148,17.89,1300,false,false
+1263,Shadow Ledian,166,bug,flying,Bug Bite,bug,Bug Buzz,bug,8.84,160,18.22,1346,true,false
+1264,Croagunk,453,fighting,poison,Poison Jab,poison,Sludge Bomb,poison,8.83,83,15.46,952,false,false
+1265,Shiinotic,756,fairy,grass,Astonish,ghost,Seed Bomb,grass,8.83,191,19.03,1861,false,false
+1266,Bramblin,946,ghost,grass,Astonish,ghost,Power Whip,grass,8.83,65,14.56,877,false,false
+1267,Umbreon,197,dark,none,Snarl,dark,Foul Play,dark,8.82,361,22.30,2137,false,false
+1268,Medicham,308,fighting,psychic,Counter,fighting,Dynamic Punch,fighting,8.81,174,18.56,1431,false,false
+1269,Illumise,314,bug,none,Tackle,normal,Bug Buzz,bug,8.80,197,19.14,1771,false,false
+1270,Volbeat,313,bug,none,Tackle,normal,Bug Buzz,bug,8.80,197,19.14,1771,false,false
+1271,Pumpkaboo - Small Size,710,ghost,grass,Razor Leaf,grass,Grass Knot,grass,8.80,121,16.92,1202,false,false
+1272,Natu,177,flying,psychic,Quick Attack,normal,Drill Peck,flying,8.79,86,15.54,1102,false,false
+1273,Shadow Gothita,574,psychic,none,Pound,normal,Psychic,psychic,8.79,92,15.82,951,true,false
+1274,Pumpkaboo - Average Size,710,ghost,grass,Razor Leaf,grass,Grass Knot,grass,8.78,126,17.09,1222,false,false
+1275,Scraggy,559,dark,fighting,Feint Attack,dark,Foul Play,dark,8.77,136,17.41,1372,false,false
+1276,Shadow Patrat,504,normal,none,Tackle,normal,Hyper Fang,normal,8.77,64,14.40,791,true,false
+1277,Pumpkaboo - Large Size,710,ghost,grass,Razor Leaf,grass,Grass Knot,grass,8.76,132,17.27,1244,false,false
+1278,Probopass,476,rock,steel,Rock Throw,rock,Magnet Bomb,steel,8.74,299,21.15,2080,false,false
+1279,Espurr,677,psychic,none,Confusion,psychic,Psychic,psychic,8.74,135,17.34,1259,false,false
+1280,Shadow Alolan Diglett,50,ground,steel,Metal Claw,steel,Mud Bomb,ground,8.73,40,12.75,681,true,false
+1281,Shadow Glameow,431,normal,none,Scratch,normal,Thunderbolt,electric,8.69,73,14.80,934,true,false
+1282,Maushold,925,normal,none,Mud Shot,ground,Play Rough,fairy,8.68,201,19.04,1985,false,false
+1283,Pumpkaboo - Super Size,710,ghost,grass,Razor Leaf,grass,Grass Knot,grass,8.68,137,17.29,1250,false,false
+1284,Shadow Alolan Vulpix,37,ice,none,Powder Snow,ice,Weather Ball Ice,ice,8.66,81,15.17,883,true,false
+1285,Machop,66,fighting,none,Karate Chop,fighting,Cross Chop,fighting,8.66,109,16.31,1278,false,false
+1286,Shadow Pidgeotto,17,flying,normal,Wing Attack,flying,Aerial Ace,flying,8.65,105,16.16,1194,true,false
+1287,Captain Pikachu,25,electric,none,Thunder Shock,electric,Wild Charge,electric,8.65,84,15.27,938,false,false
+1288,Flying Pikachu,25,electric,none,Thunder Shock,electric,Wild Charge,electric,8.65,84,15.27,938,false,false
+1289,Pikachu,25,electric,none,Thunder Shock,electric,Wild Charge,electric,8.65,84,15.27,938,false,false
+1290,Pikachu - 5th Anniversary,25,electric,none,Thunder Shock,electric,Wild Charge,electric,8.65,84,15.27,938,false,false
+1291,Shaymin Scarf Pikachu,25,electric,none,Thunder Shock,electric,Wild Charge,electric,8.65,84,15.27,938,false,false
+1292,Lumineon,457,water,none,Waterfall,water,Aqua Tail,water,8.64,205,19.08,1814,false,false
+1293,Geodude,74,ground,rock,Rock Throw,rock,Rock Slide,rock,8.64,119,16.65,1293,false,false
+1294,Shadow Numel,322,fire,ground,Ember,fire,Bulldoze,ground,8.60,79,14.99,1057,true,false
+1295,Munchlax,446,normal,none,Tackle,normal,Body Slam,normal,8.59,237,19.69,1892,false,false
+1296,Growlithe,58,fire,none,Bite,dark,Flamethrower,fire,8.59,104,16.01,1243,false,false
+1297,Blitzle,522,electric,none,Spark,electric,Thunderbolt,electric,8.58,56,13.72,882,true,false
+1298,Shadow Mudkip,258,water,none,Water Gun,water,Stomp,normal,8.57,81,15.04,1128,true,false
+1299,Mime Jr.,439,fairy,psychic,Confusion,psychic,Psychic,psychic,8.56,93,15.56,1095,false,false
+1300,Riolu,447,fighting,none,Counter,fighting,Blaze Kick,fire,8.56,75,14.71,993,false,false
+1301,Clauncher,692,water,none,Water Gun,water,Crabhammer,water,8.56,119,16.53,1088,false,false
+1302,Shadow Whismur,293,normal,none,Pound,normal,Stomp,normal,8.54,50,13.27,671,true,false
+1303,Wormadam (Trash Cloak),413,bug,steel,Bug Bite,bug,Bug Buzz,bug,8.53,191,18.57,1593,false,false
+1304,Herdier,507,normal,none,Lick,ghost,Thunderbolt,electric,8.51,148,17.39,1583,false,false
+1305,Palafin (Zero Form),964,water,none,Waterfall,water,Acrobatics,flying,8.51,225,19.30,1927,false,false
+1306,Lombre,271,grass,water,Bubble,water,Grass Knot,grass,8.50,134,16.95,1197,false,false
+1307,Klang,600,steel,none,Metal Sound,steel,Thunderbolt,electric,8.49,189,18.45,1847,false,false
+1308,Sandile,551,dark,ground,Bite,dark,Crunch,dark,8.48,75,14.64,1037,false,false
+1309,Kirlia,281,fairy,psychic,Confusion,psychic,Psychic,psychic,8.48,81,14.90,966,false,false
+1310,Electrike,309,electric,none,Spark,electric,Thunderbolt,electric,8.47,74,14.56,965,false,false
+1311,Croconaw,159,water,none,Water Gun,water,Return,normal,8.47,164,17.77,1722,false,false
+1312,Froakie,656,water,none,Pound,normal,Surf,water,8.46,79,14.80,992,false,false
+1313,Shadow Dratini,147,dragon,none,Dragon Breath,dragon,Aqua Tail,water,8.45,70,14.35,1004,true,false
+1314,Audino,531,normal,none,Pound,normal,Hyper Beam,normal,8.44,256,19.80,1682,false,false
+1315,Mantine,226,flying,water,Wing Attack,flying,Aerial Ace,flying,8.43,251,19.69,2108,false,false
+1316,Gligar,207,flying,ground,Wing Attack,flying,Dig,ground,8.43,207,18.77,1857,false,false
+1317,Loudred,294,normal,none,Bite,dark,Return,normal,8.43,119,16.34,1327,false,false
+1318,Araquanid,752,bug,water,Bug Bite,bug,Bug Buzz,bug,8.42,252,19.68,1827,false,false
+1319,Scorbunny,813,fire,none,Ember,fire,Flamethrower,fire,8.41,83,14.93,1097,false,false
+1320,Nidorina,30,poison,none,Poison Sting,poison,Sludge Bomb,poison,8.41,147,17.21,1309,false,false
+1321,Timburr,532,fighting,none,Low Kick,fighting,Brick Break,fighting,8.39,116,16.19,1315,false,false
+1322,Fletchling,661,flying,normal,Quick Attack,normal,Fly,flying,8.36,79,14.64,800,false,false
+1323,Paras,46,bug,grass,Bug Bite,bug,Seed Bomb,grass,8.36,83,14.85,1018,false,false
+1324,Cufant,878,steel,none,Tackle,normal,Iron Head,steel,8.36,117,16.18,1377,false,false
+1325,Shadow Morelull,755,fairy,grass,Astonish,ghost,Dazzling Gleam,fairy,8.35,87,15.02,1033,true,false
+1326,Varoom,965,poison,steel,Poison Jab,poison,Gunk Shot,poison,8.34,101,15.56,1138,false,false
+1327,Mareep,179,electric,none,Thunder Shock,electric,Thunderbolt,electric,8.33,88,15.00,991,false,false
+1328,Rhyhorn,111,ground,rock,Mud Slap,ground,Bulldoze,ground,8.33,168,17.65,1651,false,false
+1329,Shinx,403,electric,none,Spark,electric,Thunderbolt,electric,8.33,65,13.93,876,false,false
+1330,Shadow Diglett,50,ground,none,Mud Slap,ground,Mud Bomb,ground,8.32,37,12.06,676,true,false
+1331,Shadow Larvitar,246,ground,rock,Bite,dark,Ancient Power,rock,8.30,79,14.57,1040,true,false
+1332,Sizzlipede,850,fire,bug,Bug Bite,bug,Bug Buzz,bug,8.29,92,15.11,1049,false,false
+1333,Koffing,109,poison,none,Acid,poison,Sludge Bomb,poison,8.28,121,16.20,1214,false,false
+1334,Shadow Snorunt,361,ice,none,Powder Snow,ice,Avalanche,ice,8.28,80,14.60,888,true,false
+1335,Galarian Slowpoke,79,psychic,water,Confusion,psychic,Psychic,psychic,8.27,144,16.90,1226,false,false
+1336,Shadow Skiploom,188,flying,grass,Tackle,normal,Grass Knot,grass,8.27,104,15.58,976,true,false
+1337,Slowpoke,79,psychic,water,Confusion,psychic,Psychic,psychic,8.27,144,16.90,1226,false,false
+1338,Bonsly,438,rock,none,Rock Throw,rock,Rock Slide,rock,8.25,129,16.39,1302,false,false
+1339,Torchic,255,fire,none,Scratch,normal,Flamethrower,fire,8.25,84,14.71,1093,false,false
+1340,Shadow Purrloin,509,dark,none,Sucker Punch,dark,Dark Pulse,dark,8.23,57,13.36,772,true,false
+1341,Shadow Piplup,393,water,none,Pound,normal,Drill Peck,flying,8.22,87,14.85,1075,true,false
+1342,Litten,725,fire,none,Scratch,normal,Flamethrower,fire,8.21,77,14.35,1035,false,false
+1343,Fomantis,753,grass,none,Fury Cutter,bug,Grass Knot,grass,8.20,61,13.53,741,false,false
+1344,Wartortle,8,water,none,Water Gun,water,Hydro Pump,water,8.20,163,17.30,1488,false,false
+1345,Shellder,90,water,none,Tackle,normal,Razor Shell,water,8.19,99,15.28,1080,false,false
+1346,Pawmi,921,electric,none,Thunder Shock,electric,Wild Charge,electric,8.19,49,12.79,636,false,false
+1347,Rock Star Pikachu,25,electric,none,Thunder Shock,electric,Meteor Mash,steel,8.17,79,14.42,938,false,false
+1348,Shadow Taillow,276,flying,normal,Quick Attack,normal,Aerial Ace,flying,8.17,49,12.74,765,true,false
+1349,Shadow Litwick,607,fire,ghost,Ember,fire,Flame Burst,fire,8.16,81,14.49,1006,true,false
+1350,Kabuto,140,rock,water,Scratch,normal,Ancient Power,rock,8.16,103,15.36,1370,false,false
+1351,Honedge,679,ghost,steel,Fury Cutter,bug,Iron Head,steel,8.14,124,16.10,1390,false,false
+1352,Helioptile,694,electric,normal,Thunder Shock,electric,Discharge,electric,8.13,75,14.14,933,false,false
+1353,Grubbin,736,bug,none,Bug Bite,bug,X-Scissor,bug,8.12,83,14.51,984,false,false
+1354,Delcatty,301,normal,none,Feint Attack,dark,Wild Charge,electric,8.12,150,16.81,1496,false,false
+1355,Shadow Drowzee,96,psychic,none,Pound,normal,Psychic,psychic,8.11,120,15.92,1040,true,false
+1356,Shadow Skorupi,451,bug,poison,Infestation,bug,Sludge Bomb,poison,8.10,105,15.36,1009,true,false
+1357,Chewtle,833,water,none,Water Gun,water,Surf,water,8.09,85,14.57,993,false,false
+1358,Deoxys (Defense Forme),386,psychic,none,Zen Headbutt,psychic,Thunderbolt,electric,8.09,294,19.86,2274,false,false
+1359,Shuppet,353,ghost,none,Feint Attack,dark,Ominous Wind,ghost,8.08,64,13.54,1018,false,false
+1360,Aron,304,rock,steel,Metal Claw,steel,Iron Head,steel,8.06,133,16.24,1307,false,false
+1361,Shadow Nidoran♀,29,poison,none,Poison Sting,poison,Sludge Bomb,poison,8.06,78,14.21,816,true,false
+1362,Turtwig,387,grass,none,Razor Leaf,grass,Seed Bomb,grass,8.04,112,15.53,1187,false,false
+1363,Skrelp,690,poison,water,Water Gun,water,Sludge Bomb,poison,8.01,105,15.24,1063,false,false
+1364,Shadow Ducklett,580,flying,water,Water Gun,water,Brave Bird,flying,7.99,89,14.59,856,true,false
+1365,Quaxly,912,water,none,Water Gun,water,Liquidation,water,7.99,90,14.65,1075,false,false
+1366,Spoink,325,psychic,none,Zen Headbutt,psychic,Shadow Ball,ghost,7.99,129,16.02,1334,false,false
+1367,Pancham,674,fighting,none,Low Kick,fighting,Body Slam,normal,7.97,123,15.78,1489,false,false
+1368,Shadow Makuhita,296,fighting,none,Tackle,normal,Heavy Slam,steel,7.96,61,13.23,817,true,false
+1369,Shadow Totodile,158,water,none,Water Gun,water,Water Pulse,water,7.96,87,14.46,1131,true,false
+1370,Chespin,650,grass,none,Vine Whip,grass,Seed Bomb,grass,7.95,109,15.30,1096,false,false
+1371,Shadow Venonat,48,bug,poison,Bug Bite,bug,Signal Beam,bug,7.95,90,14.58,1004,true,false
+1372,Shadow Snivy,495,grass,none,Vine Whip,grass,Seed Bomb,grass,7.95,80,14.16,849,true,false
+1373,Diggersby,660,ground,normal,Quick Attack,normal,Scorching Sands,ground,7.92,199,17.74,1509,false,false
+1374,Deerling,585,grass,normal,Tackle,normal,Seed Bomb,grass,7.92,107,15.19,1135,false,false
+1375,Shadow Trubbish,568,poison,none,Pound,normal,Gunk Shot,poison,7.91,95,14.74,1000,true,false
+1376,Ekans,23,poison,none,Poison Sting,poison,Sludge Bomb,poison,7.89,77,13.96,927,false,false
+1377,Shadow Venipede,543,bug,poison,Bug Bite,bug,Sludge Bomb,poison,7.88,61,13.13,706,true,false
+1378,Staryu,120,water,none,Water Gun,water,Return,normal,7.88,81,14.12,1157,false,false
+1379,Swadloon,541,bug,grass,Bug Bite,bug,Bug Buzz,bug,7.87,156,16.60,1370,false,false
+1380,Exeggcute,102,grass,psychic,Confusion,psychic,Psychic,psychic,7.87,130,15.86,1175,false,false
+1381,Shadow Rookidee,821,flying,none,Air Slash,flying,Drill Peck,flying,7.86,49,12.41,666,true,false
+1382,Nidoran♂,32,poison,none,Poison Sting,poison,Sludge Bomb,poison,7.86,72,13.67,860,false,false
+1383,Deino,633,dark,dragon,Dragon Breath,dragon,Dragon Pulse,dragon,7.86,92,14.53,1062,false,false
+1384,Azumarill,184,fairy,water,Bubble,water,Play Rough,fairy,7.85,218,18.03,1588,false,false
+1385,Cubchoo,613,ice,none,Charm,fairy,Ice Punch,ice,7.85,78,13.93,1069,false,false
+1386,Toxapex,748,poison,water,Poison Jab,poison,Gunk Shot,poison,7.83,238,18.38,1685,false,false
+1387,Impidimp,859,dark,fairy,Sucker Punch,dark,Foul Play,dark,7.83,65,13.30,807,false,false
+1388,Roggenrola,524,rock,none,Smack Down,rock,Power Gem,rock,7.82,109,15.12,1205,false,false
+1389,Jumpluff,189,flying,grass,Infestation,bug,Solar Beam,grass,7.81,210,17.79,1636,false,false
+1390,Dwebble,557,bug,rock,Smack Down,rock,X-Scissor,bug,7.80,118,15.37,1224,false,false
+1391,Flittle,955,psychic,none,Confusion,psychic,Psychic,psychic,7.80,48,12.25,702,false,false
+1392,Psyduck,54,water,none,Water Gun,water,Aqua Tail,water,7.79,90,14.37,1106,false,false
+1393,Shadow Phanpy,231,ground,none,Tackle,normal,Bulldoze,ground,7.79,113,15.20,1206,true,false
+1394,Skiddo,672,grass,none,Zen Headbutt,psychic,Seed Bomb,grass,7.78,114,15.22,1250,false,false
+1395,Shadow Barboach,339,ground,water,Water Gun,water,Mud Bomb,ground,7.76,66,13.27,819,true,false
+1396,Shadow Meowth,52,normal,none,Scratch,normal,Body Slam,normal,7.76,56,12.74,748,true,false
+1397,Golett,622,ghost,ground,Mud Slap,ground,Return,normal,7.76,97,14.58,1189,false,false
+1398,Farfetch&#039;d,83,flying,normal,Cut,normal,Leaf Blade,grass,7.75,109,15.02,1236,false,false
+1399,Buneary,427,normal,none,Pound,normal,Swift,normal,7.74,104,14.81,1258,false,false
+1400,Cutiefly,742,bug,fairy,Fairy Wind,fairy,Dazzling Gleam,fairy,7.73,70,13.39,888,false,false
+1401,Vullaby,629,dark,flying,Feint Attack,dark,Brave Bird,flying,7.73,155,16.35,1271,false,false
+1402,Shadow Poochyena,261,dark,none,Snarl,dark,Crunch,dark,7.72,43,11.85,678,true,false
+1403,Pidgeotto,17,flying,normal,Wing Attack,flying,Return,normal,7.72,113,15.08,1194,false,false
+1404,Clobbopus,852,fighting,none,Rock Smash,fighting,Superpower,fighting,7.70,96,14.47,1137,false,false
+1405,Wattrel,940,electric,flying,Thunder Shock,electric,Thunderbolt,electric,7.70,65,13.12,826,false,false
+1406,Petilil,548,grass,none,Hidden Power (Grass),grass,Seed Bomb,grass,7.70,81,13.86,1030,false,false
+1407,Glameow,431,normal,none,Scratch,normal,Return,normal,7.68,78,13.69,934,false,false
+1408,Shadow Zubat,41,flying,poison,Bite,dark,Sludge Bomb,poison,7.68,53,12.44,667,true,false
+1409,Galarian Meowth,52,steel,none,Metal Claw,steel,Gyro Ball,steel,7.68,87,14.08,1035,false,false
+1410,Chinchou,170,electric,water,Bubble,water,Thunderbolt,electric,7.66,117,15.12,1119,false,false
+1411,Pansage,511,grass,none,Vine Whip,grass,Seed Bomb,grass,7.65,88,14.08,956,false,false
+1412,Clamperl,366,water,none,Water Gun,water,Ice Beam,ice,7.64,100,14.54,1270,false,false
+1413,Popplio,728,water,none,Pound,normal,Aqua Tail,water,7.64,95,14.34,1129,false,false
+1414,Bagon,371,dragon,none,Bite,dark,Flamethrower,fire,7.63,82,13.80,1156,false,false
+1415,Lileep,345,grass,rock,Infestation,bug,Grass Knot,grass,7.62,157,16.23,1291,false,false
+1416,Oshawott,501,water,none,Water Gun,water,Aqua Tail,water,7.62,85,13.92,1046,false,false
+1417,Sandshrew,27,ground,none,Sand Attack,ground,Dig,ground,7.61,108,14.78,1261,false,false
+1418,Tadbulb,938,electric,none,Thunder Shock,electric,Discharge,electric,7.61,79,13.67,911,false,false
+1419,Flabébé,669,fairy,none,Vine Whip,grass,Dazzling Gleam,fairy,7.60,101,14.52,1063,false,false
+1420,Snover,459,grass,ice,Ice Shard,ice,Ice Beam,ice,7.60,108,14.74,1159,false,false
+1421,Dratini,147,dragon,none,Dragon Breath,dragon,Return,normal,7.60,76,13.52,1004,false,false
+1422,Joltik,595,bug,electric,Sucker Punch,dark,Discharge,electric,7.60,91,14.12,1023,false,false
+1423,Dusclops,356,ghost,none,Hex,ghost,Poltergeist,ghost,7.59,177,16.69,1591,false,false
+1424,Shadow Bidoof,399,normal,none,Tackle,normal,Hyper Fang,normal,7.59,65,12.99,721,true,false
+1425,Gible,443,dragon,ground,Mud Shot,ground,Dig,ground,7.58,87,13.94,1112,false,false
+1426,Hippopotas,449,ground,none,Sand Attack,ground,Dig,ground,7.58,129,15.39,1358,false,false
+1427,Buizel,418,water,none,Water Gun,water,Water Pulse,water,7.58,69,13.18,1054,false,false
+1428,Carkol,838,fire,rock,Smack Down,rock,Rock Slide,rock,7.57,185,16.84,1512,false,false
+1429,Chikorita,152,grass,none,Vine Whip,grass,Grass Knot,grass,7.56,103,14.52,935,false,false
+1430,Shadow Pidove,519,flying,normal,Air Slash,flying,Aerial Ace,flying,7.56,63,12.85,848,true,false
+1431,Dunsparce,206,normal,none,Bite,dark,Drill Run,ground,7.55,180,16.68,1689,false,false
+1432,Horsea,116,water,none,Water Gun,water,Return,normal,7.55,72,13.29,1056,false,false
+1433,Mudkip,258,water,none,Water Gun,water,Return,normal,7.55,86,13.87,1128,false,false
+1434,Whismur,293,normal,none,Pound,normal,Return,normal,7.54,53,12.27,671,false,false
+1435,Tepig,498,fire,none,Ember,fire,Flamethrower,fire,7.54,93,14.14,1083,false,false
+1436,Shadow Dusclops,356,ghost,none,Hex,ghost,Shadow Punch,ghost,7.54,147,15.83,1591,true,false
+1437,Tinkatuff,958,fairy,steel,Fairy Wind,fairy,Play Rough,fairy,7.53,149,15.88,1307,false,false
+1438,Fuecoco,909,fire,none,Incinerate,fire,Flamethrower,fire,7.53,106,14.56,1127,false,false
+1439,Lickitung,108,normal,none,Lick,ghost,Hyper Beam,normal,7.52,176,16.55,1411,false,false
+1440,Whirlipede,544,bug,poison,Bug Bite,bug,Sludge Bomb,poison,7.51,132,15.38,1144,false,false
+1441,Voltorb,100,electric,none,Spark,electric,Thunderbolt,electric,7.49,88,13.87,1010,false,false
+1442,Eevee,133,normal,none,Quick Attack,normal,Last Resort,normal,7.48,108,14.57,1071,false,false
+1443,Poliwhirl,61,water,none,Bubble,water,Return,normal,7.47,127,15.19,1419,false,false
+1444,Panpour,515,water,none,Water Gun,water,Surf,water,7.46,86,13.74,956,false,false
+1445,Charmander,4,fire,none,Scratch,normal,Flamethrower,fire,7.44,74,13.22,980,false,false
+1446,Chingling,433,psychic,none,Zen Headbutt,psychic,Shadow Ball,ghost,7.43,80,13.47,1005,false,false
+1447,Rockruff,744,rock,none,Rock Throw,rock,Stone Edge,rock,7.43,69,12.95,950,false,false
+1448,Corsola,222,rock,water,Bubble,water,Power Gem,rock,7.42,142,15.52,1378,false,false
+1449,Alolan Rattata,19,dark,normal,Tackle,normal,Hyper Fang,normal,7.42,51,12.02,734,false,false
+1450,Rattata,19,normal,none,Tackle,normal,Hyper Fang,normal,7.42,51,12.02,734,false,false
+1451,Vanillite,582,ice,none,Powder Snow,ice,Ice Beam,ice,7.41,80,13.41,1033,false,false
+1452,Fennekin,653,fire,none,Scratch,normal,Flamethrower,fire,7.40,81,13.46,1028,false,false
+1453,Alolan Meowth,52,dark,none,Bite,dark,Foul Play,dark,7.40,65,12.71,797,false,false
+1454,Shadow Pineco,204,bug,none,Bug Bite,bug,Gyro Ball,steel,7.39,89,13.77,1108,true,false
+1455,Shadow Poliwag,60,water,none,Bubble,water,Bubble Beam,water,7.39,56,12.26,829,true,false
+1456,Ledian,166,bug,flying,Bug Bite,bug,Bug Buzz,bug,7.39,160,15.94,1346,false,false
+1457,Shadow Bastiodon,411,rock,steel,Iron Tail,steel,Stone Edge,rock,7.38,218,17.20,1539,true,false
+1458,Wiglett,960,water,none,Water Gun,water,Surf,water,7.37,28,10.30,574,false,false
+1459,Chimchar,390,fire,none,Scratch,normal,Flamethrower,fire,7.37,73,13.09,957,false,false
+1460,Slugma,218,fire,none,Ember,fire,Flame Burst,fire,7.36,59,12.40,895,false,false
+1461,Cyndaquil,155,fire,none,Ember,fire,Flamethrower,fire,7.36,73,13.07,980,false,false
+1462,Shadow Spheal,363,ice,water,Water Gun,water,Aurora Beam,ice,7.33,83,13.46,962,true,false
+1463,Taillow,276,flying,normal,Quick Attack,normal,Return,normal,7.33,52,11.97,765,false,false
+1464,Foongus,590,grass,poison,Feint Attack,dark,Grass Knot,grass,7.32,100,14.06,979,false,false
+1465,Hatenna,856,psychic,none,Confusion,psychic,Psychic,psychic,7.32,76,13.12,861,false,false
+1466,Jangmo-o,782,dragon,none,Dragon Tail,dragon,Dragon Claw,dragon,7.32,89,13.68,969,false,false
+1467,Gothita,574,psychic,none,Pound,normal,Psychic,psychic,7.31,92,13.78,951,false,false
+1468,Vulpix,37,fire,none,Quick Attack,normal,Weather Ball Fire,fire,7.31,82,13.39,883,false,false
+1469,Shadow Squirtle,7,water,none,Bubble,water,Aqua Tail,water,7.31,82,13.36,946,true,false
+1470,Alolan Diglett,50,ground,steel,Metal Claw,steel,Mud Bomb,ground,7.29,40,11.15,681,false,false
+1471,Goldeen,118,water,none,Mud Shot,ground,Aqua Tail,water,7.27,90,13.65,1152,false,false
+1472,Hisuian Voltorb,100,electric,grass,Tackle,normal,Thunderbolt,electric,7.27,86,13.48,1010,false,false
+1473,Patrat,504,normal,none,Tackle,normal,Hyper Fang,normal,7.26,63,12.49,791,false,false
+1474,Silicobra,843,ground,none,Mud Slap,ground,Earth Power,ground,7.26,109,14.28,1081,false,false
+1475,Munna,517,psychic,none,Zen Headbutt,psychic,Psyshock,psychic,7.25,107,14.20,1145,false,false
+1476,Remoraid,223,water,none,Water Gun,water,Rock Blast,rock,7.25,53,11.93,912,false,false
+1477,Shadow Inkay,686,dark,psychic,Psywave,psychic,Night Slash,dark,7.25,72,12.88,927,true,false
+1478,Cherubi,420,grass,none,Tackle,normal,Seed Bomb,grass,7.22,77,13.04,950,false,false
+1479,Minior (Meteor Form),774,flying,rock,Rollout,rock,Power Gem,rock,7.22,178,16.09,1542,false,false
+1480,Woobat,527,flying,psychic,Confusion,psychic,Psyshock,psychic,7.22,89,13.54,1016,false,false
+1481,Pop Star Pikachu,25,electric,none,Thunder Shock,electric,Thunder Punch,electric,7.17,70,12.66,938,false,false
+1482,Shadow Onix,95,ground,rock,Rock Throw,rock,Breaking Swipe,dragon,7.17,129,14.77,1101,true,false
+1483,Rowlet,722,flying,grass,Razor Leaf,grass,Seed Bomb,grass,7.17,104,14.00,1058,false,false
+1484,Jigglypuff,39,fairy,normal,Pound,normal,Play Rough,fairy,7.16,74,12.84,724,false,false
+1485,Alolan Vulpix,37,ice,none,Powder Snow,ice,Weather Ball Ice,ice,7.16,81,13.11,883,false,false
+1486,Aegislash - Shield ,681,ghost,steel,Psycho Cut,psychic,Shadow Ball,ghost,7.15,258,17.53,1595,false,false
+1487,Pansear,513,fire,none,Fire Spin,fire,Flame Burst,fire,7.09,82,13.06,956,false,false
+1488,Numel,322,fire,ground,Ember,fire,Bulldoze,ground,7.08,79,12.92,1057,false,false
+1489,Smoliv,928,grass,normal,Tackle,normal,Seed Bomb,grass,7.07,69,12.52,854,false,false
+1490,Meltan,808,steel,none,Thunder Shock,electric,Thunderbolt,electric,7.07,81,13.01,1068,false,false
+1491,Totodile,158,water,none,Water Gun,water,Return,normal,7.05,92,13.41,1131,false,false
+1492,Fidough,926,fairy,none,Charm,fairy,Play Rough,fairy,7.05,89,13.29,985,false,false
+1493,Spinarak,167,bug,poison,Bug Bite,bug,Cross Poison,poison,7.05,58,11.94,816,false,false
+1494,Spritzee,682,fairy,none,Charm,fairy,Thunderbolt,electric,7.04,126,14.48,1252,false,false
+1495,Shadow Noibat,714,dragon,flying,Wing Attack,flying,Dragon Pulse,dragon,7.04,48,11.39,667,true,false
+1496,Shadow Ferroseed,597,grass,steel,Metal Claw,steel,Iron Head,steel,7.02,98,13.57,941,true,false
+1497,Shadow Seedot,273,grass,none,Quick Attack,normal,Grass Knot,grass,7.02,50,11.49,598,true,false
+1498,Shadow Cubone,104,ground,none,Mud Slap,ground,Bone Club,ground,6.99,98,13.52,1019,true,false
+1499,Shedinja,292,bug,ghost,Shadow Claw,ghost,Aerial Ace,flying,6.97,7,6.93,393,false,false
+1500,Budew,406,grass,poison,Razor Leaf,grass,Grass Knot,grass,6.93,81,12.79,856,false,false
+1501,Clefairy,35,fairy,none,Pound,normal,Moonblast,fairy,6.93,111,13.85,1155,false,false
+1502,Shadow Seel,86,water,none,Water Gun,water,Aqua Tail,water,6.92,97,13.39,971,true,false
+1503,Diglett,50,ground,none,Mud Slap,ground,Mud Bomb,ground,6.91,37,10.49,676,false,false
+1504,Morelull,755,fairy,grass,Astonish,ghost,Dazzling Gleam,fairy,6.91,87,13.01,1033,false,false
+1505,Shadow Tentacool,72,poison,water,Bubble,water,Return,normal,6.91,88,13.06,1040,true,false
+1506,Skiploom,188,flying,grass,Tackle,normal,Grass Knot,grass,6.88,104,13.56,976,false,false
+1507,Sewaddle,540,bug,grass,Bug Bite,bug,Seed Bomb,grass,6.87,95,13.24,977,false,false
+1508,Lillipup,506,normal,none,Tackle,normal,Thunderbolt,electric,6.86,69,12.21,915,false,false
+1509,Piplup,393,water,none,Pound,normal,Return,normal,6.86,88,12.97,1075,false,false
+1510,Minccino,572,normal,none,Pound,normal,Thunderbolt,electric,6.86,73,12.37,872,false,false
+1511,Larvitar,246,ground,rock,Bite,dark,Ancient Power,rock,6.86,78,12.59,1040,false,false
+1512,Purrloin,509,dark,none,Sucker Punch,dark,Dark Pulse,dark,6.85,57,11.63,772,false,false
+1513,Arrokuda,846,water,none,Waterfall,water,Close Combat,fighting,6.84,56,11.58,903,false,false
+1514,Snorunt,361,ice,none,Powder Snow,ice,Avalanche,ice,6.84,79,12.62,888,false,false
+1515,Pineco,204,bug,none,Bug Bite,bug,Return,normal,6.84,99,13.33,1108,false,false
+1516,Frillish,592,ghost,water,Bubble,water,Ominous Wind,ghost,6.83,114,13.81,1257,false,false
+1517,Naclstack,933,rock,none,Rock Throw,rock,Rock Blast,rock,6.81,141,14.51,1292,false,false
+1518,Shadow Pidgey,16,flying,normal,Tackle,normal,Aerial Ace,flying,6.80,47,11.01,680,true,false
+1519,Shadow Ralts,280,fairy,psychic,Confusion,psychic,Psyshock,psychic,6.80,33,10.10,539,true,false
+1520,Yamask,562,ghost,none,Astonish,ghost,Shadow Ball,ghost,6.79,96,13.19,982,false,false
+1521,Shadow Nosepass,299,rock,none,Rock Throw,rock,Rock Slide,rock,6.79,106,13.49,993,true,false
+1522,Pidove,519,flying,normal,Quick Attack,normal,Return,normal,6.79,68,12.07,848,false,false
+1523,Toedscool,948,grass,ground,Mud Slap,ground,Earth Power,ground,6.77,104,13.41,1040,false,false
+1524,Dustox,269,bug,poison,Confusion,psychic,Sludge Bomb,poison,6.77,141,14.47,1224,false,false
+1525,Skorupi,451,bug,poison,Poison Sting,poison,Sludge Bomb,poison,6.76,105,13.43,1009,false,false
+1526,Drowzee,96,psychic,none,Pound,normal,Psychic,psychic,6.76,121,13.89,1040,false,false
+1527,Litwick,607,fire,ghost,Ember,fire,Flame Burst,fire,6.76,81,12.56,1006,false,false
+1528,Meowth,52,normal,none,Scratch,normal,Return,normal,6.76,59,11.61,748,false,false
+1529,Ducklett,580,flying,water,Water Gun,water,Brave Bird,flying,6.75,90,12.89,856,false,false
+1530,Shadow Hoothoot,163,flying,normal,Peck,flying,Sky Attack,flying,6.74,68,12.02,677,true,false
+1531,Shadow Wooper,194,ground,water,Water Gun,water,Mud Bomb,ground,6.73,51,11.15,641,true,false
+1532,Shadow Swinub,220,ground,ice,Tackle,normal,Rock Slide,rock,6.72,50,11.07,741,true,false
+1533,Trubbish,568,poison,none,Pound,normal,Gunk Shot,poison,6.70,97,13.07,1000,false,false
+1534,Nidoran♀,29,poison,none,Poison Sting,poison,Sludge Bomb,poison,6.68,78,12.34,816,false,false
+1535,Mareanie,747,poison,water,Poison Sting,poison,Gunk Shot,poison,6.66,88,12.68,972,false,false
+1536,Wingull,278,flying,water,Water Gun,water,Ice Beam,ice,6.64,47,10.85,765,false,false
+1537,Snivy,495,grass,none,Vine Whip,grass,Seed Bomb,grass,6.63,80,12.37,849,false,false
+1538,Venonat,48,bug,poison,Bug Bite,bug,Signal Beam,bug,6.63,90,12.73,1004,false,false
+1539,Venipede,543,bug,poison,Bug Bite,bug,Sludge Bomb,poison,6.60,61,11.51,706,false,false
+1540,Pachirisu,417,electric,none,Spark,electric,Thunderbolt,electric,6.58,145,14.25,1213,false,false
+1541,Shadow Shieldon,410,rock,steel,Iron Tail,steel,Heavy Slam,steel,6.57,93,12.75,890,true,false
+1542,Makuhita,296,fighting,none,Tackle,normal,Heavy Slam,steel,6.55,60,11.40,817,false,false
+1543,Shadow Hoppip,187,flying,grass,Tackle,normal,Grass Knot,grass,6.53,52,10.97,600,true,false
+1544,Milcery,868,fairy,none,Charm,fairy,Dazzling Gleam,fairy,6.52,73,11.90,829,false,false
+1545,Dottler,825,bug,psychic,Confusion,psychic,Psychic,psychic,6.50,118,13.41,1030,false,false
+1546,Bergmite,712,ice,none,Bite,dark,Icy Wind,ice,6.49,98,12.78,1215,false,false
+1547,Skwovet,819,normal,none,Tackle,normal,Body Slam,normal,6.48,85,12.32,944,false,false
+1548,Goomy,704,dragon,none,Water Gun,water,Dragon Pulse,dragon,6.46,81,12.17,976,false,false
+1549,Rookidee,821,flying,none,Air Slash,flying,Drill Peck,flying,6.45,48,10.66,666,false,false
+1550,Phanpy,231,ground,none,Tackle,normal,Bulldoze,ground,6.45,112,13.17,1206,false,false
+1551,Barboach,339,ground,water,Water Gun,water,Mud Bomb,ground,6.42,66,11.49,819,false,false
+1552,Carbink,703,fairy,rock,Rock Throw,rock,Rock Slide,rock,6.42,203,15.23,1467,false,false
+1553,Nacli,932,rock,none,Rock Throw,rock,Rock Blast,rock,6.40,88,12.33,966,false,false
+1554,Poochyena,261,dark,none,Snarl,dark,Return,normal,6.40,43,10.28,678,false,false
+1555,Zubat,41,flying,poison,Bite,dark,Sludge Bomb,poison,6.37,53,10.80,667,false,false
+1556,Rellor,953,bug,none,Bug Bite,bug,Bug Buzz,bug,6.30,73,11.64,815,false,false
+1557,Galarian Corsola,222,ghost,none,Tackle,normal,Night Shade,ghost,6.30,146,13.83,1497,false,false
+1558,Bidoof,399,normal,none,Tackle,normal,Hyper Fang,normal,6.29,65,11.27,721,false,false
+1559,Charcadet,935,fire,none,Incinerate,fire,Flamethrower,fire,6.29,52,10.68,732,false,false
+1560,Steenee,762,grass,none,Razor Leaf,grass,Grass Knot,grass,6.28,74,11.63,757,false,false
+1561,Nymble,919,bug,none,Bug Bite,bug,X-Scissor,bug,6.24,42,10.07,592,false,false
+1562,Igglybuff,174,fairy,normal,Pound,normal,Wild Charge,electric,6.24,45,10.23,535,false,false
+1563,Surskit,283,bug,water,Bug Bite,bug,Signal Beam,bug,6.23,60,10.95,791,false,false
+1564,Mantyke,458,flying,water,Bubble,water,Aerial Ace,flying,6.22,120,13.04,1248,false,false
+1565,Bastiodon,411,rock,steel,Iron Tail,steel,Stone Edge,rock,6.21,221,15.15,1539,false,false
+1566,Shadow Shelmet,616,bug,none,Infestation,bug,Bug Buzz,bug,6.19,84,11.90,834,true,false
+1567,Poliwag,60,water,none,Bubble,water,Return,normal,6.18,56,10.74,829,false,false
+1568,Skitty,300,normal,none,Tackle,normal,Wild Charge,electric,6.18,61,10.96,739,false,false
+1569,Tinkatink,957,fairy,steel,Fairy Wind,fairy,Play Rough,fairy,6.18,82,11.77,860,false,false
+1570,Pidgey,16,flying,normal,Tackle,normal,Return,normal,6.17,51,10.46,680,false,false
+1571,Spheal,363,ice,water,Water Gun,water,Return,normal,6.17,84,11.85,962,false,false
+1572,Spinda,327,normal,none,Sucker Punch,dark,Dig,ground,6.16,95,12.22,1220,false,false
+1573,Inkay,686,dark,psychic,Psywave,psychic,Return,normal,6.15,74,11.44,927,false,false
+1574,Swirlix,684,fairy,none,Tackle,normal,Draining Kiss,fairy,6.13,99,12.29,1179,false,false
+1575,Squirtle,7,water,none,Bubble,water,Aqua Tail,water,6.07,81,11.61,946,false,false
+1576,Gulpin,316,poison,none,Pound,normal,Gunk Shot,poison,6.03,89,11.83,866,false,false
+1577,Onix,95,ground,rock,Rock Throw,rock,Breaking Swipe,dragon,6.01,130,12.96,1101,false,false
+1578,Sentret,161,normal,none,Scratch,normal,Grass Knot,grass,5.99,46,9.98,618,false,false
+1579,Tandemaus,924,normal,none,Mud Shot,ground,Play Rough,fairy,5.99,66,10.93,891,false,false
+1580,Finneon,456,water,none,Pound,normal,Ice Beam,ice,5.96,81,11.46,971,false,false
+1581,Shroomish,285,grass,none,Tackle,normal,Grass Knot,grass,5.95,88,11.65,810,false,false
+1582,Pichu,172,electric,none,Thunder Shock,electric,Thunderbolt,electric,5.94,28,8.76,473,false,false
+1583,Ferroseed,597,grass,steel,Metal Claw,steel,Iron Head,steel,5.93,99,12.00,941,false,false
+1584,Klink,599,steel,none,Metal Sound,steel,Zap Cannon,electric,5.89,75,11.13,956,false,false
+1585,Nincada,290,bug,ground,Bug Bite,bug,Bug Buzz,bug,5.87,68,10.85,768,false,false
+1586,Shadow Ledyba,165,bug,flying,Bug Bite,bug,Aerial Ace,flying,5.86,61,10.52,728,true,false
+1587,Noibat,714,dragon,flying,Wing Attack,flying,Dragon Pulse,dragon,5.83,48,9.88,667,false,false
+1588,Cubone,104,ground,none,Mud Slap,ground,Bone Club,ground,5.82,98,11.78,1019,false,false
+1589,Seedot,273,grass,none,Quick Attack,normal,Grass Knot,grass,5.80,50,9.94,598,false,false
+1590,Binacle,688,rock,water,Scratch,normal,Ancient Power,rock,5.79,75,10.99,946,false,false
+1591,Unown,201,psychic,none,Hidden Power (Psychic),psychic,Struggle,normal,5.79,63,10.53,1185,false,false
+1592,Seel,86,water,none,Water Gun,water,Aqua Tail,water,5.78,97,11.71,971,false,false
+1593,Toxel,848,electric,poison,Acid,poison,Power-Up Punch,fighting,5.77,43,9.55,726,false,false
+1594,Shellos - East Sea,422,water,none,Mud Slap,ground,Mud Bomb,ground,5.77,95,11.62,1136,false,false
+1595,Shellos - West Sea,422,water,none,Mud Slap,ground,Mud Bomb,ground,5.77,95,11.62,1136,false,false
+1596,Tympole,535,water,none,Bubble,water,Mud Bomb,ground,5.76,57,10.20,839,false,false
+1597,Shadow Dewpider,751,bug,water,Bug Bite,bug,Bubble Beam,water,5.76,58,10.24,714,true,false
+1598,Lechonk,915,normal,none,Tackle,normal,Body Slam,normal,5.75,64,10.49,757,false,false
+1599,Nickit,827,dark,none,Snarl,dark,Play Rough,fairy,5.74,52,9.97,714,false,false
+1600,Tentacool,72,poison,water,Bubble,water,Bubble Beam,water,5.74,88,11.36,1040,false,false
+1601,Shadow Swablu,333,flying,normal,Peck,flying,Aerial Ace,flying,5.73,70,10.69,824,true,false
+1602,Shadow Slakoth,287,normal,none,Yawn,normal,Body Slam,normal,5.70,60,10.26,1002,true,false
+1603,Nosepass,299,rock,none,Rock Throw,rock,Rock Slide,rock,5.70,106,11.85,993,false,false
+1604,Cottonee,546,fairy,grass,Razor Leaf,grass,Grass Knot,grass,5.69,67,10.54,700,false,false
+1605,Cleffa,173,fairy,none,Pound,normal,Grass Knot,grass,5.67,56,10.07,671,false,false
+1606,Gossifleur,829,grass,none,Razor Leaf,grass,Grass Knot,grass,5.65,63,10.33,672,false,false
+1607,Shadow Beldum,374,psychic,steel,Take Down,normal,Iron Head,steel,5.65,65,10.40,976,true,false
+1608,Wooloo,831,normal,none,Tackle,normal,Wild Charge,electric,5.61,60,10.16,706,false,false
+1609,Finizen,963,water,none,Waterfall,water,Water Pulse,water,5.61,69,10.52,874,false,false
+1610,Ralts,280,fairy,psychic,Confusion,psychic,Psyshock,psychic,5.61,33,8.72,539,false,false
+1611,Swinub,220,ground,ice,Tackle,normal,Rock Slide,rock,5.59,50,9.65,741,false,false
+1612,Hoothoot,163,flying,normal,Peck,flying,Sky Attack,flying,5.56,68,10.38,677,false,false
+1613,Wooper,194,ground,water,Water Gun,water,Mud Bomb,ground,5.56,50,9.64,641,false,false
+1614,Tarountula,917,bug,none,Bug Bite,bug,X-Scissor,bug,5.55,45,9.34,571,false,false
+1615,Shieldon,410,rock,steel,Iron Tail,steel,Heavy Slam,steel,5.51,94,11.20,890,false,false
+1616,Hoppip,187,flying,grass,Tackle,normal,Grass Knot,grass,5.46,52,9.60,600,false,false
+1617,Chansey,113,normal,none,Pound,normal,Hyper Beam,normal,5.41,269,14.36,1255,false,false
+1618,Meditite,307,fighting,psychic,Confusion,psychic,Psyshock,psychic,5.37,53,9.52,693,false,false
+1619,Shadow Galarian Zigzagoon,263,dark,normal,Tackle,normal,Body Slam,normal,5.32,38,8.72,508,true,false
+1620,Shadow Bunnelby,659,normal,none,Quick Attack,normal,Earthquake,ground,5.30,35,8.49,553,true,false
+1621,Rolycoly,837,rock,none,Smack Down,rock,Rock Slide,rock,5.28,45,9.04,612,false,false
+1622,Snom,872,bug,ice,Powder Snow,ice,Bug Buzz,bug,5.27,32,8.26,528,false,false
+1623,Yamper,835,electric,none,Spark,electric,Thunder,electric,5.27,65,9.86,788,false,false
+1624,Shelmet,616,bug,none,Infestation,bug,Bug Buzz,bug,5.16,84,10.37,834,false,false
+1625,Bunnelby,659,normal,none,Quick Attack,normal,Return,normal,5.14,41,8.62,553,false,false
+1626,Ledyba,165,bug,flying,Bug Bite,bug,Return,normal,5.12,64,9.62,728,false,false
+1627,Dewpider,751,bug,water,Bug Bite,bug,Return,normal,5.12,61,9.52,714,false,false
+1628,Shadow Duskull,355,ghost,none,Hex,ghost,Ominous Wind,ghost,5.11,52,9.14,706,true,false
+1629,Galarian Yamask,562,ghost,ground,Astonish,ghost,Night Shade,ghost,5.07,72,9.85,982,false,false
+1630,Pyukumuku,771,water,none,Counter,fighting,Mirror Coat,psychic,5.07,135,11.52,1372,false,false
+1631,Baltoy,343,ground,psychic,Confusion,psychic,Dig,ground,5.07,66,9.62,787,false,false
+1632,Swablu,333,flying,normal,Peck,flying,Return,normal,5.04,74,9.85,824,false,false
+1633,Luvdisc,370,water,none,Water Gun,water,Water Pulse,water,4.96,69,9.58,848,false,false
+1634,Weedle,13,bug,poison,Bug Bite,bug,Return,normal,4.96,30,7.79,456,false,false
+1635,Sunkern,191,grass,none,Cut,normal,Grass Knot,grass,4.92,28,7.59,395,false,false
+1636,Shadow Wobbuffet,202,psychic,none,Counter,fighting,Mirror Coat,psychic,4.89,136,11.24,1026,true,false
+1637,Lotad,270,grass,water,Water Gun,water,Energy Ball,grass,4.88,42,8.37,598,false,false
+1638,Combee,415,bug,flying,Bug Bite,bug,Bug Buzz,bug,4.77,38,8.01,494,false,false
+1639,Togepi,175,fairy,none,Zen Headbutt,psychic,Dazzling Gleam,fairy,4.74,54,8.73,657,false,false
+1640,Galarian Zigzagoon,263,dark,normal,Tackle,normal,Return,normal,4.73,41,8.12,508,false,false
+1641,Tynamo,602,electric,none,Tackle,normal,Struggle,normal,4.73,39,7.99,811,false,false
+1642,Beldum,374,psychic,steel,Take Down,normal,Iron Head,steel,4.70,65,9.05,976,false,false
+1643,Zigzagoon,263,normal,none,Tackle,normal,Grass Knot,grass,4.67,40,8.00,508,false,false
+1644,Wimpod,767,bug,water,Struggle Bug,bug,Bug Buzz,bug,4.65,31,7.47,502,false,false
+1645,Tyrogue,236,fighting,none,Tackle,normal,Brick Break,fighting,4.59,32,7.44,492,false,false
+1646,Slakoth,287,normal,none,Yawn,normal,Body Slam,normal,4.55,58,8.59,1002,false,false
+1647,Caterpie,10,bug,none,Bug Bite,bug,Return,normal,4.53,32,7.36,437,false,false
+1648,Wishiwashi (Solo Form),746,water,none,Water Gun,water,Surf,water,4.46,26,6.91,346,false,false
+1649,Duskull,355,ghost,none,Hex,ghost,Ominous Wind,ghost,4.28,53,8.02,706,false,false
+1650,Wobbuffet,202,psychic,none,Counter,fighting,Return,normal,4.19,140,10.07,1026,false,false
+1651,Shadow Weedle,13,bug,poison,Bug Bite,bug,Struggle,normal,4.12,21,6.18,456,true,false
+1652,Bounsweet,761,grass,none,Razor Leaf,grass,Energy Ball,grass,4.04,33,6.79,470,false,false
+1653,Kakuna,14,bug,poison,Bug Bite,bug,Return,normal,3.99,36,6.90,432,false,false
+1654,Wurmple,265,bug,none,Bug Bite,bug,Struggle,normal,3.95,29,6.50,578,false,false
+1655,Metapod,11,bug,none,Bug Bite,bug,Return,normal,3.94,39,7.00,450,false,false
+1656,Shadow Caterpie,10,bug,none,Bug Bite,bug,Struggle,normal,3.74,22,5.80,437,true,false
+1657,Bronzor,436,psychic,steel,Tackle,normal,Heavy Slam,steel,3.74,72,7.83,603,false,false
+1658,Scatterbug,664,bug,none,Bug Bite,bug,Struggle,normal,3.49,25,5.70,492,false,false
+1659,Cascoon,268,bug,none,Bug Bite,bug,Struggle,normal,3.38,33,5.96,553,false,false
+1660,Silcoon,266,bug,none,Bug Bite,bug,Struggle,normal,3.38,33,5.96,553,false,false
+1661,Shadow Kakuna,14,bug,poison,Bug Bite,bug,Struggle,normal,3.31,25,5.48,432,true,false
+1662,Shadow Metapod,11,bug,none,Bug Bite,bug,Struggle,normal,3.27,27,5.56,450,true,false
+1663,Marill,183,fairy,water,Tackle,normal,Aqua Tail,water,3.24,45,6.27,461,false,false
+1664,Wynaut,360,psychic,none,Counter,fighting,Mirror Coat,psychic,3.13,51,6.28,534,false,false
+1665,Azurill,298,fairy,normal,Bubble,water,Body Slam,normal,3.04,28,5.28,364,false,false
+1666,Applin,840,dragon,grass,Astonish,ghost,Struggle,normal,3.02,37,5.66,714,false,false
+1667,Burmy - Plant Cloak,412,bug,none,Tackle,normal,Struggle,normal,2.94,27,5.12,488,false,false
+1668,Burmy - Sandy Cloak,412,bug,none,Tackle,normal,Struggle,normal,2.94,27,5.12,488,false,false
+1669,Burmy - Trash Cloak,412,bug,none,Tackle,normal,Struggle,normal,2.94,27,5.12,488,false,false
+1670,Spewpa,665,bug,none,Bug Bite,bug,Struggle,normal,2.92,30,5.24,479,false,false
+1671,Happiny,440,normal,none,Pound,normal,Psychic,psychic,2.89,44,5.72,371,false,false
+1672,Smeargle,235,normal,none,Tackle,normal,Struggle,normal,2.88,32,5.24,431,false,false
+1673,Feebas,349,water,none,Tackle,normal,Return,normal,2.83,20,4.59,274,false,false
+1674,Kricketot,401,bug,none,Bug Bite,bug,Struggle,normal,2.81,22,4.73,401,false,false
+1675,Shadow Feebas,349,water,none,Tackle,normal,Mirror Coat,psychic,2.72,16,4.21,274,true,false
+1676,Shadow Shuckle,213,bug,rock,Rock Throw,rock,Stone Edge,rock,2.43,58,5.36,405,true,false
+1677,Shuckle,213,bug,rock,Rock Throw,rock,Return,normal,2.11,60,4.88,405,false,false
+1678,Cosmog,789,psychic,none,Splash,water,Struggle,normal,1.97,14,3.20,432,false,false
+1679,Cosmoem,790,psychic,none,Splash,water,Struggle,normal,1.64,41,3.67,817,false,false
+1680,Ditto,132,normal,none,Transform,normal,Struggle,normal,1.54,17,2.80,832,false,false
+1681,Shadow Magikarp,129,water,none,Splash,water,Struggle,normal,1.43,8,2.21,274,true,false
+1682,Magikarp,129,water,none,Splash,water,Return,normal,1.39,10,2.26,274,false,false
