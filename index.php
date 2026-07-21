@@ -129,6 +129,7 @@ function resolve_evolution_family(string $speciesKey, array $baseStats): array
         return [
             'names' => [$speciesKey],
             'canEvolveFurther' => [$speciesKey => false],
+            'stage' => [$speciesKey => 0],
         ];
     }
 
@@ -150,25 +151,31 @@ function resolve_evolution_family(string $speciesKey, array $baseStats): array
 
     $orderedNames = [];
     $canEvolveFurther = [];
-    $queue = [$root];
+    $stage = [];
+    // Queue holds [speciesKey, depth] pairs so branching families (Eevee)
+    // report which "evolution stage" each member belongs to - the front
+    // end groups same-stage siblings together instead of drawing a
+    // misleading linear chain through them.
+    $queue = [[$root, 0]];
 
     while ($queue !== []) {
-        $current = array_shift($queue);
+        [$current, $depth] = array_shift($queue);
 
         if (!isset($members[$current]) || in_array($current, $orderedNames, true)) {
             continue;
         }
 
         $orderedNames[] = $current;
+        $stage[$current] = $depth;
         $evolutions = $members[$current]['evolutions'] ?? [];
         $canEvolveFurther[$current] = $evolutions !== [];
 
         foreach ($evolutions as $next) {
-            $queue[] = $next;
+            $queue[] = [$next, $depth + 1];
         }
     }
 
-    return ['names' => $orderedNames, 'canEvolveFurther' => $canEvolveFurther];
+    return ['names' => $orderedNames, 'canEvolveFurther' => $canEvolveFurther, 'stage' => $stage];
 }
 
 // ---------------------------------------------------------------------------
@@ -745,6 +752,7 @@ function handle_search_request_body(): void
             'attacker' => build_attacker_summary($memberSlug, $stats['types'], $attackerRankings),
             // Little Cup traditionally only permits Pokemon that can still evolve further.
             'littleCupEligible' => $family['canEvolveFurther'][$memberSlug] ?? false,
+            'evolutionStage' => $family['stage'][$memberSlug] ?? 0,
             'leagues' => compute_all_leagues(
                 $memberSlug,
                 (int) $stats['attack'],
@@ -925,6 +933,59 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
     gap: 1.25rem;
   }
 
+  .family-strip {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .family-strip-stage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .family-strip-arrow {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    padding: 0 0.1rem;
+  }
+
+  .family-strip-item {
+    display: block;
+    text-decoration: none;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    min-width: 7.5rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .family-strip-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .family-strip-name {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .family-strip-badges { margin-bottom: 0.3rem; }
+
+  .family-strip-rank {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
   .pokemon-card {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -960,12 +1021,33 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
     padding: 0.15rem 0.6rem;
     border-radius: 999px;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: capitalize;
     background: var(--blue);
     color: #fff;
     margin-left: 0.3rem;
   }
+
+  /* Official-style Pokemon type colors. Text color is chosen per swatch
+     for contrast, never a blanket white-on-everything. */
+  .type-normal   { background: #A8A878; color: #35351f; }
+  .type-fire     { background: #F08030; color: #ffffff; }
+  .type-water    { background: #6890F0; color: #ffffff; }
+  .type-electric { background: #F8D030; color: #4a3c00; }
+  .type-grass    { background: #78C850; color: #14330a; }
+  .type-ice      { background: #98D8D8; color: #0d4343; }
+  .type-fighting { background: #C03028; color: #ffffff; }
+  .type-poison   { background: #A040A0; color: #ffffff; }
+  .type-ground   { background: #E0C068; color: #453210; }
+  .type-flying   { background: #A890F0; color: #241454; }
+  .type-psychic  { background: #F85888; color: #ffffff; }
+  .type-bug      { background: #A8B820; color: #232d00; }
+  .type-rock     { background: #B8A038; color: #332a0a; }
+  .type-ghost    { background: #705898; color: #ffffff; }
+  .type-dragon   { background: #7038F8; color: #ffffff; }
+  .type-dark     { background: #705848; color: #ffffff; }
+  .type-steel    { background: #B8B8D0; color: #23233a; }
+  .type-fairy    { background: #EE99AC; color: #52142a; }
 
   .raid-line {
     font-size: 0.85rem;
@@ -1078,6 +1160,79 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
   .unranked {
     color: var(--text-dim);
     font-style: italic;
+  }
+
+  /* Subtle zebra striping, layered under each league row's own color theme
+     below - a small brightness nudge, never a hard color swap. */
+  table.league-table tbody tr:nth-child(even) { filter: brightness(1.09); }
+
+  /* Two-color league identities: a background wash from the first color,
+     a solid left-edge accent bar from the second, and matching bright
+     label text so each league reads as a distinct "brand" at a glance.
+     Colors were chosen/paired so label text always sits on a dark base -
+     never light text on a light wash. */
+  table.league-table tr.league-row-littleCup {
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.20), rgba(34, 197, 94, 0.04) 80%);
+  }
+  table.league-table tr.league-row-littleCup td:first-child { border-left: 4px solid #3b82f6; }
+  table.league-table tr.league-row-littleCup .league-name { color: #86efac; }
+
+  table.league-table tr.league-row-greatLeague {
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.22), rgba(37, 99, 235, 0.04) 80%);
+  }
+  table.league-table tr.league-row-greatLeague td:first-child { border-left: 4px solid #ef4444; }
+  table.league-table tr.league-row-greatLeague .league-name { color: #93c5fd; }
+
+  table.league-table tr.league-row-summerLeague {
+    background: linear-gradient(90deg, rgba(22, 163, 74, 0.20), rgba(22, 163, 74, 0.04) 80%);
+  }
+  table.league-table tr.league-row-summerLeague td:first-child { border-left: 4px solid #facc15; }
+  table.league-table tr.league-row-summerLeague .league-name { color: #fde047; }
+
+  table.league-table tr.league-row-ultraLeague {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.08) 80%);
+  }
+  table.league-table tr.league-row-ultraLeague td:first-child { border-left: 4px solid #facc15; }
+  table.league-table tr.league-row-ultraLeague .league-name { color: #fde047; }
+
+  table.league-table tr.league-row-masterLeague {
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.24), rgba(124, 58, 237, 0.05) 80%);
+  }
+  table.league-table tr.league-row-masterLeague td:first-child { border-left: 4px solid #f472b6; }
+  table.league-table tr.league-row-masterLeague .league-name { color: #f9a8d4; }
+
+  .league-name {
+    font-weight: 700;
+  }
+
+  /* Rank highlight/star system: any "#N of M" figure in the app uses this -
+     league rank, raid-attacker overall rank, type-attacker rank, and
+     community tier rank all share the same visual language. */
+  .rank-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rank-value.rank-highlight {
+    background: var(--accent);
+    color: #1a1a1a;
+    padding: 0.1rem 0.45rem;
+    border-radius: 6px;
+  }
+
+  .rank-total {
+    font-weight: 400;
+    color: var(--text-dim);
+    font-size: 0.85em;
+  }
+
+  .rank-value.rank-highlight .rank-total {
+    color: #3a2f00;
+  }
+
+  .rank-stars {
+    letter-spacing: -0.1em;
+    font-size: 0.85em;
   }
 
   footer {

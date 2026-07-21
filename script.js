@@ -47,12 +47,38 @@
     return entry.ivAtk + ' / ' + entry.ivDef + ' / ' + entry.ivSta;
   }
 
+  /**
+   * Shared rank-highlight/star system used by every "#N of M" figure in the
+   * app (PvP league rank, raid-attacker overall rank, type-attacker rank,
+   * community tier rank): top 50 gets a highlighted pill, and additionally
+   * top 25 / top 10 / top 5 add 1 / 2 / 3 stars on top of that highlight.
+   */
+  function rankBadge(rank, total) {
+    if (!rank) {
+      return '<span class="unranked">Unranked</span>';
+    }
+
+    var highlightClass = rank <= 50 ? ' rank-highlight' : '';
+    var stars = '';
+    if (rank <= 5) {
+      stars = '⭐⭐⭐';
+    } else if (rank <= 10) {
+      stars = '⭐⭐';
+    } else if (rank <= 25) {
+      stars = '⭐';
+    }
+    var starsHtml = stars ? ' <span class="rank-stars">' + stars + '</span>' : '';
+    var totalHtml = total ? ' <span class="rank-total">of ' + total + '</span>' : '';
+
+    return '<span class="rank-value' + highlightClass + '">#' + rank + totalHtml + '</span>' + starsHtml;
+  }
+
   function formatRank(ranking) {
     if (!ranking) {
       return '<span class="unranked">Unranked<br><small>not in dataset</small></span>';
     }
     return (
-      '#' + ranking.rank + ' <small>of ' + ranking.totalRanked + '</small>' +
+      rankBadge(ranking.rank, ranking.totalRanked) +
       '<br><small>Score ' + ranking.score + '</small>'
     );
   }
@@ -69,8 +95,9 @@
 
   function renderLeagueRow(leagueId, leagueDefinitions, leagueResult) {
     var def = leagueDefinitions[leagueId];
-    var label = escapeHtml(def.label);
+    var label = '<span class="league-name">' + escapeHtml(def.label) + '</span>';
     var capLabel = def.cpCap === null ? 'No cap' : def.cpCap + ' CP';
+    var rowClass = 'league-row-' + leagueId;
 
     if (!leagueResult || leagueResult.eligible === false) {
       var reason = leagueResult && leagueResult.reason
@@ -78,7 +105,7 @@
         : 'No valid IV combination fits this cap.';
 
       return (
-        '<tr>' +
+        '<tr class="' + rowClass + '">' +
           '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
           '<td class="not-eligible" colspan="4">' + reason + '</td>' +
         '</tr>'
@@ -86,7 +113,7 @@
     }
 
     return (
-      '<tr>' +
+      '<tr class="' + rowClass + '">' +
         '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
         '<td class="iv-set">' + formatIvSet(leagueResult) + '<br><small>' + leagueResult.cp + ' CP &middot; Lv ' + leagueResult.level + '</small></td>' +
         '<td>' + formatRank(leagueResult.ranking) + '</td>' +
@@ -102,10 +129,8 @@
       return '<li>' + escapeHtml(label) + ': <span class="unranked">not ranked</span></li>';
     }
 
-    var top10 = info.isTop10 ? ' <span class="badge attacker">Top 10</span>' : '';
-
     return (
-      '<li>' + escapeHtml(label) + ' attacker: <strong>#' + info.rank + '</strong> of ' + info.total + top10 + '</li>'
+      '<li>' + escapeHtml(label) + ' attacker: ' + rankBadge(info.rank, info.total) + '</li>'
     );
   }
 
@@ -119,7 +144,7 @@
       .join('');
 
     var tierLine = attacker.tier
-      ? '<span>Community Tier: <strong>' + escapeHtml(attacker.tier.label) + '</strong> (#' + attacker.tier.rank + ')</span>'
+      ? '<span>Community Tier: <strong>' + escapeHtml(attacker.tier.label) + '</strong> ' + rankBadge(attacker.tier.rank, null) + '</span>'
       : '<span class="unranked">Not in the community tier list</span>';
 
     var formTags = '';
@@ -132,7 +157,7 @@
           '<div class="attacker-stat"><span>DPS</span><strong>' + attacker.dps + '</strong></div>' +
           '<div class="attacker-stat"><span>TDO</span><strong>' + attacker.tdo + '</strong></div>' +
           '<div class="attacker-stat"><span>ER</span><strong>' + attacker.er + '</strong></div>' +
-          '<div class="attacker-stat"><span>Overall Rank</span><strong>#' + attacker.overallRank + ' <small>of ' + attacker.totalOverall + '</small></strong></div>' +
+          '<div class="attacker-stat"><span>Overall Rank</span><strong>' + rankBadge(attacker.overallRank, attacker.totalOverall) + '</strong></div>' +
         '</div>' +
         '<p class="raid-line">Best raid moveset: <strong>' + escapeHtml(attacker.fastMove) + ' + ' + escapeHtml(attacker.chargedMove) + '</strong> ' + formTags + '</p>' +
         '<ul class="type-attacker-list">' + typeLines + '</ul>' +
@@ -143,7 +168,7 @@
 
   function renderPokemonCard(member, leagueDefinitions) {
     var typeBadges = member.types
-      .map(function (t) { return '<span class="type-badge">' + escapeHtml(t) + '</span>'; })
+      .map(function (t) { return '<span class="type-badge type-' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>'; })
       .join('');
 
     // Every badge here is derived straight from a sourced dataset (the
@@ -166,7 +191,7 @@
       .join('');
 
     return (
-      '<article class="pokemon-card">' +
+      '<article class="pokemon-card" id="member-' + escapeHtml(member.slug) + '">' +
         '<div class="pokemon-card-head">' +
           '<h2><span class="dex">#' + escapeHtml(member.dex) + '</span>' + escapeHtml(member.displayName) + typeBadges + '</h2>' +
         '</div>' +
@@ -184,14 +209,76 @@
     );
   }
 
+  /**
+   * The best (lowest-numbered) PvP league rank a member reaches across all
+   * five leagues, used for the family strip's compact "best #N" figure.
+   */
+  function bestLeagueRank(member) {
+    var best = null;
+    LEAGUE_ORDER.forEach(function (leagueId) {
+      var ranking = member.leagues[leagueId] && member.leagues[leagueId].ranking;
+      if (ranking && (best === null || ranking.rank < best.rank)) {
+        best = ranking;
+      }
+    });
+    return best;
+  }
+
+  function renderFamilyStripItem(member) {
+    var best = bestLeagueRank(member);
+    var tier = member.attacker && member.attacker.tier ? member.attacker.tier.label : null;
+    var tierBadge = tier ? '<span class="badge tier">Tier ' + escapeHtml(tier) + '</span>' : '';
+    var rankLine = best
+      ? 'best ' + rankBadge(best.rank, null)
+      : '<span class="unranked">no PvP rank</span>';
+
+    return (
+      '<a class="family-strip-item" href="#member-' + escapeHtml(member.slug) + '">' +
+        '<div class="family-strip-name">' + escapeHtml(member.displayName) + '</div>' +
+        '<div class="family-strip-badges">' + tierBadge + '</div>' +
+        '<div class="family-strip-rank">' + rankLine + '</div>' +
+      '</a>'
+    );
+  }
+
+  /**
+   * Groups family members by evolutionStage (siblings from a branching
+   * family like Eevee share a stage) and renders each stage as a cluster,
+   * with a single arrow between stages rather than one between every pair
+   * of items - drawing an arrow between siblings would wrongly imply a
+   * linear chain through them.
+   */
+  function renderFamilyStrip(family) {
+    if (family.length <= 1) {
+      return '';
+    }
+
+    var stages = [];
+    family.forEach(function (member) {
+      var stage = member.evolutionStage || 0;
+      stages[stage] = stages[stage] || [];
+      stages[stage].push(member);
+    });
+
+    var stageHtml = stages
+      .filter(function (members) { return members; })
+      .map(function (members) {
+        return '<div class="family-strip-stage">' + members.map(renderFamilyStripItem).join('') + '</div>';
+      })
+      .join('<span class="family-strip-arrow">&rarr;</span>');
+
+    return '<div class="family-strip">' + stageHtml + '</div>';
+  }
+
   function renderResults(data) {
     $results.empty();
 
+    var stripHtml = renderFamilyStrip(data.family);
     var cardsHtml = data.family
       .map(function (member) { return renderPokemonCard(member, data.leagueDefinitions); })
       .join('');
 
-    $results.html(cardsHtml);
+    $results.html(stripHtml + cardsHtml);
 
     setStatus(
       'Showing the evolution family for "' + escapeHtml(data.query) + '".',
