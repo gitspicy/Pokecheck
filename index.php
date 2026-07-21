@@ -1074,9 +1074,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     flex-wrap: wrap;
   }
 
-  #pokemon-input {
+  .search-input-wrap {
+    position: relative;
     flex: 1 1 220px;
     min-width: 0;
+  }
+
+  #pokemon-input {
+    width: 100%;
     padding: 0.7rem 0.9rem;
     border-radius: 8px;
     border: 1px solid var(--border);
@@ -1088,6 +1093,67 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   #pokemon-input:focus {
     outline: 2px solid var(--accent);
     outline-offset: 1px;
+  }
+
+  .autocomplete-list {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    max-height: 22rem;
+    overflow-y: auto;
+  }
+
+  .autocomplete-list:empty { display: none; }
+
+  .autocomplete-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.92rem;
+  }
+
+  .autocomplete-item:hover,
+  .autocomplete-item.highlighted {
+    background: var(--panel);
+  }
+
+  .autocomplete-item .ac-dex {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+  }
+
+  .autocomplete-item .ac-types {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .autocomplete-item .ac-types .type-badge {
+    margin-left: 0;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  .autocomplete-empty {
+    padding: 0.6rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-style: italic;
   }
 
   #search-btn {
@@ -1519,7 +1585,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 
 <main>
   <div class="search-panel">
-    <input type="text" id="pokemon-input" placeholder="Search a Pokemon (e.g. Squirtle)" autocomplete="off">
+    <div class="search-input-wrap">
+      <input type="text" id="pokemon-input" placeholder="Search a Pokemon (e.g. Squirtle)" autocomplete="off">
+      <ul class="autocomplete-list" id="autocomplete-list"></ul>
+    </div>
     <button id="search-btn" type="button">Search</button>
   </div>
   <div class="quick-picks" id="recent-picks"></div>

@@ -20,6 +20,11 @@
   var MAX_RECENT_SEARCHES = 7;
   var $recentPicks = $('#recent-picks');
 
+  var $autocompleteList = $('#autocomplete-list');
+  var MAX_AUTOCOMPLETE_RESULTS = 20;
+  var allSpecies = []; // [{slug, label, dex, types, searchKey}], fetched once on load
+  var autocompleteHighlightIndex = -1;
+
   /**
    * Escapes text before it is dropped into an HTML template string, so
    * nothing derived from user input (e.g. the echoed search query) can
@@ -411,6 +416,124 @@
     $recentPicks.html('Recent: ' + buttonsHtml);
   }
 
+  /**
+   * Reduces a string to lowercase letters/digits only, so matching is
+   * insensitive to spaces, parentheses, punctuation, and case - typing
+   * "ponytagalarian" or "Ponyta (Galarian)" both hit the same key.
+   */
+  function toSearchKey(value) {
+    return String(value).toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  /**
+   * Fetches the full species list once on page load so autocomplete can
+   * filter it entirely client-side (instant, no per-keystroke request).
+   * Silently gives up on failure - autocomplete is a convenience layer,
+   * search itself doesn't depend on it.
+   */
+  function loadSpeciesList() {
+    $.ajax({ url: 'index.php', method: 'GET', dataType: 'json', data: { action: 'species-list' } })
+      .done(function (data) {
+        if (data && data.success && Array.isArray(data.species)) {
+          allSpecies = data.species.map(function (s) {
+            return {
+              slug: s.slug,
+              label: s.label,
+              dex: s.dex,
+              types: s.types,
+              searchKey: toSearchKey(s.label),
+              slugKey: toSearchKey(s.slug),
+            };
+          });
+        }
+      });
+  }
+
+  /**
+   * Matches the query against each species' name and slug, ranking
+   * "starts with" hits above "contains" hits (so typing "pon" surfaces
+   * Ponyta before, say, a species that merely contains "pon" mid-word),
+   * each group ordered by dex. Capped so the dropdown stays scannable.
+   */
+  function filterSpecies(query) {
+    var key = toSearchKey(query);
+    if (key === '') {
+      return [];
+    }
+
+    var startsWith = [];
+    var contains = [];
+
+    for (var i = 0; i < allSpecies.length; i++) {
+      var s = allSpecies[i];
+      var nameHit = s.searchKey.indexOf(key) !== -1;
+      var slugHit = !nameHit && s.slugKey.indexOf(key) !== -1;
+
+      if (!nameHit && !slugHit) {
+        continue;
+      }
+
+      if (s.searchKey.indexOf(key) === 0 || s.slugKey.indexOf(key) === 0) {
+        startsWith.push(s);
+      } else {
+        contains.push(s);
+      }
+    }
+
+    return startsWith.concat(contains).slice(0, MAX_AUTOCOMPLETE_RESULTS);
+  }
+
+  function renderAutocomplete(matches) {
+    autocompleteHighlightIndex = -1;
+
+    if (matches.length === 0) {
+      $autocompleteList.empty();
+      return;
+    }
+
+    var itemsHtml = matches
+      .map(function (s) {
+        var typeBadges = s.types
+          .map(function (t) { return '<span class="type-badge type-' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>'; })
+          .join('');
+        return (
+          '<li class="autocomplete-item" data-slug="' + escapeHtml(s.slug) + '">' +
+            '<span><span class="ac-dex">#' + s.dex + '</span>' + escapeHtml(s.label) + '</span>' +
+            '<span class="ac-types">' + typeBadges + '</span>' +
+          '</li>'
+        );
+      })
+      .join('');
+
+    $autocompleteList.html(itemsHtml);
+  }
+
+  function closeAutocomplete() {
+    $autocompleteList.empty();
+    autocompleteHighlightIndex = -1;
+  }
+
+  function selectAutocompleteItem($item) {
+    if (!$item || $item.length === 0) {
+      return;
+    }
+    $input.val($item.data('slug'));
+    closeAutocomplete();
+    performSearch();
+  }
+
+  function setAutocompleteHighlight(index) {
+    var $items = $autocompleteList.find('.autocomplete-item');
+    if ($items.length === 0) {
+      return;
+    }
+
+    autocompleteHighlightIndex = ((index % $items.length) + $items.length) % $items.length;
+    $items.removeClass('highlighted');
+    var $active = $items.eq(autocompleteHighlightIndex).addClass('highlighted');
+    $active.get(0).scrollIntoView({ block: 'nearest' });
+  }
+
   function performSearch() {
     var term = $input.val().trim();
 
@@ -463,21 +586,76 @@
       });
   }
 
-  $searchBtn.on('click', performSearch);
+  $searchBtn.on('click', function () {
+    closeAutocomplete();
+    performSearch();
+  });
 
-  $input.on('keypress', function (event) {
-    if (event.which === 13) {
-      event.preventDefault();
-      performSearch();
+  $input.on('input', function () {
+    renderAutocomplete(filterSpecies($input.val()));
+  });
+
+  $input.on('focus', function () {
+    if ($input.val().trim() !== '') {
+      renderAutocomplete(filterSpecies($input.val()));
     }
+  });
+
+  $input.on('keydown', function (event) {
+    var $items = $autocompleteList.find('.autocomplete-item');
+
+    if (event.key === 'ArrowDown') {
+      if ($items.length > 0) {
+        event.preventDefault();
+        setAutocompleteHighlight(autocompleteHighlightIndex + 1);
+      }
+      return;
+    }
+
+    if (event.key === 'ArrowUp') {
+      if ($items.length > 0) {
+        event.preventDefault();
+        setAutocompleteHighlight(autocompleteHighlightIndex - 1);
+      }
+      return;
+    }
+
+    if (event.key === 'Escape') {
+      closeAutocomplete();
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (autocompleteHighlightIndex >= 0 && $items.length > 0) {
+        selectAutocompleteItem($items.eq(autocompleteHighlightIndex));
+      } else {
+        closeAutocomplete();
+        performSearch();
+      }
+    }
+  });
+
+  // mousedown (not click) fires before the input's blur handler, so the
+  // dropdown is still in the DOM when we read which item was picked -
+  // with a plain click, blur would already have wiped it out first.
+  $autocompleteList.on('mousedown', '.autocomplete-item', function (event) {
+    event.preventDefault();
+    selectAutocompleteItem($(this));
+  });
+
+  $input.on('blur', function () {
+    window.setTimeout(closeAutocomplete, 150);
   });
 
   // Delegated binding: recent-search buttons are (re)rendered dynamically,
   // so a direct .on('click') bound once at load time wouldn't reach them.
   $recentPicks.on('click', '.quick-pick-btn', function () {
     $input.val($(this).data('name'));
+    closeAutocomplete();
     performSearch();
   });
 
   renderRecentSearches();
+  loadSpeciesList();
 }(jQuery));
