@@ -16,6 +16,10 @@
   var LEAGUE_ORDER = ['littleCup', 'greatLeague', 'summerLeague', 'ultraLeague', 'masterLeague'];
   var TOP_ATTACKER_TIERS = ['S', 'SS', 'SSS', 'SSSS', 'SSSSS'];
 
+  var RECENT_SEARCHES_KEY = 'pokecheck.recentSearches';
+  var MAX_RECENT_SEARCHES = 7;
+  var $recentPicks = $('#recent-picks');
+
   /**
    * Escapes text before it is dropped into an HTML template string, so
    * nothing derived from user input (e.g. the echoed search query) can
@@ -357,6 +361,56 @@
     $('#member-' + slug).replaceWith(newCardHtml);
   });
 
+  /**
+   * Reads the recent-searches list from localStorage. Guarded against a
+   * missing/unavailable localStorage (private browsing, disabled storage)
+   * and against corrupt JSON, since this is purely a cosmetic convenience
+   * feature and must never break search itself.
+   */
+  function getRecentSearches() {
+    try {
+      var raw = window.localStorage.getItem(RECENT_SEARCHES_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  /**
+   * Records a successful search at the front of the recent-searches list,
+   * de-duplicating by slug (a repeat search moves back to the front rather
+   * than appearing twice) and capping at MAX_RECENT_SEARCHES.
+   */
+  function saveRecentSearch(slug, label) {
+    try {
+      var existing = getRecentSearches().filter(function (item) { return item.slug !== slug; });
+      existing.unshift({ slug: slug, label: label });
+      window.localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(existing.slice(0, MAX_RECENT_SEARCHES)));
+    } catch (e) {
+      // Storage unavailable/full - recent-searches is a nice-to-have, fail silently.
+    }
+  }
+
+  function renderRecentSearches() {
+    var recent = getRecentSearches();
+
+    if (recent.length === 0) {
+      $recentPicks.empty();
+      return;
+    }
+
+    var buttonsHtml = recent
+      .map(function (item) {
+        return '<button type="button" class="quick-pick-btn" data-name="' + escapeHtml(item.slug) + '">' +
+          escapeHtml(item.label) +
+          '</button>';
+      })
+      .join('');
+
+    $recentPicks.html('Recent: ' + buttonsHtml);
+  }
+
   function performSearch() {
     var term = $input.val().trim();
 
@@ -372,6 +426,9 @@
     function handleResult(data) {
       if (data && data.success) {
         renderResults(data);
+        var searchedMember = data.family.filter(function (m) { return m.slug === data.resolvedSlug; })[0];
+        saveRecentSearch(data.resolvedSlug, searchedMember ? searchedMember.displayName : data.query);
+        renderRecentSearches();
       } else {
         var message = (data && data.error) ? data.error : 'Something went wrong. Please try again.';
         setStatus(escapeHtml(message), 'error');
@@ -415,8 +472,12 @@
     }
   });
 
-  $('.quick-pick-btn').on('click', function () {
+  // Delegated binding: recent-search buttons are (re)rendered dynamically,
+  // so a direct .on('click') bound once at load time wouldn't reach them.
+  $recentPicks.on('click', '.quick-pick-btn', function () {
     $input.val($(this).data('name'));
     performSearch();
   });
+
+  renderRecentSearches();
 }(jQuery));

@@ -1344,16 +1344,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
     <input type="text" id="pokemon-input" placeholder="Search a Pokemon (e.g. Squirtle)" autocomplete="off">
     <button id="search-btn" type="button">Search</button>
   </div>
-  <div class="quick-picks">
-    Try:
-    <button type="button" class="quick-pick-btn" data-name="bulbasaur">Bulbasaur</button>
-    <button type="button" class="quick-pick-btn" data-name="squirtle">Squirtle</button>
-    <button type="button" class="quick-pick-btn" data-name="charmander">Charmander</button>
-    <button type="button" class="quick-pick-btn" data-name="eevee">Eevee</button>
-    <button type="button" class="quick-pick-btn" data-name="dratini">Dratini</button>
-    <button type="button" class="quick-pick-btn" data-name="mewtwo">Mewtwo</button>
-    <button type="button" class="quick-pick-btn" data-name="tadbulb">Tadbulb</button>
-  </div>
+  <div class="quick-picks" id="recent-picks"></div>
 
   <div id="status-area"></div>
   <div id="results"></div>
