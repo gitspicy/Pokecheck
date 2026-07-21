@@ -13,7 +13,7 @@
   var $statusArea = $('#status-area');
   var $results = $('#results');
 
-  var LEAGUE_ORDER = ['littleCup', 'greatLeague', 'summerLeague', 'ultraLeague', 'masterLeague'];
+  var LEAGUE_ORDER = ['greatLeague', 'ultraLeague', 'masterLeague', 'littleCup', 'summerLeague'];
   var TOP_ATTACKER_TIERS = ['S', 'SS', 'SSS', 'SSSS', 'SSSSS'];
 
   var RECENT_SEARCHES_KEY = 'pokecheck.recentSearches';
