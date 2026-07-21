@@ -372,8 +372,14 @@ function build_master_league_entry(int $baseAtk, int $baseDef, int $baseSta, arr
  * @param array<string,float> $cpMultipliers
  * @return array<string,array<string,mixed>>
  */
-function compute_all_leagues(int $baseAtk, int $baseDef, int $baseSta, array $leagues, array $cpMultipliers): array
-{
+function compute_all_leagues(
+    string $memberSlug,
+    int $baseAtk,
+    int $baseDef,
+    int $baseSta,
+    array $leagues,
+    array $cpMultipliers
+): array {
     $levelLabels = array_keys($cpMultipliers);
     $cpms = array_values($cpMultipliers);
 
@@ -381,24 +387,155 @@ function compute_all_leagues(int $baseAtk, int $baseDef, int $baseSta, array $le
 
     foreach ($leagues as $leagueId => $league) {
         if ($league['cpCap'] === null) {
-            $result[$leagueId] = build_master_league_entry($baseAtk, $baseDef, $baseSta, $cpMultipliers);
-            continue;
+            $entry = build_master_league_entry($baseAtk, $baseDef, $baseSta, $cpMultipliers);
+        } else {
+            $build = find_optimal_pvp_build($baseAtk, $baseDef, $baseSta, (int) $league['cpCap'], $levelLabels, $cpms);
+
+            $entry = $build === null
+                ? [
+                    'eligible' => false,
+                    'reason' => "Base stats are too high to fit under the {$league['cpCap']} CP cap even at 0/0/0, level 1.",
+                ]
+                : array_merge(['eligible' => true], $build);
         }
 
-        $build = find_optimal_pvp_build($baseAtk, $baseDef, $baseSta, (int) $league['cpCap'], $levelLabels, $cpms);
+        // "ranking" is the community battle-simulation rank/score/moveset
+        // for this species in this league, sourced from the PvPoke-style
+        // CSV in /rankings/ (null if the species isn't present in that
+        // export - e.g. it was judged too weak to be worth ranking).
+        $entry['ranking'] = lookup_league_ranking($memberSlug, $league);
 
-        if ($build === null) {
-            $result[$leagueId] = [
-                'eligible' => false,
-                'reason' => "Base stats are too high to fit under the {$league['cpCap']} CP cap even at 0/0/0, level 1.",
-            ];
-            continue;
-        }
-
-        $result[$leagueId] = array_merge(['eligible' => true], $build);
+        $result[$leagueId] = $entry;
     }
 
     return $result;
+}
+
+// ---------------------------------------------------------------------------
+// Community PvP ranking lookup (PvPoke-style CSV exports)
+// ---------------------------------------------------------------------------
+
+/**
+ * Parses a PvPoke-style ranking export CSV (Pokemon, Score, ..., Fast Move,
+ * Charged Move 1, Charged Move 2, ...) into a slug-keyed lookup table.
+ *
+ * These CSVs encode a full battle-simulation ranking (each Pokemon's score
+ * is derived from simulated matchups, with shields, against the rest of the
+ * league's viable meta) that this app does not attempt to reproduce - that
+ * would mean re-implementing PvPoke's entire battle simulator. Instead we
+ * read PvPoke's own exported rankings directly. Drop a freshly exported CSV
+ * from https://pvpoke.com/rankings/ over the matching file in /rankings/
+ * (same filename) to refresh the data; no code changes required.
+ *
+ * Parsed results are cached per file path for the lifetime of the request.
+ *
+ * @return array{bySlug: array<string,array<string,mixed>>, totalRanked: int}
+ */
+function load_ranking_csv(string $relativePath): array
+{
+    static $cache = [];
+
+    if (isset($cache[$relativePath])) {
+        return $cache[$relativePath];
+    }
+
+    $bySlug = [];
+    $rank = 0;
+    $path = __DIR__ . '/' . $relativePath;
+    $handle = @fopen($path, 'r');
+
+    if ($handle !== false) {
+        $header = fgetcsv($handle);
+        $columns = is_array($header) ? array_flip($header) : [];
+
+        while (($row = fgetcsv($handle)) !== false) {
+            $nameIndex = $columns['Pokemon'] ?? null;
+
+            if ($nameIndex === null || !isset($row[$nameIndex]) || $row[$nameIndex] === '') {
+                continue; // Skip blank/malformed lines rather than let them corrupt ranks.
+            }
+
+            $rank++;
+            $name = $row[$nameIndex];
+            $slug = normalize_ranking_pokemon_name($name);
+
+            $entry = [
+                'rank' => $rank,
+                'name' => $name,
+                'score' => isset($columns['Score'], $row[$columns['Score']]) ? (float) $row[$columns['Score']] : null,
+                'statProduct' => isset($columns['Stat Product'], $row[$columns['Stat Product']]) ? (int) $row[$columns['Stat Product']] : null,
+                'level' => isset($columns['Level'], $row[$columns['Level']]) ? $row[$columns['Level']] : null,
+                'cp' => isset($columns['CP'], $row[$columns['CP']]) ? (int) $row[$columns['CP']] : null,
+                'fastMove' => isset($columns['Fast Move'], $row[$columns['Fast Move']]) ? clean_move_name($row[$columns['Fast Move']]) : null,
+                'chargedMove1' => isset($columns['Charged Move 1'], $row[$columns['Charged Move 1']]) ? clean_move_name($row[$columns['Charged Move 1']]) : null,
+                'chargedMove2' => isset($columns['Charged Move 2'], $row[$columns['Charged Move 2']]) ? clean_move_name($row[$columns['Charged Move 2']]) : null,
+            ];
+
+            // Same base species can appear more than once if the export
+            // includes alternate forms (e.g. "Zacian (Crowned Sword)"),
+            // which normalize to the same slug as the base form. Keep only
+            // the first (best-ranked) occurrence.
+            if (!isset($bySlug[$slug])) {
+                $bySlug[$slug] = $entry;
+            }
+        }
+
+        fclose($handle);
+    }
+
+    $result = ['bySlug' => $bySlug, 'totalRanked' => $rank];
+    $cache[$relativePath] = $result;
+
+    return $result;
+}
+
+/**
+ * Normalizes a ranking CSV "Pokemon" column value (which may include a
+ * parenthetical form suffix, e.g. "Zacian (Crowned Sword)") down to the
+ * same slug format used for baseStats keys, so the two datasets can be
+ * matched against each other.
+ */
+function normalize_ranking_pokemon_name(string $name): string
+{
+    $withoutForm = preg_replace('/\s*\(.*?\)\s*/', '', $name);
+
+    return normalize_species_slug((string) $withoutForm) ?? '';
+}
+
+/**
+ * Strips PvPoke's HTML footnote markup from move names (e.g. the
+ * "<sup>&dagger;</sup>" legacy-move marker), leaving the plain-text
+ * legacy (dagger) / Elite-TM (asterisk) annotations PvPoke also uses
+ * inline in the move name itself.
+ */
+function clean_move_name(string $rawMoveName): string
+{
+    $decoded = html_entity_decode($rawMoveName, ENT_QUOTES | ENT_HTML5);
+
+    return trim(strip_tags($decoded));
+}
+
+/**
+ * Looks up a species' community PvP ranking entry for one league, if the
+ * league has a ranking file and the species appears in it.
+ *
+ * @param array<string,mixed> $league
+ * @return array<string,mixed>|null
+ */
+function lookup_league_ranking(string $memberSlug, array $league): ?array
+{
+    if (!isset($league['rankingFile'])) {
+        return null;
+    }
+
+    $csv = load_ranking_csv((string) $league['rankingFile']);
+    $entry = $csv['bySlug'][$memberSlug] ?? null;
+
+    if ($entry === null) {
+        return null;
+    }
+
+    return array_merge($entry, ['totalRanked' => $csv['totalRanked']]);
 }
 
 // ---------------------------------------------------------------------------
@@ -458,6 +595,7 @@ function handle_search_request(): void
             // Little Cup traditionally only permits Pokemon that can still evolve further.
             'littleCupEligible' => $family['hasNextEvolution'][$memberSlug] ?? false,
             'leagues' => compute_all_leagues(
+                $memberSlug,
                 (int) $stats['attack'],
                 (int) $stats['defense'],
                 (int) $stats['stamina'],
@@ -700,8 +838,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
   .badge.defender { background: var(--blue); color: #fff; }
   .badge.lc { background: var(--panel-alt); color: var(--text-dim); border: 1px solid var(--border); }
 
+  .table-scroll {
+    overflow-x: auto;
+  }
+
   table.league-table {
     width: 100%;
+    min-width: 560px;
     border-collapse: collapse;
     font-size: 0.9rem;
   }
@@ -728,11 +871,28 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
 
   .iv-set { font-variant-numeric: tabular-nums; }
 
+  .unranked {
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
   footer {
     text-align: center;
     color: var(--text-dim);
     font-size: 0.78rem;
-    padding: 1rem 1rem 2rem;
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  footer p {
+    max-width: 640px;
+    margin: 0.25rem auto;
+    line-height: 1.5;
+  }
+
+  footer code {
+    background: var(--panel-alt);
+    border-radius: 4px;
+    padding: 0.05rem 0.35rem;
   }
 
   @media (max-width: 560px) {
@@ -768,7 +928,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
 </main>
 
 <footer>
-  Base stats sourced from the Pokemon GO game master (PvPoke methodology). Evolution family lookups via PokeAPI.
+  <p>Base stats sourced from the Pokemon GO game master (PvPoke methodology). Evolution family lookups via PokeAPI.</p>
+  <p>PvPoke Rank / Top Moveset columns come from PvPoke's own exported battle-simulation rankings (<code>/rankings/*.csv</code>) &mdash; drop in a freshly exported CSV with the same filename to refresh them. <code>*</code> = Community Day / Elite TM move, <code>&dagger;</code> = legacy move no longer obtainable.</p>
 </footer>
 
 <script src="jquery.min.js"></script>

@@ -46,6 +46,26 @@
     return entry.ivAtk + ' / ' + entry.ivDef + ' / ' + entry.ivSta;
   }
 
+  function formatRank(ranking) {
+    if (!ranking) {
+      return '<span class="unranked">Unranked<br><small>not in dataset</small></span>';
+    }
+    return (
+      '#' + ranking.rank + ' <small>of ' + ranking.totalRanked + '</small>' +
+      '<br><small>Score ' + ranking.score + '</small>'
+    );
+  }
+
+  function formatMoveset(ranking) {
+    if (!ranking) {
+      return '<span class="unranked">&mdash;</span>';
+    }
+    return (
+      escapeHtml(ranking.fastMove) +
+      '<br><small>' + escapeHtml(ranking.chargedMove1) + ' + ' + escapeHtml(ranking.chargedMove2) + '</small>'
+    );
+  }
+
   function renderLeagueRow(leagueId, leagueDefinitions, leagueResult) {
     var def = leagueDefinitions[leagueId];
     var label = escapeHtml(def.label);
@@ -59,7 +79,7 @@
       return (
         '<tr>' +
           '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
-          '<td class="not-eligible" colspan="3">' + reason + '</td>' +
+          '<td class="not-eligible" colspan="4">' + reason + '</td>' +
         '</tr>'
       );
     }
@@ -67,9 +87,9 @@
     return (
       '<tr>' +
         '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
-        '<td class="iv-set">' + formatIvSet(leagueResult) + '</td>' +
-        '<td>' + leagueResult.cp + ' CP</td>' +
-        '<td>Lv ' + leagueResult.level + '</td>' +
+        '<td class="iv-set">' + formatIvSet(leagueResult) + '<br><small>' + leagueResult.cp + ' CP &middot; Lv ' + leagueResult.level + '</small></td>' +
+        '<td>' + formatRank(leagueResult.ranking) + '</td>' +
+        '<td>' + formatMoveset(leagueResult.ranking) + '</td>' +
       '</tr>'
     );
   }
@@ -104,10 +124,12 @@
         '</div>' +
         '<div class="raid-badges">' + badges + '</div>' +
         '<p class="raid-line">' + escapeHtml(raid.role) + '</p>' +
-        '<table class="league-table">' +
-          '<thead><tr><th>League</th><th>Optimal IVs (Atk/Def/HP)</th><th>Max CP</th><th>Level</th></tr></thead>' +
-          '<tbody>' + rows + '</tbody>' +
-        '</table>' +
+        '<div class="table-scroll">' +
+          '<table class="league-table">' +
+            '<thead><tr><th>League</th><th>Optimal Build (Atk/Def/HP IVs)</th><th>PvPoke Rank</th><th>Top Moveset</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>' +
+        '</div>' +
       '</article>'
     );
   }

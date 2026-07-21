@@ -6,31 +6,36 @@
       "id": "littleCup",
       "label": "Little Cup",
       "cpCap": 500,
-      "note": "Traditionally restricted to Pokemon that have not reached their final evolution. This app still reports the optimal 500 CP build for every family member and flags eligibility separately."
+      "note": "Traditionally restricted to Pokemon that have not reached their final evolution. This app still reports the optimal 500 CP build for every family member and flags eligibility separately.",
+      "rankingFile": "rankings/custom_cp500_all_custom_rankings.csv"
     },
     "greatLeague": {
       "id": "greatLeague",
       "label": "Great League",
       "cpCap": 1500,
-      "note": "Standard GO Battle League cup, open ruleset."
+      "note": "Standard GO Battle League cup, open ruleset.",
+      "rankingFile": "rankings/cp1500_all_overall_rankings.csv"
     },
     "summerLeague": {
       "id": "summerLeague",
       "label": "Summer League",
       "cpCap": 1500,
-      "note": "Seasonal cup that shares the 1500 CP cap with Great League. Any additional type/species restrictions for the live seasonal cup are not modeled here."
+      "note": "Seasonal cup that shares the 1500 CP cap with Great League. Any additional type/species restrictions for the live seasonal cup are not modeled here.",
+      "rankingFile": "rankings/cp1500_summer_overall_rankings.csv"
     },
     "ultraLeague": {
       "id": "ultraLeague",
       "label": "Ultra League",
       "cpCap": 2500,
-      "note": "Standard GO Battle League cup, open ruleset."
+      "note": "Standard GO Battle League cup, open ruleset.",
+      "rankingFile": "rankings/cp2500_all_overall_rankings.csv"
     },
     "masterLeague": {
       "id": "masterLeague",
       "label": "Master League",
       "cpCap": null,
-      "note": "No CP cap. Optimal build is always 15/15/15 at the highest available level."
+      "note": "No CP cap. Optimal build is always 15/15/15 at the highest available level.",
+      "rankingFile": "rankings/cp10000_all_overall_rankings.csv"
     }
   },
 
