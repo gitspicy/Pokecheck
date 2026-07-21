@@ -14,6 +14,7 @@
   var $results = $('#results');
 
   var LEAGUE_ORDER = ['littleCup', 'greatLeague', 'summerLeague', 'ultraLeague', 'masterLeague'];
+  var TOP_ATTACKER_TIERS = ['S', 'SS', 'SSS', 'SSSS', 'SSSSS'];
 
   /**
    * Escapes text before it is dropped into an HTML template string, so
@@ -145,17 +146,14 @@
       .map(function (t) { return '<span class="type-badge">' + escapeHtml(t) + '</span>'; })
       .join('');
 
-    var raid = member.raid;
-    // The letter-tier badge intentionally comes only from the sourced
-    // community tier list (rendered in the attacker panel below), never
-    // from editorial guesswork - showing two different "Tier" scales side
-    // by side reads as a bug, not a nuance.
+    // Every badge here is derived straight from a sourced dataset (the
+    // community tier list / evolution family data) - no editorial guessing.
+    var attackerTier = member.attacker && member.attacker.tier ? member.attacker.tier.label : null;
     var badges = '';
-    if (raid.isTopAttacker) {
-      badges += '<span class="badge attacker">Top Raid Attacker</span>';
-    }
-    if (raid.isGymDefender) {
-      badges += '<span class="badge defender">Gym Defender</span>';
+    if (attackerTier && TOP_ATTACKER_TIERS.indexOf(attackerTier) !== -1) {
+      badges += '<span class="badge attacker">Top Raid Attacker (Tier ' + escapeHtml(attackerTier) + ')</span>';
+    } else if (attackerTier) {
+      badges += '<span class="badge tier">Tier ' + escapeHtml(attackerTier) + '</span>';
     }
     badges += member.littleCupEligible
       ? '<span class="badge lc">Little Cup Legal</span>'
@@ -173,7 +171,6 @@
           '<h2><span class="dex">#' + escapeHtml(member.dex) + '</span>' + escapeHtml(member.displayName) + typeBadges + '</h2>' +
         '</div>' +
         '<div class="raid-badges">' + badges + '</div>' +
-        '<p class="raid-line">' + escapeHtml(raid.role) + '</p>' +
         '<h3 class="section-heading">PvP League Rankings</h3>' +
         '<div class="table-scroll">' +
           '<table class="league-table">' +
@@ -196,12 +193,8 @@
 
     $results.html(cardsHtml);
 
-    var sourceNote = data.dataSource === 'fallback'
-      ? ' (offline fallback family data used - PokeAPI was unreachable)'
-      : '';
-
     setStatus(
-      'Showing the evolution family for "' + escapeHtml(data.query) + '"' + sourceNote + '.',
+      'Showing the evolution family for "' + escapeHtml(data.query) + '".',
       'info'
     );
   }

@@ -8,11 +8,12 @@
  *  2. Page renderer  (no action param) -> outputs the static HTML shell that
  *     script.js talks to.
  *
- * No database and no local write access are required. All static reference
- * data (CP multipliers, GO base stats, league rules) lives in data.json.
- * The only outbound network call this app makes is to the public PokeAPI
- * evolution-chain endpoints, used purely to discover which species belong
- * to a Pokemon's family line - never for stats.
+ * No database, no local write access, and no outbound network calls of any
+ * kind are required - everything (CP multipliers, GO base stats, evolution
+ * family data, league rules, and the community ranking CSVs) is static data
+ * shipped in this repo (data.json + /rankings/*.csv). baseStats and each
+ * species' evolution family both come directly from PvPoke's own public
+ * gamemaster.json, so family lookups need no external API call.
  */
 
 declare(strict_types=1);
@@ -57,8 +58,11 @@ function load_game_data(): array
 // ---------------------------------------------------------------------------
 
 /**
- * Normalizes a raw search term into a PokeAPI-safe species slug
- * (lowercase, hyphen-separated, alphanumeric only).
+ * Normalizes a raw search term (or a data.json displayName / speciesId) into
+ * PvPoke's own gamemaster speciesId format (lowercase, underscore-separated,
+ * alphanumeric only) so user input can be matched directly against
+ * data.json's baseStats keys - e.g. "Mr. Mime", "mr-mime" and "mr_mime" all
+ * normalize to "mr_mime".
  *
  * @return string|null Null when the input contains no usable characters.
  */
@@ -66,163 +70,105 @@ function normalize_species_slug(string $raw): ?string
 {
     $trimmed = trim($raw);
 
-    if ($trimmed === '' || mb_strlen($trimmed) > 40) {
+    if ($trimmed === '' || mb_strlen($trimmed) > 60) {
         return null;
     }
 
     $lower = mb_strtolower($trimmed);
-    // Collapse whitespace/apostrophes/periods into hyphens (e.g. "Mr. Mime" -> "mr-mime"),
-    // then strip anything that isn't a lowercase letter, digit, or hyphen.
-    $slug = preg_replace('/[\s\'\.]+/', '-', $lower);
-    $slug = preg_replace('/[^a-z0-9\-]/', '', (string) $slug);
-    $slug = preg_replace('/-+/', '-', (string) $slug);
-    $slug = trim((string) $slug, '-');
+    $lower = str_replace(['♀', '♂'], [' female', ' male'], $lower);
+    // Apostrophes/periods are dropped outright (matches PvPoke's own
+    // "Farfetch'd" -> "farfetchd" convention), everything else non-alphanumeric
+    // collapses to a single underscore.
+    $slug = str_replace(["'", '.'], '', $lower);
+    $slug = preg_replace('/[^a-z0-9]+/', '_', (string) $slug);
+    $slug = trim((string) $slug, '_');
 
     return $slug === '' ? null : $slug;
 }
 
 // ---------------------------------------------------------------------------
-// HTTP fetch helper (used only for the PokeAPI evolution-chain lookups)
+// Evolution family resolution (fully local - driven by data.json's baseStats)
 // ---------------------------------------------------------------------------
 
 /**
- * Fetches a URL and decodes it as JSON. Returns null on any failure
- * (network error, non-200 response, invalid JSON) so callers can fall
- * back gracefully instead of crashing the request.
- *
- * @return array<string,mixed>|null
+ * Resolves a search slug to a baseStats key, trying a direct hit first and
+ * then data.json's small table of known displayName-normalization
+ * exceptions (species whose display name doesn't normalize back to its own
+ * speciesId, e.g. "Zygarde (50% Forme)" -> "zygarde", not "zygarde_50_forme").
  */
-function fetch_remote_json(string $url, int $timeoutSeconds = 4): ?array
+function resolve_species_key(string $slug, array $gameData): ?string
 {
-    $userAgent = 'PokecheckPvPReference/1.0 (+https://github.com/gitspicy/pokecheck)';
-
-    if (function_exists('curl_init')) {
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_TIMEOUT => $timeoutSeconds,
-            CURLOPT_CONNECTTIMEOUT => $timeoutSeconds,
-            CURLOPT_HTTPHEADER => ['Accept: application/json'],
-            CURLOPT_USERAGENT => $userAgent,
-        ]);
-        $body = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($body === false || $status !== 200) {
-            return null;
-        }
-    } elseif (ini_get('allow_url_fopen')) {
-        $context = stream_context_create([
-            'http' => [
-                'method' => 'GET',
-                'header' => "Accept: application/json\r\nUser-Agent: {$userAgent}\r\n",
-                'timeout' => $timeoutSeconds,
-                'ignore_errors' => true,
-            ],
-        ]);
-        $body = @file_get_contents($url, false, $context);
-
-        $status = 0;
-        if (isset($http_response_header[0]) && preg_match('/\s(\d{3})\s/', $http_response_header[0], $m)) {
-            $status = (int) $m[1];
-        }
-
-        if ($body === false || $status !== 200) {
-            return null;
-        }
-    } else {
-        // No network transport available in this PHP build.
-        return null;
+    if (isset($gameData['baseStats'][$slug])) {
+        return $slug;
     }
 
-    $decoded = json_decode($body, true);
+    $alias = $gameData['displayNameAliases'][$slug] ?? null;
 
-    return is_array($decoded) ? $decoded : null;
-}
-
-// ---------------------------------------------------------------------------
-// Evolution family resolution (PokeAPI, with local fallback)
-// ---------------------------------------------------------------------------
-
-/**
- * Recursively flattens a PokeAPI evolution-chain "chain" node into an
- * ordered list of species slugs, and records which slugs have at least
- * one further evolution (used for the Little Cup eligibility flag).
- *
- * @param array<string,mixed> $node
- * @param string[] $orderedNames
- * @param array<string,bool> $hasNextEvolution
- */
-function flatten_evolution_chain(array $node, array &$orderedNames, array &$hasNextEvolution): void
-{
-    $name = isset($node['species']['name']) ? (string) $node['species']['name'] : null;
-
-    if ($name === null) {
-        return;
-    }
-
-    $orderedNames[] = $name;
-    $children = isset($node['evolves_to']) && is_array($node['evolves_to']) ? $node['evolves_to'] : [];
-    $hasNextEvolution[$name] = count($children) > 0;
-
-    foreach ($children as $child) {
-        if (is_array($child)) {
-            flatten_evolution_chain($child, $orderedNames, $hasNextEvolution);
-        }
-    }
+    return isset($gameData['baseStats'][$alias]) ? $alias : null;
 }
 
 /**
- * Resolves the full evolution family for a species slug.
+ * Resolves the full evolution family for a species key, purely from the
+ * "family" block each baseStats entry carries (itself imported straight
+ * from PvPoke's gamemaster.json - see data.json's top-level comment).
  *
- * Tries the live PokeAPI first (species -> evolution_chain), and falls
- * back to data.json's fallbackFamilies map if the network call fails.
+ * Family members with no "family" block at all (e.g. Mewtwo) are treated
+ * as a family of one. Traversal starts at the root (the member with no
+ * "parent", or whose parent isn't in baseStats) and walks "evolutions"
+ * breadth-first, so branching families (Eevee) come back in a sensible
+ * base-first order.
  *
- * @param array<string,mixed> $gameData
- * @return array{names: string[], hasNextEvolution: array<string,bool>, source: string}|null
+ * @param array<string,mixed> $baseStats
+ * @return array{names: string[], canEvolveFurther: array<string,bool>}
  */
-function resolve_evolution_family(string $slug, array $gameData): ?array
+function resolve_evolution_family(string $speciesKey, array $baseStats): array
 {
-    $speciesData = fetch_remote_json("https://pokeapi.co/api/v2/pokemon-species/{$slug}");
+    $family = $baseStats[$speciesKey]['family'] ?? null;
 
-    if ($speciesData !== null && isset($speciesData['evolution_chain']['url'])) {
-        $chainData = fetch_remote_json((string) $speciesData['evolution_chain']['url']);
-
-        if ($chainData !== null && isset($chainData['chain']) && is_array($chainData['chain'])) {
-            $orderedNames = [];
-            $hasNextEvolution = [];
-            flatten_evolution_chain($chainData['chain'], $orderedNames, $hasNextEvolution);
-
-            if (in_array($slug, $orderedNames, true)) {
-                return [
-                    'names' => $orderedNames,
-                    'hasNextEvolution' => $hasNextEvolution,
-                    'source' => 'pokeapi',
-                ];
-            }
-        }
-    }
-
-    // Fall back to the small local family map so the app keeps working
-    // offline / when PokeAPI is unreachable, for the demo species we ship.
-    $fallback = $gameData['fallbackFamilies'][$slug] ?? null;
-
-    if (is_array($fallback)) {
-        $hasNextEvolution = [];
-        foreach ($fallback as $index => $name) {
-            $hasNextEvolution[$name] = $index < count($fallback) - 1;
-        }
-
+    if ($family === null) {
         return [
-            'names' => $fallback,
-            'hasNextEvolution' => $hasNextEvolution,
-            'source' => 'fallback',
+            'names' => [$speciesKey],
+            'canEvolveFurther' => [$speciesKey => false],
         ];
     }
 
-    return null;
+    $familyId = $family['id'];
+    $members = [];
+    foreach ($baseStats as $key => $entry) {
+        if (($entry['family']['id'] ?? null) === $familyId) {
+            $members[$key] = $entry['family'];
+        }
+    }
+
+    $root = $speciesKey;
+    foreach ($members as $key => $familyData) {
+        if (!isset($familyData['parent'])) {
+            $root = $key;
+            break;
+        }
+    }
+
+    $orderedNames = [];
+    $canEvolveFurther = [];
+    $queue = [$root];
+
+    while ($queue !== []) {
+        $current = array_shift($queue);
+
+        if (!isset($members[$current]) || in_array($current, $orderedNames, true)) {
+            continue;
+        }
+
+        $orderedNames[] = $current;
+        $evolutions = $members[$current]['evolutions'] ?? [];
+        $canEvolveFurther[$current] = $evolutions !== [];
+
+        foreach ($evolutions as $next) {
+            $queue[] = $next;
+        }
+    }
+
+    return ['names' => $orderedNames, 'canEvolveFurther' => $canEvolveFurther];
 }
 
 // ---------------------------------------------------------------------------
@@ -765,9 +711,10 @@ function handle_search_request_body(): void
         return;
     }
 
-    $family = resolve_evolution_family($slug, $gameData);
+    $baseStats = $gameData['baseStats'];
+    $speciesKey = resolve_species_key($slug, $gameData);
 
-    if ($family === null) {
+    if ($speciesKey === null) {
         http_response_code(404);
         echo json_encode([
             'success' => false,
@@ -776,19 +723,13 @@ function handle_search_request_body(): void
         return;
     }
 
-    $baseStats = $gameData['baseStats'];
+    $family = resolve_evolution_family($speciesKey, $baseStats);
     $leagues = $gameData['leagues'];
     $cpMultipliers = $gameData['cpMultipliers'];
     $attackerRankings = $gameData['attackerRankings'];
 
     $members = [];
     foreach ($family['names'] as $memberSlug) {
-        if (!isset($baseStats[$memberSlug])) {
-            // We don't have GO base stats hardcoded for this family member yet;
-            // skip it rather than showing incomplete/incorrect data.
-            continue;
-        }
-
         $stats = $baseStats[$memberSlug];
 
         $members[] = [
@@ -801,10 +742,9 @@ function handle_search_request_body(): void
                 'defense' => $stats['defense'],
                 'stamina' => $stats['stamina'],
             ],
-            'raid' => $stats['raid'],
             'attacker' => build_attacker_summary($memberSlug, $stats['types'], $attackerRankings),
             // Little Cup traditionally only permits Pokemon that can still evolve further.
-            'littleCupEligible' => $family['hasNextEvolution'][$memberSlug] ?? false,
+            'littleCupEligible' => $family['canEvolveFurther'][$memberSlug] ?? false,
             'leagues' => compute_all_leagues(
                 $memberSlug,
                 (int) $stats['attack'],
@@ -816,21 +756,10 @@ function handle_search_request_body(): void
         ];
     }
 
-    if (empty($members) || !in_array($slug, array_column($members, 'slug'), true)) {
-        http_response_code(404);
-        echo json_encode([
-            'success' => false,
-            'error' => "\"{$rawQuery}\" was recognized, but this demo dataset doesn't include GO base stats for it or its family yet. "
-                . 'Try: bulbasaur, charmander, squirtle, pikachu, eevee, dratini, magikarp, or mewtwo.',
-        ]);
-        return;
-    }
-
     $payload = json_encode([
         'success' => true,
         'query' => $rawQuery,
-        'resolvedSlug' => $slug,
-        'dataSource' => $family['source'],
+        'resolvedSlug' => $speciesKey,
         'leagueDefinitions' => $leagues,
         'family' => $members,
     ]);
@@ -1111,7 +1040,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
 
   .badge.tier { background: var(--accent); color: #1a1a1a; }
   .badge.attacker { background: var(--good); color: #06301c; }
-  .badge.defender { background: var(--blue); color: #fff; }
   .badge.lc { background: var(--panel-alt); color: var(--text-dim); border: 1px solid var(--border); }
 
   .table-scroll {
@@ -1197,6 +1125,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
     <button type="button" class="quick-pick-btn" data-name="eevee">Eevee</button>
     <button type="button" class="quick-pick-btn" data-name="dratini">Dratini</button>
     <button type="button" class="quick-pick-btn" data-name="mewtwo">Mewtwo</button>
+    <button type="button" class="quick-pick-btn" data-name="tadbulb">Tadbulb</button>
   </div>
 
   <div id="status-area"></div>
@@ -1204,7 +1133,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
 </main>
 
 <footer>
-  <p>Base stats sourced from the Pokemon GO game master (PvPoke methodology). Evolution family lookups via PokeAPI.</p>
+  <p>Base stats and evolution family data are imported directly from PvPoke's public gamemaster.json (1,045 released species/forms) &mdash; no external API calls at runtime.</p>
   <p>PvPoke Rank / Top Moveset columns come from PvPoke's own exported battle-simulation rankings (<code>/rankings/*.csv</code>) &mdash; drop in a freshly exported CSV with the same filename to refresh them. <code>*</code> = Community Day / Elite TM move, <code>&dagger;</code> = legacy move no longer obtainable.</p>
 </footer>
 
