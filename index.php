@@ -940,12 +940,70 @@ function handle_search_request_body(): void
     echo $payload;
 }
 
+/**
+ * AJAX endpoint (?action=species-list): returns every searchable species
+ * as {slug, label, dex, types}, fetched once by script.js on page load to
+ * power client-side autocomplete - filtering ~1045 short records in the
+ * browser is instant, so no per-keystroke request is needed.
+ *
+ * "label" disambiguates same-dex alternate forms (e.g. regional forms)
+ * by appending "(Normal)" to whichever sibling's displayName doesn't
+ * already carry a parenthetical qualifier, so typing "ponyta" surfaces
+ * both "Ponyta (Normal)" and "Ponyta (Galarian)" as distinct choices.
+ */
+function handle_species_list_request(): void
+{
+    header('Content-Type: application/json; charset=utf-8');
+    ini_set('display_errors', '0');
+
+    try {
+        $baseStats = load_game_data()['baseStats'];
+
+        $byDex = [];
+        foreach ($baseStats as $slug => $entry) {
+            $byDex[$entry['dex']][] = $slug;
+        }
+
+        $list = [];
+        foreach ($baseStats as $slug => $entry) {
+            $label = $entry['displayName'];
+            $isAmbiguous = count($byDex[$entry['dex']]) > 1;
+
+            if ($isAmbiguous && strpos($label, '(') === false) {
+                $label .= ' (Normal)';
+            }
+
+            $list[] = [
+                'slug' => $slug,
+                'label' => $label,
+                'dex' => $entry['dex'],
+                'types' => $entry['types'],
+            ];
+        }
+
+        usort($list, static function (array $a, array $b): int {
+            return $a['dex'] <=> $b['dex'] ?: strcmp($a['label'], $b['label']);
+        });
+
+        echo json_encode(['success' => true, 'species' => $list]);
+    } catch (\Throwable $e) {
+        error_log('Pokecheck species-list failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Could not load the species list.']);
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Entry point: dispatch AJAX requests, otherwise fall through to the HTML page.
 // ---------------------------------------------------------------------------
 
 if (isset($_GET['action']) && $_GET['action'] === 'search') {
     handle_search_request();
+    exit;
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
+    handle_species_list_request();
     exit;
 }
 ?>
