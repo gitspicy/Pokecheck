@@ -1,0 +1,142 @@
+{
+  "_comment": "Static Pokemon GO reference data. Base stats (attack/defense/stamina) are sourced from the Pokemon GO game master (as mirrored by the PvPoke project, https://github.com/pvpoke/pvpoke), NOT the mainline PokeAPI stats. CP multipliers are Niantic's official per-level values; half-levels are derived with Niantic's documented formula sqrt((cpm[n]^2 + cpm[n+1]^2) / 2).",
+
+  "leagues": {
+    "littleCup": {
+      "id": "littleCup",
+      "label": "Little Cup",
+      "cpCap": 500,
+      "note": "Traditionally restricted to Pokemon that have not reached their final evolution. This app still reports the optimal 500 CP build for every family member and flags eligibility separately."
+    },
+    "greatLeague": {
+      "id": "greatLeague",
+      "label": "Great League",
+      "cpCap": 1500,
+      "note": "Standard GO Battle League cup, open ruleset."
+    },
+    "summerLeague": {
+      "id": "summerLeague",
+      "label": "Summer League",
+      "cpCap": 1500,
+      "note": "Seasonal cup that shares the 1500 CP cap with Great League. Any additional type/species restrictions for the live seasonal cup are not modeled here."
+    },
+    "ultraLeague": {
+      "id": "ultraLeague",
+      "label": "Ultra League",
+      "cpCap": 2500,
+      "note": "Standard GO Battle League cup, open ruleset."
+    },
+    "masterLeague": {
+      "id": "masterLeague",
+      "label": "Master League",
+      "cpCap": null,
+      "note": "No CP cap. Optimal build is always 15/15/15 at the highest available level."
+    }
+  },
+
+  "cpMultipliers": {
+    "1.0": 0.094, "1.5": 0.13513743, "2.0": 0.16639787, "2.5": 0.19265091,
+    "3.0": 0.21573247, "3.5": 0.23657266, "4.0": 0.25572005, "4.5": 0.27353038,
+    "5.0": 0.29024988, "5.5": 0.30605738, "6.0": 0.3210876, "6.5": 0.33544503,
+    "7.0": 0.34921268, "7.5": 0.36245775, "8.0": 0.37523559, "8.5": 0.38759241,
+    "9.0": 0.39956728, "9.5": 0.41119355, "10.0": 0.42250001, "10.5": 0.43292641,
+    "11.0": 0.44310755, "11.5": 0.45305996, "12.0": 0.4627984, "12.5": 0.47233608,
+    "13.0": 0.48168495, "13.5": 0.49085581, "14.0": 0.49985844, "14.5": 0.50870176,
+    "15.0": 0.51739395, "15.5": 0.52590419, "16.0": 0.5342789, "16.5": 0.54276878,
+    "17.0": 0.5511279, "17.5": 0.55890436, "18.0": 0.5665741, "18.5": 0.57407756,
+    "19.0": 0.5814842, "19.5": 0.58858442, "20.0": 0.5956, "20.5": 0.60232124,
+    "21.0": 0.6089683, "21.5": 0.61528015, "22.0": 0.6215279, "22.5": 0.62778972,
+    "23.0": 0.6339897, "23.5": 0.64031936, "24.0": 0.64658706, "24.5": 0.65296891,
+    "25.0": 0.65928899, "25.5": 0.66566979, "26.0": 0.67199, "26.5": 0.67828121,
+    "27.0": 0.6845146, "27.5": 0.69066642, "28.0": 0.69676393, "28.5": 0.70310087,
+    "29.0": 0.7093812, "29.5": 0.71571962, "30.0": 0.7220024, "30.5": 0.72686737,
+    "31.0": 0.7317, "31.5": 0.73451005, "32.0": 0.7373094, "32.5": 0.74010014,
+    "33.0": 0.7428804, "33.5": 0.74564531, "34.0": 0.7484, "34.5": 0.75110485,
+    "35.0": 0.7538, "35.5": 0.75650482, "36.0": 0.7592, "36.5": 0.76185461,
+    "37.0": 0.7645, "37.5": 0.76715428, "38.0": 0.7697994, "38.5": 0.77220173,
+    "39.0": 0.7745966, "39.5": 0.77699991, "40.0": 0.7793958, "40.5": 0.78169908,
+    "41.0": 0.7839956, "41.5": 0.78629761, "42.0": 0.7885929, "42.5": 0.79089459,
+    "43.0": 0.7931896, "43.5": 0.79549077, "44.0": 0.7977853, "44.5": 0.80008615,
+    "45.0": 0.8023804, "45.5": 0.80468093, "46.0": 0.8069749, "46.5": 0.80927511,
+    "47.0": 0.8115688, "47.5": 0.81386879, "48.0": 0.8161623, "48.5": 0.81846202,
+    "49.0": 0.8207553, "49.5": 0.82305485, "50.0": 0.825348, "50.5": 0.82764683,
+    "51.0": 0.8299393
+  },
+
+  "baseStats": {
+    "bulbasaur":  { "dex": 1,   "displayName": "Bulbasaur",  "types": ["grass", "poison"],  "attack": 118, "defense": 111, "stamina": 128,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Grass-type attacker; only relevant while still evolving in PvP." } },
+    "ivysaur":    { "dex": 2,   "displayName": "Ivysaur",    "types": ["grass", "poison"],  "attack": 151, "defense": 143, "stamina": 155,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+    "venusaur":   { "dex": 3,   "displayName": "Venusaur",   "types": ["grass", "poison"],  "attack": 198, "defense": 189, "stamina": 190,
+      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": false, "role": "Usable Grass-type raid attacker (Vine Whip/Frenzy Plant); outclassed by Roserade, Kartana and Mega Venusaur." } },
+
+    "charmander": { "dex": 4,   "displayName": "Charmander", "types": ["fire"],             "attack": 116, "defense": 93,  "stamina": 118,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Fire-type attacker; only relevant while still evolving in PvP." } },
+    "charmeleon": { "dex": 5,   "displayName": "Charmeleon", "types": ["fire"],             "attack": 158, "defense": 126, "stamina": 151,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+    "charizard":  { "dex": 6,   "displayName": "Charizard",  "types": ["fire", "flying"],   "attack": 223, "defense": 173, "stamina": 186,
+      "raid": { "attackerTier": "A", "isTopAttacker": true,  "isGymDefender": false, "role": "Strong Fire/Flying raid attacker with Dragon Breath + Fire Blast/Blast Burn; fragile as a gym defender." } },
+
+    "squirtle":   { "dex": 7,   "displayName": "Squirtle",   "types": ["water"],            "attack": 94,  "defense": 121, "stamina": 127,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Water-type attacker; only relevant while still evolving in PvP." } },
+    "wartortle":  { "dex": 8,   "displayName": "Wartortle",  "types": ["water"],            "attack": 126, "defense": 155, "stamina": 153,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+    "blastoise":  { "dex": 9,   "displayName": "Blastoise",  "types": ["water"],            "attack": 171, "defense": 210, "stamina": 197,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": true,  "role": "Bulky enough for casual gym defense, but its Water-type attacks are mediocre next to Kyogre, Feraligatr or Gyarados as a raid attacker." } },
+
+    "pikachu":    { "dex": 25,  "displayName": "Pikachu",    "types": ["electric"],         "attack": 112, "defense": 96,  "stamina": 111,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Iconic but stat-limited; outclassed by nearly every other Electric-type attacker." } },
+    "raichu":     { "dex": 26,  "displayName": "Raichu",     "types": ["electric"],         "attack": 193, "defense": 151, "stamina": 155,
+      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": false, "role": "Serviceable budget Electric-type raid attacker with Volt Switch/Wild Charge." } },
+
+    "eevee":      { "dex": 133, "displayName": "Eevee",      "types": ["normal"],           "attack": 104, "defense": 114, "stamina": 146,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Base form kept relevant mainly for PvP Little Cup and Eeveelution collecting." } },
+    "vaporeon":   { "dex": 134, "displayName": "Vaporeon",   "types": ["water"],            "attack": 205, "defense": 161, "stamina": 277,
+      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": true,  "role": "Extremely bulky (highest non-legendary HP); a long-standing top-tier Gym Defender and solid Water-type attacker." } },
+    "jolteon":    { "dex": 135, "displayName": "Jolteon",    "types": ["electric"],         "attack": 232, "defense": 182, "stamina": 163,
+      "raid": { "attackerTier": "B", "isTopAttacker": false, "isGymDefender": false, "role": "Glass-cannon Electric-type raid attacker; strong damage output but fragile in prolonged fights." } },
+    "flareon":    { "dex": 136, "displayName": "Flareon",    "types": ["fire"],             "attack": 246, "defense": 179, "stamina": 173,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Hard-hitting Fire-type but move pool and bulk leave it behind Charizard/Moltres-tier attackers." } },
+
+    "dratini":    { "dex": 147, "displayName": "Dratini",    "types": ["dragon"],           "attack": 119, "defense": 95,  "stamina": 137,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Weak Dragon-type attacker; only relevant while still evolving in PvP." } },
+    "dragonair":  { "dex": 148, "displayName": "Dragonair",  "types": ["dragon"],           "attack": 163, "defense": 135, "stamina": 156,
+      "raid": { "attackerTier": "C", "isTopAttacker": false, "isGymDefender": false, "role": "Transitional evolution, rarely used outside of PvP leveling curves." } },
+    "dragonite":  { "dex": 149, "displayName": "Dragonite",  "types": ["dragon", "flying"], "attack": 263, "defense": 201, "stamina": 209,
+      "raid": { "attackerTier": "A", "isTopAttacker": true,  "isGymDefender": true,  "role": "Longtime top-tier Dragon-type raid attacker (Dragon Breath/Outrage) and durable Gym Defender." } },
+
+    "magikarp":   { "dex": 129, "displayName": "Magikarp",   "types": ["water"],            "attack": 29,  "defense": 85,  "stamina": 129,
+      "raid": { "attackerTier": "F", "isTopAttacker": false, "isGymDefender": false, "role": "One of the weakest attackers in the game; purely a novelty/evolution fodder pick." } },
+    "gyarados":   { "dex": 130, "displayName": "Gyarados",   "types": ["water", "flying"],  "attack": 237, "defense": 197, "stamina": 216,
+      "raid": { "attackerTier": "A", "isTopAttacker": true,  "isGymDefender": false, "role": "Premier Water-type raid attacker (Waterfall/Dragon-move sets); one of the best counters to Fire/Rock raid bosses." } },
+
+    "mewtwo":     { "dex": 150, "displayName": "Mewtwo",     "types": ["psychic"],          "attack": 300, "defense": 182, "stamina": 214,
+      "raid": { "attackerTier": "S", "isTopAttacker": true,  "isGymDefender": false, "role": "Top-tier Psychic-type raid attacker and one of the best all-around attackers in the game; also a premier raid boss." } }
+  },
+
+  "fallbackFamilies": {
+    "_comment": "Used only if the live PokeAPI evolution-chain lookup is unreachable. Each entry lists a demo family in evolution order, keyed by every member's name so any family member can be searched.",
+    "bulbasaur": ["bulbasaur", "ivysaur", "venusaur"],
+    "ivysaur": ["bulbasaur", "ivysaur", "venusaur"],
+    "venusaur": ["bulbasaur", "ivysaur", "venusaur"],
+    "charmander": ["charmander", "charmeleon", "charizard"],
+    "charmeleon": ["charmander", "charmeleon", "charizard"],
+    "charizard": ["charmander", "charmeleon", "charizard"],
+    "squirtle": ["squirtle", "wartortle", "blastoise"],
+    "wartortle": ["squirtle", "wartortle", "blastoise"],
+    "blastoise": ["squirtle", "wartortle", "blastoise"],
+    "pikachu": ["pikachu", "raichu"],
+    "raichu": ["pikachu", "raichu"],
+    "eevee": ["eevee", "vaporeon", "jolteon", "flareon"],
+    "vaporeon": ["eevee", "vaporeon", "jolteon", "flareon"],
+    "jolteon": ["eevee", "vaporeon", "jolteon", "flareon"],
+    "flareon": ["eevee", "vaporeon", "jolteon", "flareon"],
+    "dratini": ["dratini", "dragonair", "dragonite"],
+    "dragonair": ["dratini", "dragonair", "dragonite"],
+    "dragonite": ["dratini", "dragonair", "dragonite"],
+    "magikarp": ["magikarp", "gyarados"],
+    "gyarados": ["magikarp", "gyarados"],
+    "mewtwo": ["mewtwo"]
+  }
+}
