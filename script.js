@@ -323,7 +323,12 @@
     lastSearchData = data;
 
     var stripHtml = renderFamilyStrip(data.family);
+    // Cards render highest-evolution-first (reverse of the strip above,
+    // which still reads base -> final left to right) - purely a display
+    // order choice, .slice() first so the strip's own data isn't mutated.
     var cardsHtml = data.family
+      .slice()
+      .reverse()
       .map(function (member) { return renderPokemonCard(member, data.leagueDefinitions); })
       .join('');
 
