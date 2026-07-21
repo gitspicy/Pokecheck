@@ -93,11 +93,19 @@
     );
   }
 
-  function renderLeagueRow(leagueId, leagueDefinitions, leagueResult) {
+  function renderLeagueRow(leagueId, leagueDefinitions, leagueResult, viewMode) {
     var def = leagueDefinitions[leagueId];
     var label = '<span class="league-name">' + escapeHtml(def.label) + '</span>';
     var capLabel = def.cpCap === null ? 'No cap' : def.cpCap + ' CP';
     var rowClass = 'league-row-' + leagueId;
+    // Shadow's Attack/Defense multipliers apply to battle damage, not to
+    // Niantic's CP formula, so the optimal IV/CP/level build itself is
+    // identical between Normal and Shadow - only the community rank/score/
+    // moveset (a real battle-simulation result) differs, hence swapping
+    // just the ranking source here rather than the whole row.
+    var ranking = viewMode === 'shadow'
+      ? (leagueResult && leagueResult.shadowRanking)
+      : (leagueResult && leagueResult.ranking);
 
     if (!leagueResult || leagueResult.eligible === false) {
       var reason = leagueResult && leagueResult.reason
@@ -116,8 +124,8 @@
       '<tr class="' + rowClass + '">' +
         '<td>' + label + '<br><small>' + capLabel + '</small></td>' +
         '<td class="iv-set">' + formatIvSet(leagueResult) + '<br><small>' + leagueResult.cp + ' CP &middot; Lv ' + leagueResult.level + '</small></td>' +
-        '<td>' + formatRank(leagueResult.ranking) + '</td>' +
-        '<td>' + formatMoveset(leagueResult.ranking) + '</td>' +
+        '<td>' + formatRank(ranking) + '</td>' +
+        '<td>' + formatMoveset(ranking) + '</td>' +
       '</tr>'
     );
   }
@@ -166,15 +174,44 @@
     );
   }
 
-  function renderPokemonCard(member, leagueDefinitions) {
+  function renderShadowToggle(member, viewMode) {
+    if (!member.shadowEligible) {
+      return '';
+    }
+
+    function toggleBtn(mode, label) {
+      var active = mode === viewMode ? ' active' : '';
+      return (
+        '<button type="button" class="view-toggle-btn' + active + '" data-slug="' + escapeHtml(member.slug) + '" data-mode="' + mode + '">' +
+          label +
+        '</button>'
+      );
+    }
+
+    return (
+      '<div class="view-toggle">' +
+        toggleBtn('normal', 'Normal') +
+        toggleBtn('shadow', 'Shadow') +
+      '</div>'
+    );
+  }
+
+  function renderPokemonCard(member, leagueDefinitions, viewMode) {
+    viewMode = viewMode === 'shadow' && member.shadowEligible ? 'shadow' : 'normal';
+
     var typeBadges = member.types
       .map(function (t) { return '<span class="type-badge type-' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>'; })
       .join('');
 
+    var effectiveAttacker = viewMode === 'shadow' ? member.shadowAttacker : member.attacker;
+
     // Every badge here is derived straight from a sourced dataset (the
     // community tier list / evolution family data) - no editorial guessing.
-    var attackerTier = member.attacker && member.attacker.tier ? member.attacker.tier.label : null;
+    var attackerTier = effectiveAttacker && effectiveAttacker.tier ? effectiveAttacker.tier.label : null;
     var badges = '';
+    if (viewMode === 'shadow') {
+      badges += '<span class="badge shadow">Shadow</span>';
+    }
     if (attackerTier && TOP_ATTACKER_TIERS.indexOf(attackerTier) !== -1) {
       badges += '<span class="badge attacker">Top Raid Attacker (Tier ' + escapeHtml(attackerTier) + ')</span>';
     } else if (attackerTier) {
@@ -186,16 +223,22 @@
 
     var rows = LEAGUE_ORDER
       .map(function (leagueId) {
-        return renderLeagueRow(leagueId, leagueDefinitions, member.leagues[leagueId]);
+        return renderLeagueRow(leagueId, leagueDefinitions, member.leagues[leagueId], viewMode);
       })
       .join('');
 
+    var shadowNote = viewMode === 'shadow'
+      ? '<p class="raid-line">Optimal IV/CP/Level builds are identical to Normal &mdash; Shadow\'s +20% Attack / -20% Defense affects battle damage, not Niantic\'s CP formula. Only the ranks, scores, and movesets below reflect the Shadow simulation.</p>'
+      : '';
+
     return (
-      '<article class="pokemon-card" id="member-' + escapeHtml(member.slug) + '">' +
+      '<article class="pokemon-card' + (viewMode === 'shadow' ? ' shadow-view' : '') + '" id="member-' + escapeHtml(member.slug) + '">' +
         '<div class="pokemon-card-head">' +
           '<h2><span class="dex">#' + escapeHtml(member.dex) + '</span>' + escapeHtml(member.displayName) + typeBadges + '</h2>' +
+          renderShadowToggle(member, viewMode) +
         '</div>' +
         '<div class="raid-badges">' + badges + '</div>' +
+        shadowNote +
         '<h3 class="section-heading">PvP League Rankings</h3>' +
         '<div class="table-scroll">' +
           '<table class="league-table">' +
@@ -204,7 +247,7 @@
           '</table>' +
         '</div>' +
         '<h3 class="section-heading">Raid Attacker Rankings</h3>' +
-        renderAttackerPanel(member.attacker) +
+        renderAttackerPanel(effectiveAttacker) +
       '</article>'
     );
   }
@@ -270,8 +313,14 @@
     return '<div class="family-strip">' + stageHtml + '</div>';
   }
 
+  // Holds the most recent search response so the Normal/Shadow toggle can
+  // re-render a single card in place without a fresh AJAX round-trip - the
+  // response already contains both variants' data.
+  var lastSearchData = null;
+
   function renderResults(data) {
     $results.empty();
+    lastSearchData = data;
 
     var stripHtml = renderFamilyStrip(data.family);
     var cardsHtml = data.family
@@ -285,6 +334,23 @@
       'info'
     );
   }
+
+  $results.on('click', '.view-toggle-btn', function () {
+    if (!lastSearchData) {
+      return;
+    }
+
+    var slug = $(this).data('slug');
+    var mode = $(this).data('mode');
+    var member = lastSearchData.family.filter(function (m) { return m.slug === slug; })[0];
+
+    if (!member) {
+      return;
+    }
+
+    var newCardHtml = renderPokemonCard(member, lastSearchData.leagueDefinitions, mode);
+    $('#member-' + slug).replaceWith(newCardHtml);
+  });
 
   function performSearch() {
     var term = $input.val().trim();

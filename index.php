@@ -357,6 +357,12 @@ function compute_all_leagues(
         // CSV in /rankings/ (null if the species isn't present in that
         // export - e.g. it was judged too weak to be worth ranking).
         $entry['ranking'] = lookup_league_ranking($memberSlug, $league);
+        // Shadow Pokemon get the same optimal CP/IV/level build as Normal
+        // (Niantic's CP formula doesn't apply the Shadow attack/defense
+        // multipliers - see data.json's shadowModifiers note), but their
+        // battle-simulated rank/score/moveset genuinely differs, hence a
+        // separate CSV lookup rather than reusing $entry['ranking'].
+        $entry['shadowRanking'] = lookup_league_ranking($memberSlug . '_shadow', $league);
 
         $result[$leagueId] = $entry;
     }
@@ -447,12 +453,31 @@ function load_ranking_csv(string $relativePath): array
  * parenthetical form suffix, e.g. "Zacian (Crowned Sword)") down to the
  * same slug format used for baseStats keys, so the two datasets can be
  * matched against each other.
+ *
+ * Shadow forms get special handling since our CSV sources spell them two
+ * different ways - "Altaria (Shadow)" in the PvP league rankings, "Shadow
+ * Mewtwo" in the DPS/tier-list rankings. Either is turned into a "_shadow"
+ * suffix on the slug (e.g. "altaria_shadow") so Shadow rows get their own
+ * lookup key instead of colliding with - and silently losing to - the
+ * Normal form's row.
  */
 function normalize_ranking_pokemon_name(string $name): string
 {
-    $withoutForm = preg_replace('/\s*\(.*?\)\s*/', '', $name);
+    $isShadow = false;
+    $working = $name;
 
-    return normalize_species_slug((string) $withoutForm) ?? '';
+    if (preg_match('/\(\s*shadow\s*\)/i', $working)) {
+        $isShadow = true;
+        $working = (string) preg_replace('/\s*\(\s*shadow\s*\)\s*/i', '', $working);
+    } elseif (preg_match('/^\s*shadow\s+/i', $working)) {
+        $isShadow = true;
+        $working = (string) preg_replace('/^\s*shadow\s+/i', '', $working);
+    }
+
+    $withoutForm = preg_replace('/\s*\(.*?\)\s*/', '', $working);
+    $slug = normalize_species_slug((string) $withoutForm) ?? '';
+
+    return $isShadow && $slug !== '' ? $slug . '_shadow' : $slug;
 }
 
 /**
@@ -734,10 +759,12 @@ function handle_search_request_body(): void
     $leagues = $gameData['leagues'];
     $cpMultipliers = $gameData['cpMultipliers'];
     $attackerRankings = $gameData['attackerRankings'];
+    $shadowEligibleSpecies = array_flip($gameData['shadowEligibleSpecies']);
 
     $members = [];
     foreach ($family['names'] as $memberSlug) {
         $stats = $baseStats[$memberSlug];
+        $isShadowEligible = isset($shadowEligibleSpecies[$memberSlug]);
 
         $members[] = [
             'slug' => $memberSlug,
@@ -761,6 +788,13 @@ function handle_search_request_body(): void
                 $leagues,
                 $cpMultipliers
             ),
+            // Shadow Pokemon: CP/IV/level optimal builds are identical to
+            // Normal (see the shadowRanking comment in compute_all_leagues),
+            // but raid-attacker DPS/rank differ, hence a separate lookup.
+            'shadowEligible' => $isShadowEligible,
+            'shadowAttacker' => $isShadowEligible
+                ? build_attacker_summary($memberSlug . '_shadow', $stats['types'], $attackerRankings)
+                : null,
         ];
     }
 
@@ -1014,6 +1048,44 @@ if (isset($_GET['action']) && $_GET['action'] === 'search') {
     font-weight: 400;
     font-size: 0.9rem;
     margin-right: 0.4rem;
+  }
+
+  .pokemon-card.shadow-view {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35);
+  }
+
+  .view-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem;
+    background: var(--panel-alt);
+  }
+
+  .view-toggle-btn {
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .view-toggle-btn.active {
+    background: #8b5cf6;
+    color: #fff;
+  }
+
+  .view-toggle-btn:not(.active):hover {
+    color: var(--text);
+  }
+
+  .badge.shadow {
+    background: #8b5cf6;
+    color: #fff;
   }
 
   .type-badge {
