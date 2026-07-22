@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #
 # Installs Apache + PHP-FPM on Ubuntu (24.04/26.04) and deploys Pokecheck so
-# it's served at http://<this-machine's-LAN-IP>/pokestop
+# it's served at http://<this-machine's-LAN-IP>/pokecheck
 #
 # Usage (run on the Ubuntu box that will host the site):
-#   sudo ./setup-apache-pokestop.sh [branch]
+#   sudo ./setup-apache-pokecheck.sh [branch]
 #
 # Safe to re-run: it just git-pulls into the existing clone.
 
 set -euo pipefail
 
 REPO_URL="https://github.com/gitspicy/Pokecheck.git"
-DEPLOY_DIR="/var/www/html/pokestop"
+DEPLOY_DIR="/var/www/html/pokecheck"
 BRANCH="${1:-claude/pokemon-go-pvp-app-lw2gy5}"
 
 if [[ $EUID -ne 0 ]]; then
@@ -59,7 +59,7 @@ fi
 LAN_IP="$(hostname -I | awk '{print $1}')"
 echo
 echo "Done. The app should now be live at:"
-echo "  http://${LAN_IP}/pokestop/"
+echo "  http://${LAN_IP}/pokecheck/"
 echo
 echo "To update after a new push, just re-run this script:"
-echo "  sudo ./setup-apache-pokestop.sh ${BRANCH}"
+echo "  sudo ./setup-apache-pokecheck.sh ${BRANCH}"
