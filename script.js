@@ -240,10 +240,17 @@
       ? '<p class="raid-line">Optimal IV/CP/Level builds are identical to Normal &mdash; Shadow\'s +20% Attack / -20% Defense affects battle damage, not Niantic\'s CP formula. Only the ranks, scores, and movesets below reflect the Shadow simulation.</p>'
       : '';
 
+    var heroImg = member.heroImage
+      ? '<img class="hero-thumb" src="' + escapeHtml(member.heroImage) + '" alt="" width="80" height="80" loading="lazy">'
+      : '';
+
     return (
       '<article class="pokemon-card' + (viewMode === 'shadow' ? ' shadow-view' : '') + '" id="member-' + escapeHtml(member.slug) + '">' +
         '<div class="pokemon-card-head">' +
-          '<h2><span class="dex">#' + escapeHtml(member.dex) + '</span>' + escapeHtml(member.displayName) + typeBadges + '</h2>' +
+          '<div class="pokemon-card-title">' +
+            heroImg +
+            '<h2><span class="dex">#' + escapeHtml(member.dex) + '</span>' + escapeHtml(member.displayName) + typeBadges + '</h2>' +
+          '</div>' +
           renderShadowToggle(member, viewMode) +
         '</div>' +
         '<div class="raid-badges">' + badges + '</div>' +
@@ -283,9 +290,13 @@
     var rankLine = best
       ? 'best ' + rankBadge(best.rank, null)
       : '<span class="unranked">no PvP rank</span>';
+    var icon = member.iconImage
+      ? '<img class="family-strip-icon" src="' + escapeHtml(member.iconImage) + '" alt="" width="32" height="32" loading="lazy">'
+      : '';
 
     return (
       '<a class="family-strip-item" href="#member-' + escapeHtml(member.slug) + '">' +
+        icon +
         '<div class="family-strip-name">' + escapeHtml(member.displayName) + '</div>' +
         '<div class="family-strip-badges">' + tierBadge + '</div>' +
         '<div class="family-strip-rank">' + rankLine + '</div>' +
@@ -441,6 +452,7 @@
               label: s.label,
               dex: s.dex,
               types: s.types,
+              iconImage: s.iconImage,
               searchKey: toSearchKey(s.label),
               slugKey: toSearchKey(s.slug),
             };
@@ -496,9 +508,12 @@
         var typeBadges = s.types
           .map(function (t) { return '<span class="type-badge type-' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>'; })
           .join('');
+        var icon = s.iconImage
+          ? '<img class="ac-icon" src="' + escapeHtml(s.iconImage) + '" alt="" width="28" height="28" loading="lazy">'
+          : '<span class="ac-icon ac-icon-empty"></span>';
         return (
           '<li class="autocomplete-item" data-slug="' + escapeHtml(s.slug) + '">' +
-            '<span><span class="ac-dex">#' + s.dex + '</span>' + escapeHtml(s.label) + '</span>' +
+            '<span class="ac-name-group">' + icon + '<span class="ac-dex">#' + s.dex + '</span>' + escapeHtml(s.label) + '</span>' +
             '<span class="ac-types">' + typeBadges + '</span>' +
           '</li>'
         );

@@ -87,6 +87,33 @@ function normalize_species_slug(string $raw): ?string
 }
 
 // ---------------------------------------------------------------------------
+// Species artwork (local WebP files, resized from HybridShivam/Pokemon's
+// official Sugimori artwork mirror - see /images/README.md)
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns the site-relative path to a species' local artwork file for the
+ * given variant ("hero" ~260px for card headers, "icon" ~56px for the
+ * autocomplete dropdown and family strip), or null if no file was
+ * generated for that slug (e.g. a future baseStats addition the image
+ * pipeline hasn't been re-run for yet) - callers must handle a missing
+ * image gracefully rather than assume every species has one.
+ */
+function resolve_image_path(string $slug, string $variant): ?string
+{
+    static $exists = [];
+
+    $relative = "images/{$variant}/{$slug}.webp";
+    $key = $variant . '/' . $slug;
+
+    if (!isset($exists[$key])) {
+        $exists[$key] = is_file(__DIR__ . '/' . $relative);
+    }
+
+    return $exists[$key] ? $relative : null;
+}
+
+// ---------------------------------------------------------------------------
 // Evolution family resolution (fully local - driven by data.json's baseStats)
 // ---------------------------------------------------------------------------
 
@@ -891,6 +918,8 @@ function handle_search_request_body(): void
             'dex' => $stats['dex'],
             'displayName' => $stats['displayName'],
             'types' => $stats['types'],
+            'heroImage' => resolve_image_path($memberSlug, 'hero'),
+            'iconImage' => resolve_image_path($memberSlug, 'icon'),
             'baseStats' => [
                 'attack' => $stats['attack'],
                 'defense' => $stats['defense'],
@@ -978,6 +1007,7 @@ function handle_species_list_request(): void
                 'label' => $label,
                 'dex' => $entry['dex'],
                 'types' => $entry['types'],
+                'iconImage' => resolve_image_path($slug, 'icon'),
             ];
         }
 
@@ -1065,6 +1095,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   }
 
   .search-panel {
+    position: relative;
     display: flex;
     gap: 0.6rem;
     background: var(--panel);
@@ -1075,7 +1106,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   }
 
   .search-input-wrap {
-    position: relative;
     flex: 1 1 220px;
     min-width: 0;
   }
@@ -1128,6 +1158,26 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   .autocomplete-item:hover,
   .autocomplete-item.highlighted {
     background: var(--panel);
+  }
+
+  .ac-name-group {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .ac-icon {
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    object-fit: contain;
+  }
+
+  .ac-icon-empty {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
   }
 
   .autocomplete-item .ac-dex {
@@ -1237,6 +1287,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   .family-strip-item {
     display: block;
     text-decoration: none;
+    text-align: center;
     background: var(--panel-alt);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -1250,11 +1301,18 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     transform: translateY(-1px);
   }
 
+  .family-strip-icon {
+    display: block;
+    margin: 0 auto 0.3rem;
+    object-fit: contain;
+  }
+
   .family-strip-name {
     color: var(--text);
     font-weight: 700;
     font-size: 0.9rem;
     margin-bottom: 0.3rem;
+    text-align: center;
   }
 
   .family-strip-badges { margin-bottom: 0.3rem; }
@@ -1273,13 +1331,26 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 
   .pokemon-card-head {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.7rem;
     margin-bottom: 0.9rem;
+  }
+
+  .pokemon-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-thumb {
+    flex-shrink: 0;
+    object-fit: contain;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 72%);
+    border-radius: 50%;
   }
 
   .pokemon-card-head h2 {
