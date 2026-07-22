@@ -558,6 +558,25 @@
   }
 
   /**
+   * Strips clutter that tools like duplicate-tracking spreadsheets tack
+   * onto a copied Pokemon name - superscript numbers (unicode "No"
+   * codepoints like U+00B9/U+2074-2079, distinct from plain ASCII digits
+   * so "Porygon2" is untouched), emoji, and other symbol/control
+   * characters - while keeping the letters, ASCII digits, and the light
+   * punctuation (apostrophe, period, hyphen, parens, (fe)male signs)
+   * real Pokemon names use. A single interior space is kept between
+   * words (not stripped) since the backend needs it to resolve
+   * multi-word names like "Mr Mime" or "Tapu Koko"; only repeated/
+   * leading/trailing whitespace is collapsed away.
+   */
+  function sanitizeName(value) {
+    return String(value)
+      .replace(/[^\p{L}0-9\s'.\-()♀♂]/gu, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  /**
    * Fetches the full species list once on page load so autocomplete can
    * filter it entirely client-side (instant, no per-keystroke request).
    * Silently gives up on failure - autocomplete is a convenience layer,
@@ -671,7 +690,10 @@
   }
 
   function performSearch() {
-    var term = $input.val().trim();
+    var term = sanitizeName($input.val());
+    if (term !== $input.val()) {
+      $input.val(term);
+    }
 
     if (term === '') {
       setStatus('Type a Pokemon name first.', 'error');
@@ -729,6 +751,29 @@
 
   $input.on('input', function () {
     renderAutocomplete(filterSpecies($input.val()));
+  });
+
+  // Cleans up pasted text specifically (rather than on every keystroke) so
+  // normal typing - including a space you just typed before the next word
+  // of a multi-word name - is never fought or clobbered mid-type.
+  $input.on('paste', function (e) {
+    var clipboardData = e.originalEvent && e.originalEvent.clipboardData;
+    if (!clipboardData) {
+      return;
+    }
+
+    e.preventDefault();
+    var cleaned = sanitizeName(clipboardData.getData('text'));
+    var el = $input.get(0);
+    var start = el.selectionStart != null ? el.selectionStart : el.value.length;
+    var end = el.selectionEnd != null ? el.selectionEnd : el.value.length;
+    var current = el.value;
+    var nextValue = current.slice(0, start) + cleaned + current.slice(end);
+
+    $input.val(nextValue);
+    var caret = start + cleaned.length;
+    el.setSelectionRange(caret, caret);
+    renderAutocomplete(filterSpecies(nextValue));
   });
 
   $input.on('focus', function () {
