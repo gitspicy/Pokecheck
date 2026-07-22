@@ -1043,6 +1043,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pokecheck &mdash; Pokemon GO PvP Reference</title>
+<link rel="icon" type="image/x-icon" href="images/brand/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="images/brand/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="images/brand/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/brand/apple-touch-icon.png">
 <style>
   :root {
     --bg: #0f172a;
@@ -1074,8 +1079,22 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     padding: 2.5rem 1rem 1.5rem;
   }
 
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .brand-logo {
+    display: block;
+    width: 52px;
+    height: 52px;
+  }
+
   header h1 {
-    margin: 0 0 0.35rem;
+    margin: 0;
     font-size: 2rem;
     letter-spacing: 0.02em;
   }
@@ -1700,7 +1719,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 <body>
 
 <header>
-  <h1>Pokecheck<span>.</span> PvP Reference</h1>
+  <div class="brand">
+    <img src="images/brand/logo.png" alt="" class="brand-logo" width="52" height="52">
+    <h1>Pokecheck<span>.</span> PvP Reference</h1>
+  </div>
   <p>Search a Pokemon to see PvP-optimal IVs for its whole evolution family.</p>
 </header>
 
