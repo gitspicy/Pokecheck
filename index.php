@@ -1089,22 +1089,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 
   .brand-logo {
     display: block;
-    width: 52px;
-    height: 52px;
+    width: 57px;
+    height: 57px;
   }
 
   header h1 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 2.2rem;
     letter-spacing: 0.02em;
-  }
-
-  header h1 span { color: var(--accent); }
-
-  header p {
-    margin: 0;
-    color: var(--text-dim);
-    font-size: 0.95rem;
   }
 
   main {
@@ -1693,21 +1685,30 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 
   footer {
     text-align: center;
-    color: var(--text-dim);
-    font-size: 0.78rem;
     padding: 1rem 1.5rem 2rem;
   }
 
-  footer p {
-    max-width: 640px;
-    margin: 0.25rem auto;
-    line-height: 1.5;
+  .legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
   }
 
-  footer code {
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  .legend-item code {
     background: var(--panel-alt);
+    border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 0.05rem 0.35rem;
+    padding: 0.05rem 0.4rem;
+    color: var(--text);
   }
 
   @media (max-width: 560px) {
@@ -1720,10 +1721,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 
 <header>
   <div class="brand">
-    <img src="images/brand/logo.png" alt="" class="brand-logo" width="52" height="52">
-    <h1>Pokecheck<span>.</span> PvP Reference</h1>
+    <img src="images/brand/logo.png" alt="" class="brand-logo" width="57" height="57">
+    <h1>Pokecheck</h1>
   </div>
-  <p>Search a Pokemon to see PvP-optimal IVs for its whole evolution family.</p>
 </header>
 
 <main>
@@ -1741,8 +1741,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 </main>
 
 <footer>
-  <p>Base stats and evolution family data are imported directly from PvPoke's public gamemaster.json (1,045 released species/forms) &mdash; no external API calls at runtime.</p>
-  <p>PvPoke Rank / Top Moveset columns come from PvPoke's own exported battle-simulation rankings (<code>/rankings/*.csv</code>) &mdash; drop in a freshly exported CSV with the same filename to refresh them. <code>*</code> = Community Day / Elite TM move, <code>&dagger;</code> = legacy move no longer obtainable.</p>
+  <div class="legend">
+    <span class="legend-item"><code>*</code> Community Day / Elite TM move</span>
+    <span class="legend-item"><code>&dagger;</code> Legacy move</span>
+  </div>
 </footer>
 
 <script src="jquery.min.js"></script>
