@@ -21,7 +21,7 @@ fi
 
 echo "==> Installing Apache, PHP-FPM, and git"
 apt-get update
-apt-get install -y apache2 php-fpm php-cli git
+apt-get install -y apache2 php-fpm php-cli php-mbstring git
 
 PHP_VERSION="$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')"
 FPM_CONF="php${PHP_VERSION}-fpm"
