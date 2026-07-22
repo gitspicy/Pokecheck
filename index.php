@@ -1540,20 +1540,23 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   .badge.tier { background: var(--accent); color: #1a1a1a; }
   .badge.lc { background: var(--panel-alt); color: var(--text-dim); border: 1px solid var(--border); }
 
-  /* Community-tier heatmap: gray (F, worst) climbing through red/orange/
-     yellow up to green (S and above). Index order matches script.js's
-     TIER_ORDER = [F, D, C, B, A, S, SS, SSS, SSSS, SSSSS]. */
+  /* Community-tier heatmap: gray (F, worst) climbing through a genuine
+     red -> orange -> olive -> green hue rotation (HSL-computed, not just
+     "yellow" reused from --accent - that read as unstyled/default against
+     the rest of the UI's existing gold accent) up to green (S and above).
+     Index order matches script.js's TIER_ORDER =
+     [F, D, C, B, A, S, SS, SSS, SSSS, SSSSS]. */
   .badge.tier-heat-0 { background: #6b7280; color: #ffffff; } /* F */
-  .badge.tier-heat-1 { background: #b91c1c; color: #ffffff; } /* D */
-  .badge.tier-heat-2 { background: #dc2626; color: #ffffff; } /* C */
-  .badge.tier-heat-3 { background: #ea580c; color: #ffffff; } /* B */
-  .badge.tier-heat-4 { background: #eab308; color: #1a1a1a; } /* A */
-  .badge.tier-heat-5 { background: #65a30d; color: #ffffff; } /* S */
-  .badge.tier-heat-6 { background: #16a34a; color: #ffffff; } /* SS */
-  .badge.tier-heat-7 { background: #059669; color: #ffffff; } /* SSS */
-  .badge.tier-heat-8 { background: #0d9488; color: #ffffff; } /* SSSS */
+  .badge.tier-heat-1 { background: #ae2929; color: #ffffff; } /* D */
+  .badge.tier-heat-2 { background: #ae6029; color: #ffffff; } /* C */
+  .badge.tier-heat-3 { background: #ae9729; color: #1a1a1a; } /* B */
+  .badge.tier-heat-4 { background: #81ae29; color: #1a1a1a; } /* A */
+  .badge.tier-heat-5 { background: #29ae29; color: #1a1a1a; } /* S */
+  .badge.tier-heat-6 { background: #298e3a; color: #1a1a1a; } /* SS */
+  .badge.tier-heat-7 { background: #218341; color: #ffffff; } /* SSS */
+  .badge.tier-heat-8 { background: #197647; color: #ffffff; } /* SSSS */
   .badge.tier-heat-9 {
-    background: #047857;
+    background: #14714f;
     color: #ffffff;
     box-shadow: 0 0 0 1px #fbbf24, 0 0 8px rgba(251, 191, 36, 0.5);
   } /* SSSSS - subtle gold ring for the top tier */
