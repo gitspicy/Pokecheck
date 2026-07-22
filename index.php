@@ -1064,7 +1064,19 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     --radius: 10px;
   }
 
-  * { box-sizing: border-box; }
+  * {
+    box-sizing: border-box;
+    /* Kills the default gray flash Chrome/WebView draws on tap - a
+       native-app APK wrapper should never show it. Buttons/links still
+       get their own hover/active styles for feedback. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    /* Prevents the whole page from rubber-banding when a WebView wrapper
+       has no browser chrome to absorb an overscroll drag. */
+    overscroll-behavior-y: contain;
+  }
 
   body {
     margin: 0;
@@ -1072,6 +1084,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     background: linear-gradient(180deg, var(--bg), #0a1122 60%);
     color: var(--text);
     min-height: 100vh;
+  }
+
+  button {
+    /* Removes the ~300ms tap delay some WebViews still apply while
+       waiting to see if a tap becomes a double-tap-to-zoom gesture. */
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   header {
@@ -1164,6 +1184,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     border-radius: 7px;
     cursor: pointer;
     font-size: 0.92rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   .autocomplete-item:hover,
@@ -1243,10 +1266,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     border: 1px solid var(--border);
     color: var(--text-dim);
     border-radius: 999px;
-    padding: 0.2rem 0.7rem;
+    padding: 0.5rem 0.8rem;
     margin: 0.15rem 0.2rem;
     cursor: pointer;
     font-size: 0.8rem;
+    min-height: 2.25rem;
   }
 
   .quick-picks button:hover { border-color: var(--accent); color: var(--accent); }
@@ -1270,6 +1294,28 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .empty-state img {
+    opacity: 0.35;
+    filter: grayscale(0.4);
+  }
+
+  .empty-state p {
+    margin: 0;
+    max-width: 26rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
   .family-strip {
@@ -1305,6 +1351,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     padding: 0.5rem 0.7rem;
     min-width: 7.5rem;
     transition: border-color 0.15s ease, transform 0.15s ease;
+    touch-action: manipulation;
   }
 
   .family-strip-item:hover {
@@ -1395,9 +1442,10 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     color: var(--text-dim);
     font-size: 0.78rem;
     font-weight: 700;
-    padding: 0.3rem 0.8rem;
+    padding: 0.55rem 0.9rem;
     border-radius: 999px;
     cursor: pointer;
+    min-height: 2.25rem;
   }
 
   .view-toggle-btn.active {
@@ -1714,6 +1762,26 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   @media (max-width: 560px) {
     table.league-table { font-size: 0.8rem; }
     table.league-table th, table.league-table td { padding: 0.4rem 0.35rem; }
+
+    /* A lone-member stage (e.g. the root of a branching family) is only
+       as wide as its one card, but flex-wrap still reserves a full row
+       for it before the next stage wraps - leaving a large dead gap next
+       to a small arrow. Stacking vertically instead reads naturally as
+       a top-to-bottom evolution list on a narrow screen. */
+    .family-strip {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .family-strip-stage {
+      justify-content: center;
+    }
+
+    .family-strip-arrow {
+      display: block;
+      text-align: center;
+      transform: rotate(90deg);
+    }
   }
 </style>
 </head>
@@ -1737,7 +1805,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   <div class="quick-picks" id="recent-picks"></div>
 
   <div id="status-area"></div>
-  <div id="results"></div>
+  <div id="results">
+    <div class="empty-state" id="empty-state">
+      <img src="images/brand/logo.png" alt="" width="72" height="72">
+      <p>Search a Pokemon above to see its PvP-optimal IVs, league rankings, and raid attacker stats.</p>
+    </div>
+  </div>
 </main>
 
 <footer>
