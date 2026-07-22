@@ -14,7 +14,11 @@
   var $results = $('#results');
 
   var LEAGUE_ORDER = ['greatLeague', 'ultraLeague', 'masterLeague', 'littleCup', 'summerLeague'];
-  var TOP_ATTACKER_TIERS = ['S', 'SS', 'SSS', 'SSSS', 'SSSSS'];
+
+  // Worst-to-best order, used both to pick a heatmap CSS class (gray -> red
+  // -> green) and to decide which "S and above" tiers earn a medal emoji.
+  var TIER_ORDER = ['F', 'D', 'C', 'B', 'A', 'S', 'SS', 'SSS', 'SSSS', 'SSSSS'];
+  var TIER_MEDALS = { SS: '🥉', SSS: '🥈', SSSS: '🥇', SSSSS: '🏆' };
 
   var RECENT_SEARCHES_KEY = 'pokecheck.recentSearches';
   var MAX_RECENT_SEARCHES = 7;
@@ -54,6 +58,24 @@
 
   function formatIvSet(entry) {
     return entry.ivAtk + ' / ' + entry.ivDef + ' / ' + entry.ivSta;
+  }
+
+  /**
+   * Renders a community-tier letter (F through SSSSS) as a heatmap badge -
+   * gray at the bottom, red-to-green climbing through the middle tiers,
+   * with SS/SSS/SSSS/SSSSS (the "S and above" tiers) each additionally
+   * earning a medal emoji so they stand out even at a glance.
+   */
+  function renderTierBadge(tierLabel, extraClass) {
+    var index = TIER_ORDER.indexOf(tierLabel);
+    var cssIndex = index === -1 ? 0 : index;
+    var medal = TIER_MEDALS[tierLabel] ? ' ' + TIER_MEDALS[tierLabel] : '';
+
+    return (
+      '<span class="badge tier-heat tier-heat-' + cssIndex + (extraClass ? ' ' + extraClass : '') + '">' +
+        'Tier ' + escapeHtml(tierLabel) + medal +
+      '</span>'
+    );
   }
 
   /**
@@ -221,10 +243,8 @@
     if (viewMode === 'shadow') {
       badges += '<span class="badge shadow">Shadow</span>';
     }
-    if (attackerTier && TOP_ATTACKER_TIERS.indexOf(attackerTier) !== -1) {
-      badges += '<span class="badge attacker">Top Raid Attacker (Tier ' + escapeHtml(attackerTier) + ')</span>';
-    } else if (attackerTier) {
-      badges += '<span class="badge tier">Tier ' + escapeHtml(attackerTier) + '</span>';
+    if (attackerTier) {
+      badges += renderTierBadge(attackerTier);
     }
     badges += member.littleCupEligible
       ? '<span class="badge lc">Little Cup Legal</span>'
@@ -286,7 +306,7 @@
   function renderFamilyStripItem(member) {
     var best = bestLeagueRank(member);
     var tier = member.attacker && member.attacker.tier ? member.attacker.tier.label : null;
-    var tierBadge = tier ? '<span class="badge tier">Tier ' + escapeHtml(tier) + '</span>' : '';
+    var tierBadge = tier ? renderTierBadge(tier) : '';
     var rankLine = best
       ? 'best ' + rankBadge(best.rank, null)
       : '<span class="unranked">no PvP rank</span>';
@@ -333,6 +353,106 @@
     return '<div class="family-strip">' + stageHtml + '</div>';
   }
 
+  var NOTABLE_RANK_THRESHOLD = 25;
+
+  /**
+   * Scans every ranking figure this app tracks - PvP league rank (both
+   * Normal and Shadow), raid-attacker overall rank, per-type attacker
+   * rank, and community tier-list rank - across every family member, and
+   * collects a plain-language fact for each one that lands in the top 25.
+   * Each fact names its specific evolution stage (and Shadow, when that's
+   * the variant that qualified) so e.g. a Grotle top-25 finish never gets
+   * misread as being about Turtwig or Torterra.
+   */
+  function collectNotableFacts(family, leagueDefinitions) {
+    var facts = [];
+
+    function addFact(rank, html) {
+      if (rank && rank <= NOTABLE_RANK_THRESHOLD) {
+        facts.push({ rank: rank, html: html });
+      }
+    }
+
+    family.forEach(function (member) {
+      LEAGUE_ORDER.forEach(function (leagueId) {
+        var leagueResult = member.leagues[leagueId];
+        var leagueLabel = escapeHtml(leagueDefinitions[leagueId].label);
+        if (!leagueResult) {
+          return;
+        }
+
+        [
+          { ranking: leagueResult.ranking, shadow: false },
+          { ranking: leagueResult.shadowRanking, shadow: true },
+        ].forEach(function (variant) {
+          if (!variant.ranking) {
+            return;
+          }
+          var name = escapeHtml(member.displayName) + (variant.shadow ? ' <span class="badge shadow">Shadow</span>' : '');
+          addFact(
+            variant.ranking.rank,
+            '<strong>' + name + '</strong> ranks ' + rankBadge(variant.ranking.rank, variant.ranking.totalRanked) +
+              ' in ' + leagueLabel + ' <small>(Score ' + variant.ranking.score + ')</small>'
+          );
+        });
+      });
+
+      [
+        { attacker: member.attacker, shadow: false },
+        { attacker: member.shadowAttacker, shadow: true },
+      ].forEach(function (variant) {
+        if (!variant.attacker) {
+          return;
+        }
+        var name = escapeHtml(member.displayName) + (variant.shadow ? ' <span class="badge shadow">Shadow</span>' : '');
+
+        addFact(
+          variant.attacker.overallRank,
+          '<strong>' + name + '</strong> is the ' + rankBadge(variant.attacker.overallRank, variant.attacker.totalOverall) +
+            ' best raid attacker overall <small>(DPS ' + variant.attacker.dps + ')</small>'
+        );
+
+        Object.keys(variant.attacker.byType).forEach(function (type) {
+          var info = variant.attacker.byType[type];
+          var typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
+          addFact(
+            info.rank,
+            '<strong>' + name + '</strong> is the ' + rankBadge(info.rank, info.total) + ' best ' + escapeHtml(typeLabel) + ' attacker'
+          );
+        });
+
+        if (variant.attacker.tier) {
+          addFact(
+            variant.attacker.tier.rank,
+            '<strong>' + name + '</strong> ranks ' + rankBadge(variant.attacker.tier.rank, null) +
+              ' on the community attacker tier list <small>(Tier ' + escapeHtml(variant.attacker.tier.label) + ')</small>'
+          );
+        }
+      });
+    });
+
+    facts.sort(function (a, b) { return a.rank - b.rank; });
+
+    return facts;
+  }
+
+  function renderNotableFacts(family, leagueDefinitions) {
+    var facts = collectNotableFacts(family, leagueDefinitions);
+
+    if (facts.length === 0) {
+      return '';
+    }
+
+    var itemsHtml = facts.map(function (f) { return '<li>' + f.html + '</li>'; }).join('');
+
+    return (
+      '<div class="notable-facts">' +
+        '<h3 class="section-heading">Notable Rankings <span class="notable-sub">(top ' + NOTABLE_RANK_THRESHOLD + ' finishes)</span></h3>' +
+        '<ul>' + itemsHtml + '</ul>' +
+      '</div>'
+    );
+  }
+
   // Holds the most recent search response so the Normal/Shadow toggle can
   // re-render a single card in place without a fresh AJAX round-trip - the
   // response already contains both variants' data.
@@ -343,6 +463,7 @@
     lastSearchData = data;
 
     var stripHtml = renderFamilyStrip(data.family);
+    var notableHtml = renderNotableFacts(data.family, data.leagueDefinitions);
     // Cards render highest-evolution-first (reverse of the strip above,
     // which still reads base -> final left to right) - purely a display
     // order choice, .slice() first so the strip's own data isn't mutated.
@@ -352,7 +473,7 @@
       .map(function (member) { return renderPokemonCard(member, data.leagueDefinitions); })
       .join('');
 
-    $results.html(stripHtml + cardsHtml);
+    $results.html(stripHtml + notableHtml + cardsHtml);
 
     setStatus(
       'Showing the evolution family for "' + escapeHtml(data.query) + '".',

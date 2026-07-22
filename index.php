@@ -1453,6 +1453,36 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
     margin: 1.1rem 0 0.5rem;
   }
 
+  .notable-facts {
+    background: var(--panel);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+  }
+
+  .notable-facts .section-heading {
+    margin-top: 0;
+  }
+
+  .notable-sub {
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 400;
+  }
+
+  .notable-facts ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .notable-facts li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0.35rem;
+  }
+
+  .notable-facts li:last-child { margin-bottom: 0; }
+
   .attacker-panel {
     background: var(--panel-alt);
     border: 1px solid var(--border);
@@ -1508,8 +1538,25 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
   }
 
   .badge.tier { background: var(--accent); color: #1a1a1a; }
-  .badge.attacker { background: var(--good); color: #06301c; }
   .badge.lc { background: var(--panel-alt); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* Community-tier heatmap: gray (F, worst) climbing through red/orange/
+     yellow up to green (S and above). Index order matches script.js's
+     TIER_ORDER = [F, D, C, B, A, S, SS, SSS, SSSS, SSSSS]. */
+  .badge.tier-heat-0 { background: #6b7280; color: #ffffff; } /* F */
+  .badge.tier-heat-1 { background: #b91c1c; color: #ffffff; } /* D */
+  .badge.tier-heat-2 { background: #dc2626; color: #ffffff; } /* C */
+  .badge.tier-heat-3 { background: #ea580c; color: #ffffff; } /* B */
+  .badge.tier-heat-4 { background: #eab308; color: #1a1a1a; } /* A */
+  .badge.tier-heat-5 { background: #65a30d; color: #ffffff; } /* S */
+  .badge.tier-heat-6 { background: #16a34a; color: #ffffff; } /* SS */
+  .badge.tier-heat-7 { background: #059669; color: #ffffff; } /* SSS */
+  .badge.tier-heat-8 { background: #0d9488; color: #ffffff; } /* SSSS */
+  .badge.tier-heat-9 {
+    background: #047857;
+    color: #ffffff;
+    box-shadow: 0 0 0 1px #fbbf24, 0 0 8px rgba(251, 191, 36, 0.5);
+  } /* SSSSS - subtle gold ring for the top tier */
 
   .table-scroll {
     overflow-x: auto;
