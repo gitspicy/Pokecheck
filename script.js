@@ -21,7 +21,7 @@
   var TIER_MEDALS = { SS: '🥉', SSS: '🥈', SSSS: '🥇', SSSSS: '🏆' };
 
   var RECENT_SEARCHES_KEY = 'pokecheck.recentSearches';
-  var MAX_RECENT_SEARCHES = 7;
+  var MAX_RECENT_SEARCHES = 20;
   var $recentPicks = $('#recent-picks');
 
   var $autocompleteList = $('#autocomplete-list');
