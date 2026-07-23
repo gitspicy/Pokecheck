@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Pokecheck</string>
+    <string name="title_activity_main">Pokecheck</string>
+    <string name="package_name">com.pokecheck.app</string>
+    <string name="custom_url_scheme">com.pokecheck.app</string>
+</resources>

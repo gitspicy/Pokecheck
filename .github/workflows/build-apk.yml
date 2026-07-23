@@ -1,0 +1,61 @@
+name: Build Pokecheck APK
+
+# Builds the standalone Android app in mobile-app/ (a Capacitor wrapper
+# around a fully offline, client-side port of the web app - see
+# mobile-app/www/pvp-engine.js) into a debug APK.
+#
+# This runs on GitHub's own runners rather than anywhere else in this repo's
+# tooling because the Android SDK can only be fetched from Google's servers,
+# which GitHub-hosted runners can reach unrestricted.
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'mobile-app/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile-app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Sync Capacitor web assets into the Android project
+        run: npx cap sync android
+
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
+      - name: Build debug APK
+        working-directory: mobile-app/android
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pokecheck-debug-apk
+          path: mobile-app/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

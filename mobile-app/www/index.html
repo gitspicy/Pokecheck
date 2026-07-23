@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokecheck &mdash; Pokemon GO PvP Reference</title>
+<link rel="icon" type="image/x-icon" href="images/brand/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="images/brand/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="images/brand/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/brand/apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #16213a;
+    --panel-alt: #1c2b4a;
+    --border: #2c3e63;
+    --text: #eef2ff;
+    --text-dim: #9aa7c7;
+    --accent: #ffcb05;
+    --accent-dark: #cc9f00;
+    --blue: #3b6bd6;
+    --good: #37c07c;
+    --bad: #e5534b;
+    --radius: 10px;
+  }
+
+  * {
+    box-sizing: border-box;
+    /* Kills the default gray flash Chrome/WebView draws on tap - a
+       native-app APK wrapper should never show it. Buttons/links still
+       get their own hover/active styles for feedback. */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    /* Prevents the whole page from rubber-banding when a WebView wrapper
+       has no browser chrome to absorb an overscroll drag. */
+    overscroll-behavior-y: contain;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg), #0a1122 60%);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  button {
+    /* Removes the ~300ms tap delay some WebViews still apply while
+       waiting to see if a tap becomes a double-tap-to-zoom gesture. */
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .brand-logo {
+    display: block;
+    width: 57px;
+    height: 57px;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    letter-spacing: 0.02em;
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+  }
+
+  .search-panel {
+    position: relative;
+    display: flex;
+    gap: 0.6rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .search-input-wrap {
+    flex: 1 1 220px;
+    min-width: 0;
+  }
+
+  #pokemon-input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #0c1730;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  #pokemon-input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .autocomplete-list {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    max-height: 22rem;
+    overflow-y: auto;
+  }
+
+  .autocomplete-list:empty { display: none; }
+
+  .autocomplete-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.92rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .autocomplete-item:hover,
+  .autocomplete-item.highlighted {
+    background: var(--panel);
+  }
+
+  .ac-name-group {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .ac-icon {
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    object-fit: contain;
+  }
+
+  .ac-icon-empty {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .autocomplete-item .ac-dex {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+  }
+
+  .autocomplete-item .ac-types {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .autocomplete-item .ac-types .type-badge {
+    margin-left: 0;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  .autocomplete-empty {
+    padding: 0.6rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  #search-btn {
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  #search-btn:hover { background: var(--accent-dark); }
+  #search-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .quick-picks {
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .quick-picks button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 999px;
+    padding: 0.5rem 0.8rem;
+    margin: 0.15rem 0.2rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    min-height: 2.25rem;
+  }
+
+  .quick-picks button:hover { border-color: var(--accent); color: var(--accent); }
+
+  #status-area {
+    margin-top: 1.25rem;
+    min-height: 1.5rem;
+  }
+
+  .message {
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+  }
+
+  .message.error { background: rgba(229, 83, 75, 0.15); border: 1px solid var(--bad); color: #ffd3d0; }
+  .message.info { color: var(--text-dim); }
+
+  #results {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .empty-state img {
+    opacity: 0.35;
+    filter: grayscale(0.4);
+  }
+
+  .empty-state p {
+    margin: 0;
+    max-width: 26rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .family-strip {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .family-strip-stage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .family-strip-arrow {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    padding: 0 0.1rem;
+  }
+
+  .family-strip-item {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    min-width: 7.5rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+    touch-action: manipulation;
+  }
+
+  .family-strip-item:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .family-strip-icon {
+    display: block;
+    margin: 0 auto 0.3rem;
+    object-fit: contain;
+  }
+
+  .family-strip-name {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    text-align: center;
+  }
+
+  .family-strip-badges { margin-bottom: 0.3rem; }
+
+  .family-strip-rank {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  .pokemon-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+
+  .pokemon-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .pokemon-card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-thumb {
+    flex-shrink: 0;
+    object-fit: contain;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 72%);
+    border-radius: 50%;
+  }
+
+  .pokemon-card-head h2 {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .pokemon-card-head .dex {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-size: 0.9rem;
+    margin-right: 0.4rem;
+  }
+
+  .pokemon-card.shadow-view {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35);
+  }
+
+  .view-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.15rem;
+    background: var(--panel-alt);
+  }
+
+  .view-toggle-btn {
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
+    min-height: 2.25rem;
+  }
+
+  .view-toggle-btn.active {
+    background: #8b5cf6;
+    color: #fff;
+  }
+
+  .view-toggle-btn:not(.active):hover {
+    color: var(--text);
+  }
+
+  .badge.shadow {
+    background: #8b5cf6;
+    color: #fff;
+  }
+
+  .type-badge {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    background: var(--blue);
+    color: #fff;
+    margin-left: 0.3rem;
+  }
+
+  /* Official-style Pokemon type colors. Text color is chosen per swatch
+     for contrast, never a blanket white-on-everything. */
+  .type-normal   { background: #A8A878; color: #35351f; }
+  .type-fire     { background: #F08030; color: #ffffff; }
+  .type-water    { background: #6890F0; color: #ffffff; }
+  .type-electric { background: #F8D030; color: #4a3c00; }
+  .type-grass    { background: #78C850; color: #14330a; }
+  .type-ice      { background: #98D8D8; color: #0d4343; }
+  .type-fighting { background: #C03028; color: #ffffff; }
+  .type-poison   { background: #A040A0; color: #ffffff; }
+  .type-ground   { background: #E0C068; color: #453210; }
+  .type-flying   { background: #A890F0; color: #241454; }
+  .type-psychic  { background: #F85888; color: #ffffff; }
+  .type-bug      { background: #A8B820; color: #232d00; }
+  .type-rock     { background: #B8A038; color: #332a0a; }
+  .type-ghost    { background: #705898; color: #ffffff; }
+  .type-dragon   { background: #7038F8; color: #ffffff; }
+  .type-dark     { background: #705848; color: #ffffff; }
+  .type-steel    { background: #B8B8D0; color: #23233a; }
+  .type-fairy    { background: #EE99AC; color: #52142a; }
+
+  .raid-line {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin: 0 0 0.9rem;
+    line-height: 1.4;
+  }
+
+  .raid-badges { margin-bottom: 0.4rem; }
+
+  .section-heading {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    margin: 1.1rem 0 0.5rem;
+  }
+
+  .notable-facts {
+    background: var(--panel);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+  }
+
+  .notable-facts .section-heading {
+    margin-top: 0;
+  }
+
+  .notable-sub {
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 400;
+  }
+
+  .notable-facts ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .notable-facts li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0.35rem;
+  }
+
+  .notable-facts li:last-child { margin-bottom: 0; }
+
+  .attacker-panel {
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem 0.9rem;
+  }
+
+  .attacker-panel .raid-line { margin-bottom: 0.5rem; }
+  .attacker-panel .raid-line:last-child { margin-bottom: 0; }
+
+  .attacker-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .attacker-stat {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+
+  .attacker-stat span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-dim);
+  }
+
+  .type-attacker-list {
+    list-style: none;
+    margin: 0 0 0.6rem;
+    padding: 0;
+    font-size: 0.88rem;
+  }
+
+  .type-attacker-list li {
+    padding: 0.25rem 0;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .type-attacker-list li:last-child { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: 6px;
+    margin-right: 0.35rem;
+    letter-spacing: 0.02em;
+  }
+
+  .badge.tier { background: var(--accent); color: #1a1a1a; }
+  .badge.lc { background: var(--panel-alt); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* Community-tier heatmap: gray (F, worst) climbing through a genuine
+     red -> orange -> olive -> green hue rotation (HSL-computed, not just
+     "yellow" reused from --accent - that read as unstyled/default against
+     the rest of the UI's existing gold accent) up to green (S and above).
+     Index order matches script.js's TIER_ORDER =
+     [F, D, C, B, A, S, SS, SSS, SSSS, SSSSS]. */
+  .badge.tier-heat-0 { background: #6b7280; color: #ffffff; } /* F */
+  .badge.tier-heat-1 { background: #ae2929; color: #ffffff; } /* D */
+  .badge.tier-heat-2 { background: #ae6029; color: #ffffff; } /* C */
+  .badge.tier-heat-3 { background: #ae9729; color: #1a1a1a; } /* B */
+  .badge.tier-heat-4 { background: #81ae29; color: #1a1a1a; } /* A */
+  .badge.tier-heat-5 { background: #29ae29; color: #1a1a1a; } /* S */
+  .badge.tier-heat-6 { background: #298e3a; color: #1a1a1a; } /* SS */
+  .badge.tier-heat-7 { background: #218341; color: #ffffff; } /* SSS */
+  .badge.tier-heat-8 { background: #197647; color: #ffffff; } /* SSSS */
+  .badge.tier-heat-9 {
+    background: #14714f;
+    color: #ffffff;
+    box-shadow: 0 0 0 1px #fbbf24, 0 0 8px rgba(251, 191, 36, 0.5);
+  } /* SSSSS - subtle gold ring for the top tier */
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table.league-table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  table.league-table th,
+  table.league-table td {
+    text-align: left;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table.league-table th {
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  table.league-table td.not-eligible {
+    color: var(--bad);
+    font-style: italic;
+  }
+
+  .iv-set { font-variant-numeric: tabular-nums; }
+
+  .unranked {
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* Subtle zebra striping, layered under each league row's own color theme
+     below - a small brightness nudge, never a hard color swap. */
+  table.league-table tbody tr:nth-child(even) { filter: brightness(1.09); }
+
+  /* Two-color league identities: a background wash from the first color,
+     a solid left-edge accent bar from the second, and matching bright
+     label text so each league reads as a distinct "brand" at a glance.
+     Colors were chosen/paired so label text always sits on a dark base -
+     never light text on a light wash. */
+  table.league-table tr.league-row-littleCup {
+    background: linear-gradient(90deg, rgba(34, 197, 94, 0.20), rgba(34, 197, 94, 0.04) 80%);
+  }
+  table.league-table tr.league-row-littleCup td:first-child { border-left: 4px solid #3b82f6; }
+  table.league-table tr.league-row-littleCup .league-name { color: #86efac; }
+
+  table.league-table tr.league-row-greatLeague {
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.22), rgba(37, 99, 235, 0.04) 80%);
+  }
+  table.league-table tr.league-row-greatLeague td:first-child { border-left: 4px solid #ef4444; }
+  table.league-table tr.league-row-greatLeague .league-name { color: #93c5fd; }
+
+  table.league-table tr.league-row-summerLeague {
+    background: linear-gradient(90deg, rgba(22, 163, 74, 0.20), rgba(22, 163, 74, 0.04) 80%);
+  }
+  table.league-table tr.league-row-summerLeague td:first-child { border-left: 4px solid #facc15; }
+  table.league-table tr.league-row-summerLeague .league-name { color: #fde047; }
+
+  table.league-table tr.league-row-ultraLeague {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.08) 80%);
+  }
+  table.league-table tr.league-row-ultraLeague td:first-child { border-left: 4px solid #facc15; }
+  table.league-table tr.league-row-ultraLeague .league-name { color: #fde047; }
+
+  table.league-table tr.league-row-masterLeague {
+    background: linear-gradient(90deg, rgba(124, 58, 237, 0.24), rgba(124, 58, 237, 0.05) 80%);
+  }
+  table.league-table tr.league-row-masterLeague td:first-child { border-left: 4px solid #f472b6; }
+  table.league-table tr.league-row-masterLeague .league-name { color: #f9a8d4; }
+
+  .league-name {
+    font-weight: 700;
+  }
+
+  /* Rank highlight/star system: any "#N of M" figure in the app uses this -
+     league rank, raid-attacker overall rank, type-attacker rank, and
+     community tier rank all share the same visual language. */
+  .rank-value {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rank-value.rank-highlight {
+    background: var(--accent);
+    color: #1a1a1a;
+    padding: 0.1rem 0.45rem;
+    border-radius: 6px;
+  }
+
+  .rank-total {
+    font-weight: 400;
+    color: var(--text-dim);
+    font-size: 0.85em;
+  }
+
+  .rank-value.rank-highlight .rank-total {
+    color: #3a2f00;
+  }
+
+  .rank-stars {
+    letter-spacing: -0.1em;
+    font-size: 0.85em;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+  }
+
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  .legend-item code {
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.05rem 0.4rem;
+    color: var(--text);
+  }
+
+  @media (max-width: 560px) {
+    table.league-table { font-size: 0.8rem; }
+    table.league-table th, table.league-table td { padding: 0.4rem 0.35rem; }
+
+    /* A lone-member stage (e.g. the root of a branching family) is only
+       as wide as its one card, but flex-wrap still reserves a full row
+       for it before the next stage wraps - leaving a large dead gap next
+       to a small arrow. Stacking vertically instead reads naturally as
+       a top-to-bottom evolution list on a narrow screen. */
+    .family-strip {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .family-strip-stage {
+      justify-content: center;
+    }
+
+    .family-strip-arrow {
+      display: block;
+      text-align: center;
+      transform: rotate(90deg);
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="images/brand/logo.png" alt="" class="brand-logo" width="57" height="57">
+    <h1>Pokecheck</h1>
+  </div>
+</header>
+
+<main>
+  <div class="search-panel">
+    <div class="search-input-wrap">
+      <input type="text" id="pokemon-input" placeholder="Search a Pokemon (e.g. Squirtle)" autocomplete="off">
+      <ul class="autocomplete-list" id="autocomplete-list"></ul>
+    </div>
+    <button id="search-btn" type="button">Search</button>
+  </div>
+  <div class="quick-picks" id="recent-picks"></div>
+
+  <div id="status-area"></div>
+  <div id="results">
+    <div class="empty-state" id="empty-state">
+      <img src="images/brand/logo.png" alt="" width="72" height="72">
+      <p>Search a Pokemon above to see its PvP-optimal IVs, league rankings, and raid attacker stats.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="legend">
+    <span class="legend-item"><code>*</code> Community Day / Elite TM move</span>
+    <span class="legend-item"><code>&dagger;</code> Legacy move</span>
+  </div>
+</footer>
+
+<script src="jquery.min.js"></script>
+<script src="pvp-engine.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

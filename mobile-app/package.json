@@ -1,0 +1,16 @@
+{
+  "name": "pokecheck-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pokecheck standalone Android app - a Capacitor wrapper around the same offline Pokemon GO PvP reference site as the web app, with its PHP calculation logic ported to client-side JS (see www/pvp-engine.js) so it needs no server and no network access on-device.",
+  "scripts": {
+    "sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}

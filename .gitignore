@@ -1,0 +1,6 @@
+mobile-app/node_modules/
+mobile-app/android/local.properties
+mobile-app/android/.gradle/
+mobile-app/android/app/build/
+mobile-app/android/build/
+mobile-app/android/captures/

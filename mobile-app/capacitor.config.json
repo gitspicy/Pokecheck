@@ -1,0 +1,9 @@
+{
+  "appId": "com.pokecheck.app",
+  "appName": "Pokecheck",
+  "webDir": "www",
+  "backgroundColor": "#0f172a",
+  "android": {
+    "backgroundColor": "#0f172a"
+  }
+}
