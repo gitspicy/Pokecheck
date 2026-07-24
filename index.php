@@ -441,6 +441,7 @@ function load_ranking_csv(string $relativePath): array
     }
 
     $bySlug = [];
+    $ordered = [];
     $rank = 0;
     $path = __DIR__ . '/' . $relativePath;
     $handle = @fopen($path, 'r');
@@ -463,6 +464,7 @@ function load_ranking_csv(string $relativePath): array
             $entry = [
                 'rank' => $rank,
                 'name' => $name,
+                'slug' => $slug,
                 'score' => isset($columns['Score'], $row[$columns['Score']]) ? (float) $row[$columns['Score']] : null,
                 'statProduct' => isset($columns['Stat Product'], $row[$columns['Stat Product']]) ? (int) $row[$columns['Stat Product']] : null,
                 'level' => isset($columns['Level'], $row[$columns['Level']]) ? $row[$columns['Level']] : null,
@@ -471,6 +473,11 @@ function load_ranking_csv(string $relativePath): array
                 'chargedMove1' => isset($columns['Charged Move 1'], $row[$columns['Charged Move 1']]) ? clean_move_name($row[$columns['Charged Move 1']]) : null,
                 'chargedMove2' => isset($columns['Charged Move 2'], $row[$columns['Charged Move 2']]) ? clean_move_name($row[$columns['Charged Move 2']]) : null,
             ];
+
+            // The full leaderboard (get_league_leaderboard() below) wants
+            // every row in original rank order, unlike bySlug which keeps
+            // only each slug's best-ranked occurrence for direct lookups.
+            $ordered[] = $entry;
 
             // Same base species can appear more than once if the export
             // includes alternate forms (e.g. "Zacian (Crowned Sword)"),
@@ -484,7 +491,7 @@ function load_ranking_csv(string $relativePath): array
         fclose($handle);
     }
 
-    $result = ['bySlug' => $bySlug, 'totalRanked' => $rank];
+    $result = ['bySlug' => $bySlug, 'ordered' => $ordered, 'totalRanked' => $rank];
     $cache[$relativePath] = $result;
 
     return $result;
@@ -661,6 +668,53 @@ function lookup_league_ranking(string $memberSlug, array $league): ?array
     }
 
     return array_merge($entry, ['totalRanked' => $csv['totalRanked']]);
+}
+
+/**
+ * Builds the full, rank-ordered leaderboard for one league (the "Browse
+ * Rankings" view - every ranked entry, not just a single species' lookup).
+ * Each row's CSV-derived slug is cross-checked against baseStats/
+ * displayNameAliases so the front end knows which rows are tappable
+ * (jump to that species' card) versus informational-only (e.g. most Mega
+ * entries in the 500 CP file, which this app doesn't track as species).
+ *
+ * Shadow rows are a large chunk of every league (~a third) and would
+ * otherwise all show as unresolved, since "_shadow" is never a real
+ * baseStats key (Shadow isn't a separate species here - see
+ * shadowModifiers' note) - stripped off before resolving so a Shadow row
+ * still jumps to its species' card (in Normal view, same as any other
+ * row; the card's own Normal/Shadow toggle handles the rest), with
+ * isShadow left on the row so the label can still say "(Shadow)".
+ *
+ * @param array<string,mixed> $league
+ * @param array<string,mixed> $gameData
+ * @return array{rows: array<int,array<string,mixed>>, totalRanked: int}|null Null if the league has no ranking file.
+ */
+function get_league_leaderboard(array $league, array $gameData): ?array
+{
+    if (!isset($league['rankingFile'])) {
+        return null;
+    }
+
+    $csv = load_ranking_csv((string) $league['rankingFile']);
+
+    $rows = array_map(static function (array $entry) use ($gameData): array {
+        $slug = $entry['slug'];
+        $isShadow = str_ends_with($slug, '_shadow');
+        $baseSlug = $isShadow ? substr($slug, 0, -strlen('_shadow')) : $slug;
+
+        $entry['isShadow'] = $isShadow;
+        $entry['resolvedSlug'] = resolve_species_key($baseSlug, $gameData);
+        // "slug" is only ever the intermediate CSV-derived guess, kept
+        // internally for the resolve_species_key() call above - the
+        // response only exposes it once resolved (or null if it isn't a
+        // species this app tracks), so the front end never mistakes an
+        // unresolved guess for a valid search target.
+        unset($entry['slug']);
+        return $entry;
+    }, $csv['ordered']);
+
+    return ['rows' => $rows, 'totalRanked' => $csv['totalRanked']];
 }
 
 // ---------------------------------------------------------------------------
@@ -1065,6 +1119,48 @@ function handle_cp_multipliers_request(): void
     }
 }
 
+/**
+ * AJAX endpoint (?action=leaderboard&league=LEAGUE_ID): returns the full
+ * rank-ordered ranking list for one league, powering the "Browse Rankings"
+ * view (as opposed to ?action=search's single-species lookup).
+ */
+function handle_leaderboard_request(): void
+{
+    header('Content-Type: application/json; charset=utf-8');
+    ini_set('display_errors', '0');
+
+    try {
+        $gameData = load_game_data();
+        $leagueId = isset($_GET['league']) ? (string) $_GET['league'] : '';
+        $league = $gameData['leagues'][$leagueId] ?? null;
+
+        if ($league === null) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Unknown league.']);
+            return;
+        }
+
+        $leaderboard = get_league_leaderboard($league, $gameData);
+
+        if ($leaderboard === null) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'error' => 'This league has no ranking data.']);
+            return;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'league' => $leagueId,
+            'rows' => $leaderboard['rows'],
+            'totalRanked' => $leaderboard['totalRanked'],
+        ]);
+    } catch (\Throwable $e) {
+        error_log('Pokecheck leaderboard failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Could not load the leaderboard.']);
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Entry point: dispatch AJAX requests, otherwise fall through to the HTML page.
 // ---------------------------------------------------------------------------
@@ -1086,6 +1182,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'moves') {
 
 if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
     handle_cp_multipliers_request();
+    exit;
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'leaderboard') {
+    handle_leaderboard_request();
     exit;
 }
 ?>
@@ -1147,9 +1248,85 @@ if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
   }
 
   header {
+    position: relative;
     text-align: center;
     padding: 2.5rem 1rem 1.5rem;
   }
+
+  .settings-btn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1rem;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 999px;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .settings-btn:hover,
+  .settings-btn.active { border-color: var(--accent); color: var(--accent); }
+
+  .settings-panel {
+    max-width: 1000px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .settings-panel-body {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+
+  .settings-panel-body h2 {
+    margin: 0 0 0.9rem;
+    font-size: 1.15rem;
+  }
+
+  .settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .settings-row:last-of-type { border-bottom: none; }
+
+  .settings-row span:first-child { color: var(--text-dim); }
+
+  .settings-update-btn {
+    margin-top: 0.9rem;
+    width: 100%;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 2.5rem;
+  }
+
+  .settings-update-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .settings-update-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .settings-update-result {
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+  }
+
+  .settings-update-result.update-available { color: var(--good); }
+  .settings-update-result.update-error { color: var(--bad); }
 
   .brand {
     display: flex;
@@ -1326,6 +1503,175 @@ if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
   }
 
   .quick-picks button:hover { border-color: var(--accent); color: var(--accent); }
+
+  .browse-toggle-row {
+    margin-top: 0.75rem;
+  }
+
+  #browse-rankings-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 2.25rem;
+  }
+
+  #browse-rankings-btn:hover,
+  #browse-rankings-btn.active { border-color: var(--accent); color: var(--accent); }
+
+  .leaderboard-view {
+    margin-top: 1.25rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem 1.3rem;
+  }
+
+  .leaderboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .leaderboard-header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .leaderboard-close-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 999px;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .leaderboard-close-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .leaderboard-filter {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #0c1730;
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .leaderboard-filter:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .leaderboard-meta {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    margin: 0 0 0.7rem;
+  }
+
+  .leaderboard-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .leaderboard-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0.3rem;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    text-align: left;
+    width: 100%;
+    color: var(--text);
+    font: inherit;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  button.leaderboard-row {
+    cursor: pointer;
+  }
+
+  button.leaderboard-row:hover { background: var(--panel-alt); }
+
+  .leaderboard-row:last-child { border-bottom: none; }
+
+  .leaderboard-row-rank {
+    flex-shrink: 0;
+    width: 3rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+
+  .leaderboard-row-name {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .leaderboard-row-name strong {
+    display: block;
+  }
+
+  .leaderboard-row.is-unresolved {
+    color: var(--text-dim);
+  }
+
+  .leaderboard-row-score {
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .leaderboard-row-score strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .leaderboard-row-moveset {
+    display: none;
+    flex: 1 1 auto;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+
+  @media (min-width: 700px) {
+    .leaderboard-row-moveset { display: block; }
+  }
+
+  .leaderboard-show-more {
+    margin-top: 0.9rem;
+    width: 100%;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 2.5rem;
+  }
+
+  .leaderboard-show-more:hover { border-color: var(--accent); color: var(--accent); }
 
   #status-area {
     margin-top: 1.25rem;
@@ -2068,7 +2414,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
     <img src="images/brand/logo.png" alt="" class="brand-logo" width="57" height="57">
     <h1>Pokecheck</h1>
   </div>
+  <!-- Shown only in the standalone Android app (see script.js checking
+       typeof PvPEngine) - the web app has nothing here to update. -->
+  <button type="button" id="settings-btn" class="settings-btn" hidden aria-label="Settings">&#9881;</button>
 </header>
+
+<div id="settings-panel" class="settings-panel" hidden></div>
 
 <main>
   <div class="search-panel">
@@ -2079,8 +2430,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
     <button id="search-btn" type="button">Search</button>
   </div>
   <div class="quick-picks" id="recent-picks"></div>
+  <div class="browse-toggle-row">
+    <button type="button" id="browse-rankings-btn">Browse Rankings</button>
+  </div>
 
   <div id="status-area"></div>
+  <div id="leaderboard-view" class="leaderboard-view" hidden></div>
   <div id="results">
     <div class="empty-state" id="empty-state">
       <img src="images/brand/logo.png" alt="" width="72" height="72">

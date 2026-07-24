@@ -13,6 +13,22 @@
   var $statusArea = $('#status-area');
   var $results = $('#results');
 
+  var $leaderboardView = $('#leaderboard-view');
+  var $browseRankingsBtn = $('#browse-rankings-btn');
+  // Not exposed by any endpoint since a leaderboard fetch is per-league,
+  // but every tab needs to be labeled even before its own data has
+  // loaded - matches data.json's leagues[id].label exactly.
+  var LEAGUE_LABELS = {
+    littleCup: 'Little Cup',
+    greatLeague: 'Great League',
+    ultraLeague: 'Ultra League',
+    masterLeague: 'Master League',
+    summerLeague: 'Summer League',
+  };
+  var LEADERBOARD_PAGE_SIZE = 100;
+  var leaderboardCache = {}; // leagueId -> {success, league, rows, totalRanked}
+  var leaderboardState = { league: 'greatLeague', filterText: '', visibleCount: LEADERBOARD_PAGE_SIZE };
+
   var LEAGUE_ORDER = ['greatLeague', 'ultraLeague', 'masterLeague', 'littleCup', 'summerLeague'];
 
   // Worst-to-best order, used both to pick a heatmap CSS class (gray -> red
@@ -1147,6 +1163,203 @@
     $active.get(0).scrollIntoView({ block: 'nearest' });
   }
 
+  // ---------------------------------------------------------------------
+  // League leaderboard browser ("Browse Rankings") - lets a user explore
+  // a league's full ranked list rather than only ever looking up one
+  // species at a time. All 5 leagues are selectable via the same tab
+  // styling the IV checker uses.
+  // ---------------------------------------------------------------------
+
+  function loadLeaderboard(leagueId) {
+    if (leaderboardCache[leagueId]) {
+      return $.Deferred().resolve(leaderboardCache[leagueId]).promise();
+    }
+
+    return $.ajax({ url: 'index.php', method: 'GET', dataType: 'json', data: { action: 'leaderboard', league: leagueId } })
+      .done(function (data) {
+        if (data && data.success) {
+          leaderboardCache[leagueId] = data;
+        }
+      });
+  }
+
+  /**
+   * One leaderboard entry, resolved rows as a tappable button (jumps to
+   * that species' card via a normal search) and unresolved rows (mostly
+   * Mega entries this app doesn't track as species - see
+   * get_league_leaderboard()'s comment) as plain, non-interactive text.
+   */
+  function renderLeaderboardRow(row) {
+    var inner = (
+      '<span class="leaderboard-row-rank">#' + row.rank + '</span>' +
+      '<span class="leaderboard-row-name"><strong>' + escapeHtml(row.name) + '</strong></span>' +
+      '<span class="leaderboard-row-moveset">' +
+        moveChip(row.fastMove) +
+        (row.chargedMove1 ? '<br>' + moveChip(row.chargedMove1) + (row.chargedMove2 ? ' + ' + moveChip(row.chargedMove2) : '') : '') +
+      '</span>' +
+      (row.score !== null
+        ? '<span class="leaderboard-row-score"><strong>' + row.score + '</strong>Score</span>'
+        : '<span class="leaderboard-row-score">&mdash;</span>')
+    );
+
+    return row.resolvedSlug
+      ? '<button type="button" class="leaderboard-row" data-slug="' + escapeHtml(row.resolvedSlug) + '">' + inner + '</button>'
+      : '<div class="leaderboard-row is-unresolved">' + inner + '</div>';
+  }
+
+  /**
+   * Redraws just the filtered/paginated row list (not the tabs or filter
+   * <input> itself) - called on every filter keystroke, so the input
+   * never loses focus the way a full-view re-render would.
+   */
+  function renderLeaderboardResults() {
+    var $target = $leaderboardView.find('.leaderboard-results');
+    var data = leaderboardCache[leaderboardState.league];
+
+    if (!data) {
+      $target.html('<p class="unranked">Loading&hellip;</p>');
+      return;
+    }
+
+    var filterKey = leaderboardState.filterText.trim().toLowerCase();
+    var filtered = filterKey === ''
+      ? data.rows
+      : data.rows.filter(function (r) { return r.name.toLowerCase().indexOf(filterKey) !== -1; });
+
+    var visible = filtered.slice(0, leaderboardState.visibleCount);
+    var remaining = filtered.length - visible.length;
+
+    var rowsHtml = visible.length > 0
+      ? visible.map(renderLeaderboardRow).join('')
+      : '<p class="unranked">No matches.</p>';
+
+    var showMoreHtml = remaining > 0
+      ? '<button type="button" class="leaderboard-show-more">Show ' + Math.min(LEADERBOARD_PAGE_SIZE, remaining) + ' more (' + remaining + ' remaining)</button>'
+      : '';
+
+    $target.html(
+      '<p class="leaderboard-meta">' + filtered.length + ' of ' + data.totalRanked + ' ranked' + (filterKey ? ' (filtered)' : '') + '</p>' +
+      '<div class="leaderboard-list">' + rowsHtml + '</div>' +
+      showMoreHtml
+    );
+  }
+
+  function ensureLeaderboardLoaded(leagueId) {
+    if (leaderboardCache[leagueId]) {
+      return;
+    }
+
+    function handleFailure() {
+      if (leaderboardState.league === leagueId) {
+        $leaderboardView.find('.leaderboard-results').html('<p class="unranked">Could not load this league\'s rankings.</p>');
+      }
+    }
+
+    loadLeaderboard(leagueId)
+      .done(function (data) {
+        if (leaderboardState.league !== leagueId) {
+          return; // the user switched tabs again before this resolved
+        }
+        if (!data || !data.success) {
+          handleFailure();
+          return;
+        }
+        renderLeaderboardResults();
+      })
+      // index.php returns a real 400/404 status for "unknown league" /
+      // "no ranking data" (see handle_leaderboard_request()), which
+      // jQuery routes to .fail() rather than .done() even though the
+      // body is still valid JSON - same convention as performSearch()'s
+      // own .fail() handler.
+      .fail(handleFailure);
+  }
+
+  /** Redraws the whole view (tabs, filter input, results) - only needed on open or a league switch. */
+  function renderLeaderboardShell() {
+    var tabs = LEAGUE_ORDER.map(function (leagueId) {
+      var active = leagueId === leaderboardState.league ? ' active' : '';
+      return (
+        '<button type="button" class="iv-league-tab iv-tab-' + leagueId + active + '" data-league="' + leagueId + '">' +
+          escapeHtml(LEAGUE_LABELS[leagueId]) +
+        '</button>'
+      );
+    }).join('');
+
+    $leaderboardView.html(
+      '<div class="leaderboard-header">' +
+        '<h2>Browse Rankings</h2>' +
+        '<button type="button" class="leaderboard-close-btn" aria-label="Close">&times;</button>' +
+      '</div>' +
+      '<div class="iv-league-tabs">' + tabs + '</div>' +
+      '<input type="text" class="leaderboard-filter" placeholder="Filter by name" value="' + escapeHtml(leaderboardState.filterText) + '">' +
+      '<div class="leaderboard-results"></div>'
+    );
+
+    renderLeaderboardResults();
+  }
+
+  // jQuery's .hide()/.show() (not the hidden attribute alone) because
+  // #results already carries its own "display: flex" rule, which - being
+  // an ID selector - beats the browser's default [hidden] { display:
+  // none } (an attribute selector); toggling just the attribute would
+  // silently do nothing. The hidden attribute is still kept in sync
+  // alongside it for assistive tech that reads it directly.
+  function openLeaderboardView() {
+    $results.hide().attr('hidden', true);
+    $leaderboardView.show().removeAttr('hidden');
+    $browseRankingsBtn.addClass('active').text('Close Rankings');
+    renderLeaderboardShell();
+    ensureLeaderboardLoaded(leaderboardState.league);
+  }
+
+  function closeLeaderboardView() {
+    $leaderboardView.hide().attr('hidden', true);
+    $results.show().removeAttr('hidden');
+    $browseRankingsBtn.removeClass('active').text('Browse Rankings');
+  }
+
+  $browseRankingsBtn.on('click', function () {
+    if ($leaderboardView.is(':hidden')) {
+      openLeaderboardView();
+    } else {
+      closeLeaderboardView();
+    }
+  });
+
+  $leaderboardView.on('click', '.leaderboard-close-btn', function () {
+    closeLeaderboardView();
+  });
+
+  $leaderboardView.on('click', '.iv-league-tab', function () {
+    var leagueId = $(this).data('league');
+    if (leagueId === leaderboardState.league) {
+      return;
+    }
+    leaderboardState.league = leagueId;
+    leaderboardState.filterText = '';
+    leaderboardState.visibleCount = LEADERBOARD_PAGE_SIZE;
+    renderLeaderboardShell();
+    ensureLeaderboardLoaded(leagueId);
+  });
+
+  $leaderboardView.on('input', '.leaderboard-filter', function () {
+    leaderboardState.filterText = $(this).val();
+    leaderboardState.visibleCount = LEADERBOARD_PAGE_SIZE;
+    renderLeaderboardResults();
+  });
+
+  $leaderboardView.on('click', '.leaderboard-show-more', function () {
+    leaderboardState.visibleCount += LEADERBOARD_PAGE_SIZE;
+    renderLeaderboardResults();
+  });
+
+  $leaderboardView.on('click', '.leaderboard-row[data-slug]', function () {
+    var slug = $(this).data('slug');
+    closeLeaderboardView();
+    $input.val(slug);
+    performSearch();
+  });
+
   function performSearch() {
     var term = sanitizeName($input.val());
     if (term !== $input.val()) {
@@ -1158,6 +1371,7 @@
       return;
     }
 
+    closeLeaderboardView();
     setLoading(true);
     setStatus('Looking up "' + escapeHtml(term) + '"...', 'info');
     $results.empty();
@@ -1333,6 +1547,145 @@
     }
   });
   document.addEventListener('scroll', closeMoveTooltip, true);
+
+  // ---------------------------------------------------------------------
+  // Settings panel + in-app update checker - standalone Android app only.
+  // The web app has no APK to update, so this whole panel stays hidden
+  // there; isStandaloneApp() is the same "does PvPEngine exist" signal
+  // localAction() itself depends on in the mobile-app copy of this file,
+  // making it a reliable way for this ONE shared script.js to behave
+  // differently per platform without needing a build-time branch.
+  //
+  // This is the one deliberate exception to the app's "no network calls"
+  // design: GitHub's public Releases API (no auth token needed for a
+  // public repo) is only ever queried when the user explicitly taps
+  // "Check for Updates" - never automatically, never in the background.
+  // The actual download is handed off to the system browser (via
+  // Capacitor's Browser plugin where available, falling back to a
+  // plain window.open() e.g. when this file is loaded in a regular
+  // browser with no Capacitor bridge, as in local testing) rather than
+  // silently downloaded and installed in-app - installing a package is a
+  // sensitive OS-level action best left to Android's own, already-
+  // trusted download/install flow instead of custom native code here.
+  // ---------------------------------------------------------------------
+
+  var $settingsBtn = $('#settings-btn');
+  var $settingsPanel = $('#settings-panel');
+  var GITHUB_REPO = 'gitspicy/Pokecheck';
+  var UPDATE_RELEASE_TAG = 'mobile-latest';
+  var appVersionInfo = null; // {sha, builtAt}, loaded from version.json (generated at CI build time)
+
+  function isStandaloneApp() {
+    return typeof window.PvPEngine !== 'undefined';
+  }
+
+  function openExternalUrl(url) {
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Browser) {
+      window.Capacitor.Plugins.Browser.open({ url: url });
+    } else {
+      window.open(url, '_blank');
+    }
+  }
+
+  function loadAppVersion() {
+    return $.ajax({ url: 'version.json', dataType: 'json' })
+      .done(function (data) {
+        appVersionInfo = data;
+      });
+  }
+
+  function renderSettingsPanel() {
+    var versionLine = appVersionInfo
+      ? 'Build ' + escapeHtml(appVersionInfo.sha) + (appVersionInfo.builtAt ? ' &middot; ' + escapeHtml(String(appVersionInfo.builtAt).slice(0, 10)) : '')
+      : 'Unknown build';
+
+    $settingsPanel.html(
+      '<div class="settings-panel-body">' +
+        '<h2>Settings</h2>' +
+        '<div class="settings-row"><span>App version</span><span>' + versionLine + '</span></div>' +
+        '<button type="button" class="settings-update-btn" id="check-updates-btn">Check for Updates</button>' +
+        '<div class="settings-update-result" id="settings-update-result"></div>' +
+      '</div>'
+    );
+  }
+
+  function checkForUpdates() {
+    var $btn = $('#check-updates-btn');
+    var $result = $('#settings-update-result');
+
+    $btn.prop('disabled', true).text('Checking...');
+    $result.removeClass('update-available update-error').empty();
+
+    $.ajax({
+      url: 'https://api.github.com/repos/' + GITHUB_REPO + '/git/refs/tags/' + UPDATE_RELEASE_TAG,
+      dataType: 'json',
+    }).done(function (refData) {
+      var remoteSha = refData && refData.object ? refData.object.sha : null;
+      var localSha = appVersionInfo ? appVersionInfo.sha : null;
+
+      if (!remoteSha || !localSha) {
+        $result.addClass('update-error').text('Could not determine the latest version.');
+        $btn.prop('disabled', false).text('Check for Updates');
+        return;
+      }
+
+      if (remoteSha.indexOf(localSha) === 0) {
+        $result.text('You\'re up to date (build ' + escapeHtml(localSha) + ').');
+        $btn.prop('disabled', false).text('Check for Updates');
+        return;
+      }
+
+      $.ajax({
+        url: 'https://api.github.com/repos/' + GITHUB_REPO + '/releases/tags/' + UPDATE_RELEASE_TAG,
+        dataType: 'json',
+      }).done(function (releaseData) {
+        var assets = (releaseData && releaseData.assets) || [];
+        var apkAsset = assets.filter(function (a) { return /\.apk$/i.test(a.name); })[0];
+
+        $btn.prop('disabled', false).text('Check for Updates');
+
+        if (!apkAsset) {
+          $result.addClass('update-error').text('A new build exists but no APK was found to download.');
+          return;
+        }
+
+        $result.addClass('update-available').html(
+          'Update available (build ' + escapeHtml(remoteSha.slice(0, 7)) + ').<br>' +
+          '<button type="button" class="settings-update-btn" id="download-update-btn">Download Update</button>'
+        );
+
+        $('#download-update-btn').on('click', function () {
+          openExternalUrl(apkAsset.browser_download_url);
+        });
+      }).fail(function () {
+        $btn.prop('disabled', false).text('Check for Updates');
+        $result.addClass('update-error').text('Found a newer build but could not load its download link.');
+      });
+    }).fail(function () {
+      $btn.prop('disabled', false).text('Check for Updates');
+      $result.addClass('update-error').text('Could not check for updates. Check your connection.');
+    });
+  }
+
+  if (isStandaloneApp()) {
+    $settingsBtn.removeAttr('hidden');
+    loadAppVersion();
+  }
+
+  $settingsBtn.on('click', function () {
+    if ($settingsPanel.is('[hidden]')) {
+      renderSettingsPanel();
+      $settingsPanel.removeAttr('hidden');
+      $settingsBtn.addClass('active');
+    } else {
+      $settingsPanel.attr('hidden', true);
+      $settingsBtn.removeClass('active');
+    }
+  });
+
+  $settingsPanel.on('click', '#check-updates-btn', function () {
+    checkForUpdates();
+  });
 
   renderRecentSearches();
   loadSpeciesList();

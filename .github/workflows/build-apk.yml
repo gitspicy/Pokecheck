@@ -16,6 +16,12 @@ on:
       - '.github/workflows/build-apk.yml'
   workflow_dispatch: {}
 
+# contents:write is needed to force-move the "mobile-latest" tag and
+# publish/update its Release (see "Publish mobile-latest release" below) -
+# the in-app Settings panel's update-checker polls that tag/release.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -43,6 +49,17 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Generate version.json
+        # Bundled into the APK so the Settings panel can show which
+        # commit it was built from, and the update-checker can compare
+        # it against the "mobile-latest" release/tag below. Must run
+        # before "cap sync" copies www/ into the Android project's assets.
+        run: |
+          SHA=$(git rev-parse --short HEAD)
+          BUILT_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          printf '{"sha":"%s","builtAt":"%s"}\n' "$SHA" "$BUILT_AT" > www/version.json
+          cat www/version.json
+
       - name: Sync Capacitor web assets into the Android project
         run: npx cap sync android
 
@@ -59,3 +76,31 @@ jobs:
           name: pokecheck-debug-apk
           path: mobile-app/android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Publish mobile-latest release
+        # A stable, public, unauthenticated-readable URL for the in-app
+        # updater to poll (Actions artifacts require a logged-in GitHub
+        # session to download, so they can't serve that purpose). The
+        # "mobile-latest" tag is force-moved to this run's commit every
+        # time so the update-checker's SHA comparison stays meaningful
+        # across builds, not just the first one.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          APK_PATH="android/app/build/outputs/apk/debug/app-debug.apk"
+
+          git tag -f mobile-latest "$GITHUB_SHA"
+          git push -f origin mobile-latest
+
+          if gh release view mobile-latest --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload mobile-latest "$APK_PATH" --repo "$GITHUB_REPOSITORY" --clobber
+            gh release edit mobile-latest --repo "$GITHUB_REPOSITORY" \
+              --notes "Auto-built from commit ${SHA_SHORT} (${GITHUB_SHA})."
+          else
+            gh release create mobile-latest "$APK_PATH" --repo "$GITHUB_REPOSITORY" \
+              --title "Pokecheck (latest build)" \
+              --notes "Auto-built from commit ${SHA_SHORT} (${GITHUB_SHA})." \
+              --prerelease
+          fi

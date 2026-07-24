@@ -35,6 +35,12 @@
         </provider>
     </application>
 
-    <!-- No permissions requested: the app only ever loads its own bundled
-         assets (see www/pvp-engine.js) and makes no network calls. -->
+    <!-- The app itself only ever loads its own bundled assets (see
+         www/pvp-engine.js) and makes no network calls during normal use.
+         INTERNET is needed for exactly one deliberate, user-initiated
+         exception: the Settings panel's "Check for Updates" button, which
+         queries GitHub's public Releases API and hands the actual
+         download off to the system browser (see checkForUpdates() in
+         script.js) - nothing else in the app ever touches the network. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

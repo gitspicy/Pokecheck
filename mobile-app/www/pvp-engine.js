@@ -405,6 +405,7 @@
 
     var parsed = csvCache[relativePath];
     var bySlug = {};
+    var ordered = [];
     var rank = 0;
 
     if (parsed) {
@@ -420,6 +421,7 @@
         var entry = {
           rank: rank,
           name: name,
+          slug: slug,
           score: row['Score'] !== undefined ? toFloatOrZero(row['Score']) : null,
           statProduct: row['Stat Product'] !== undefined ? toIntOrZero(row['Stat Product']) : null,
           level: row['Level'] !== undefined ? row['Level'] : null,
@@ -429,13 +431,18 @@
           chargedMove2: row['Charged Move 2'] !== undefined ? cleanMoveName(row['Charged Move 2']) : null,
         };
 
+        // The full leaderboard (leaderboard() below) wants every row in
+        // original rank order, unlike bySlug which keeps only each slug's
+        // best-ranked occurrence for direct lookups.
+        ordered.push(entry);
+
         if (!bySlug[slug]) {
           bySlug[slug] = entry;
         }
       });
     }
 
-    var result = { bySlug: bySlug, totalRanked: rank };
+    var result = { bySlug: bySlug, ordered: ordered, totalRanked: rank };
     rankingCsvCache[relativePath] = result;
     return result;
   }
@@ -453,6 +460,35 @@
     }
 
     return Object.assign({}, entry, { totalRanked: csv.totalRanked });
+  }
+
+  /**
+   * Mirrors index.php's get_league_leaderboard(): the full rank-ordered
+   * list for one league (the "Browse Rankings" view), each row's CSV-
+   * derived slug cross-checked against baseStats/displayNameAliases so
+   * the front end knows which rows are tappable (jump to that species'
+   * card) versus informational-only (e.g. most Mega entries in the 500
+   * CP file, which this app doesn't track as species).
+   */
+  function getLeagueLeaderboard(league) {
+    if (!league.rankingFile) {
+      return null;
+    }
+
+    var csv = loadRankingCsv(league.rankingFile);
+
+    var rows = csv.ordered.map(function (entry) {
+      var copy = Object.assign({}, entry);
+      var isShadow = copy.slug.indexOf('_shadow', copy.slug.length - '_shadow'.length) !== -1;
+      var baseSlug = isShadow ? copy.slug.slice(0, -'_shadow'.length) : copy.slug;
+
+      copy.isShadow = isShadow;
+      copy.resolvedSlug = resolveSpeciesKey(baseSlug);
+      delete copy.slug;
+      return copy;
+    });
+
+    return { rows: rows, totalRanked: csv.totalRanked };
   }
 
   // ---------------------------------------------------------------------
@@ -695,6 +731,22 @@
     return { success: true, cpMultipliers: gameData.cpMultipliers };
   }
 
+  function leaderboard(leagueId) {
+    var league = gameData.leagues[leagueId];
+
+    if (!league) {
+      return { success: false, error: 'Unknown league.' };
+    }
+
+    var result = getLeagueLeaderboard(league);
+
+    if (!result) {
+      return { success: false, error: 'This league has no ranking data.' };
+    }
+
+    return { success: true, league: leagueId, rows: result.rows, totalRanked: result.totalRanked };
+  }
+
   // ---------------------------------------------------------------------
   // Init / public API
   // ---------------------------------------------------------------------
@@ -735,5 +787,6 @@
     speciesList: speciesList,
     moves: moves,
     cpMultipliers: cpMultipliers,
+    leaderboard: leaderboard,
   };
 })(window);
