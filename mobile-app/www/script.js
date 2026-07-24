@@ -76,6 +76,25 @@
   var $moveTooltip = $('<div class="move-tooltip-popover" hidden></div>').appendTo('body');
   var activeMoveChipEl = null;
 
+  // {"1.0": 0.094, "1.5": 0.1351..., ..., "51.0": ...}, fetched once on load
+  // (see loadCpMultipliers()) so the "Check Your IVs" tool (renderIvChecker
+  // below) can compute CP/level/Stat Product for an arbitrary IV spread
+  // entirely client-side - no round trip per IV pick.
+  var cpMultipliersTable = null;
+
+  // IV checker: {slug: {league, atk, def, sta, open}}. Persisted here
+  // (rather than trusting the live DOM) because the Normal/Shadow toggle
+  // fully replaces a card's HTML - without this, tapping it would silently
+  // wipe out whatever IVs/league/open-state the user had just set.
+  var ivCheckerState = {};
+
+  function getIvCheckerState(slug) {
+    if (!ivCheckerState[slug]) {
+      ivCheckerState[slug] = { league: 'greatLeague', atk: 0, def: 0, sta: 0, open: false };
+    }
+    return ivCheckerState[slug];
+  }
+
   /**
    * Escapes text before it is dropped into an HTML template string, so
    * nothing derived from user input (e.g. the echoed search query) can
@@ -372,6 +391,277 @@
     );
   }
 
+  // ---------------------------------------------------------------------
+  // IV rank checker ("I caught a 13/14/11 X - how good is that?")
+  //
+  // A client-side twin of index.php's find_optimal_pvp_build()/
+  // build_master_league_entry() (calculate_cp() and the level-binary-search
+  // are copied verbatim), extended to report where one specific IV spread
+  // ranks among all 4096 possible combinations for a species/league cap -
+  // PvPoke calls this an "IV rank checker". Runs entirely in the browser,
+  // since baseStats/cpCap are already on the page and cpMultipliersTable is
+  // fetched once at load (loadCpMultipliers()) - so picking through IVs
+  // gets an instant result with no server round trip.
+  // ---------------------------------------------------------------------
+
+  function calculateCpClient(baseAtk, ivAtk, baseDef, ivDef, baseSta, ivSta, cpm) {
+    var atk = baseAtk + ivAtk;
+    var def = baseDef + ivDef;
+    var sta = baseSta + ivSta;
+    return Math.floor(atk * Math.sqrt(def) * Math.sqrt(sta) * cpm * cpm / 10);
+  }
+
+  function findMaxLevelIndexUnderCapClient(baseAtk, ivAtk, baseDef, ivDef, baseSta, ivSta, cpCap, cpms) {
+    var lastValidIndex = -1;
+    var low = 0;
+    var high = cpms.length - 1;
+
+    while (low <= high) {
+      var mid = Math.floor((low + high) / 2);
+      var cp = calculateCpClient(baseAtk, ivAtk, baseDef, ivDef, baseSta, ivSta, cpms[mid]);
+
+      if (cp <= cpCap) {
+        lastValidIndex = mid;
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
+
+    return lastValidIndex;
+  }
+
+  /**
+   * @param baseStats {attack, defense, stamina}
+   * @param cpCap number|null (null = Master League, no cap)
+   * @return null while cpMultipliersTable hasn't loaded yet, otherwise
+   *   {eligible:false} (doesn't fit the cap even at level 1) or
+   *   {eligible:true, level, cp, statProduct, rank, totalEligible, percentile}
+   */
+  function computeIvRank(baseStats, cpCap, targetIvAtk, targetIvDef, targetIvSta) {
+    if (!cpMultipliersTable) {
+      return null;
+    }
+
+    var baseAtk = baseStats.attack;
+    var baseDef = baseStats.defense;
+    var baseSta = baseStats.stamina;
+
+    function statProductFor(ivAtk, ivDef, ivSta, cpm) {
+      var statAtk = (baseAtk + ivAtk) * cpm;
+      var statDef = (baseDef + ivDef) * cpm;
+      var statHp = Math.floor((baseSta + ivSta) * cpm);
+      return Math.round(statAtk * statDef * statHp);
+    }
+
+    var target;
+    var better = 0;
+    var total = 0;
+    var pa, pd, ps; // "possible" IV combo being compared against the target
+
+    if (cpCap === null) {
+      // Master League: no cap to optimize against, every combo is valid at
+      // the same fixed top level (mirrors build_master_league_entry()).
+      var topCpm = cpMultipliersTable['51.0'];
+      var targetStatProduct = statProductFor(targetIvAtk, targetIvDef, targetIvSta, topCpm);
+
+      for (pa = 0; pa <= 15; pa++) {
+        for (pd = 0; pd <= 15; pd++) {
+          for (ps = 0; ps <= 15; ps++) {
+            total++;
+            if (statProductFor(pa, pd, ps, topCpm) > targetStatProduct) {
+              better++;
+            }
+          }
+        }
+      }
+
+      target = {
+        eligible: true,
+        level: '51.0',
+        cp: calculateCpClient(baseAtk, targetIvAtk, baseDef, targetIvDef, baseSta, targetIvSta, topCpm),
+        statProduct: targetStatProduct,
+      };
+    } else {
+      var levelLabels = Object.keys(cpMultipliersTable);
+      var cpms = levelLabels.map(function (l) { return cpMultipliersTable[l]; });
+
+      var targetLevelIndex = findMaxLevelIndexUnderCapClient(
+        baseAtk, targetIvAtk, baseDef, targetIvDef, baseSta, targetIvSta, cpCap, cpms
+      );
+
+      if (targetLevelIndex === -1) {
+        return { eligible: false };
+      }
+
+      var targetCpm = cpms[targetLevelIndex];
+      var targetSp = statProductFor(targetIvAtk, targetIvDef, targetIvSta, targetCpm);
+
+      for (pa = 0; pa <= 15; pa++) {
+        for (pd = 0; pd <= 15; pd++) {
+          for (ps = 0; ps <= 15; ps++) {
+            var levelIndex = findMaxLevelIndexUnderCapClient(baseAtk, pa, baseDef, pd, baseSta, ps, cpCap, cpms);
+            if (levelIndex === -1) {
+              continue; // doesn't fit the cap even at level 1 - not part of the eligible pool
+            }
+            total++;
+            if (statProductFor(pa, pd, ps, cpms[levelIndex]) > targetSp) {
+              better++;
+            }
+          }
+        }
+      }
+
+      target = {
+        eligible: true,
+        level: levelLabels[targetLevelIndex],
+        cp: calculateCpClient(baseAtk, targetIvAtk, baseDef, targetIvDef, baseSta, targetIvSta, targetCpm),
+        statProduct: targetSp,
+      };
+    }
+
+    target.rank = better + 1;
+    target.totalEligible = total;
+    target.percentile = total > 0 ? ((total - better) / total) * 100 : 0;
+
+    return target;
+  }
+
+  function ivSelectOptions(selectedValue) {
+    var html = '';
+    for (var i = 0; i <= 15; i++) {
+      html += '<option value="' + i + '"' + (i === selectedValue ? ' selected' : '') + '>' + i + '</option>';
+    }
+    return html;
+  }
+
+  function renderIvChecker(member, leagueDefinitions) {
+    var state = getIvCheckerState(member.slug);
+
+    var tabs = LEAGUE_ORDER.map(function (leagueId) {
+      var def = leagueDefinitions[leagueId];
+      var active = leagueId === state.league ? ' active' : '';
+      var capAttr = def.cpCap === null ? 'null' : String(def.cpCap);
+      return (
+        '<button type="button" class="iv-league-tab iv-tab-' + leagueId + active + '" ' +
+          'data-league="' + leagueId + '" data-cp-cap="' + capAttr + '">' +
+          escapeHtml(def.label) +
+        '</button>'
+      );
+    }).join('');
+
+    return (
+      '<details class="iv-checker" data-slug="' + escapeHtml(member.slug) + '"' +
+        ' data-base-atk="' + member.baseStats.attack + '"' +
+        ' data-base-def="' + member.baseStats.defense + '"' +
+        ' data-base-sta="' + member.baseStats.stamina + '"' +
+        (state.open ? ' open' : '') + '>' +
+        '<summary>Check Your IVs <span class="iv-summary-hint">see where a real IV spread ranks</span></summary>' +
+        '<div class="iv-checker-body">' +
+          '<div class="iv-league-tabs">' + tabs + '</div>' +
+          '<div class="iv-input-row">' +
+            '<label class="iv-input-group">' +
+              '<span>Attack</span>' +
+              '<select class="iv-select" data-stat="atk">' + ivSelectOptions(state.atk) + '</select>' +
+            '</label>' +
+            '<label class="iv-input-group">' +
+              '<span>Defense</span>' +
+              '<select class="iv-select" data-stat="def">' + ivSelectOptions(state.def) + '</select>' +
+            '</label>' +
+            '<label class="iv-input-group">' +
+              '<span>HP</span>' +
+              '<select class="iv-select" data-stat="sta">' + ivSelectOptions(state.sta) + '</select>' +
+            '</label>' +
+          '</div>' +
+          '<div class="iv-quick-actions">' +
+            '<button type="button" class="iv-quick-btn" data-preset="15,15,15">Perfect (15/15/15)</button>' +
+            '<button type="button" class="iv-quick-btn" data-preset="0,0,0">Reset (0/0/0)</button>' +
+          '</div>' +
+          '<div class="iv-result"></div>' +
+        '</div>' +
+      '</details>'
+    );
+  }
+
+  /**
+   * Recomputes and redraws one IV checker's result panel from its own
+   * current DOM state (active league tab, three <select> values) - called
+   * after any interaction, and once eagerly right after each card renders
+   * (see initIvCheckers()) so the result is already sitting there the
+   * instant a user expands the <details>, not computed on first open.
+   */
+  function updateIvResult($details) {
+    var $result = $details.find('.iv-result');
+
+    if (!cpMultipliersTable) {
+      $result.html('<p class="unranked">Loading CP data&hellip;</p>');
+      return;
+    }
+
+    var baseStats = {
+      attack: parseInt($details.data('base-atk'), 10),
+      defense: parseInt($details.data('base-def'), 10),
+      stamina: parseInt($details.data('base-sta'), 10),
+    };
+
+    var $activeTab = $details.find('.iv-league-tab.active');
+    var capAttr = $activeTab.attr('data-cp-cap');
+    var cpCap = capAttr === 'null' ? null : parseInt(capAttr, 10);
+
+    var ivAtk = parseInt($details.find('.iv-select[data-stat="atk"]').val(), 10);
+    var ivDef = parseInt($details.find('.iv-select[data-stat="def"]').val(), 10);
+    var ivSta = parseInt($details.find('.iv-select[data-stat="sta"]').val(), 10);
+
+    var slug = $details.data('slug');
+    var state = getIvCheckerState(slug);
+    state.league = $activeTab.data('league');
+    state.atk = ivAtk;
+    state.def = ivDef;
+    state.sta = ivSta;
+
+    var result = computeIvRank(baseStats, cpCap, ivAtk, ivDef, ivSta);
+
+    if (!result) {
+      $result.html('<p class="unranked">Loading CP data&hellip;</p>');
+      return;
+    }
+
+    if (!result.eligible) {
+      $result.html('<p class="not-eligible">Even at level 1, this IV spread exceeds this league\'s CP cap.</p>');
+      return;
+    }
+
+    $result.html(
+      '<div class="iv-result-stats">' +
+        '<div class="attacker-stat"><span>CP</span><strong>' + result.cp + '</strong></div>' +
+        '<div class="attacker-stat"><span>Level</span><strong>' + result.level + '</strong></div>' +
+        '<div class="attacker-stat"><span>Stat Product</span><strong>' + result.statProduct.toLocaleString() + '</strong></div>' +
+      '</div>' +
+      '<p class="iv-result-rank">' +
+        rankBadge(result.rank, result.totalEligible) +
+        ' <span class="iv-percentile">better than ' + result.percentile.toFixed(1) + '% of possible IV spreads</span>' +
+      '</p>'
+    );
+  }
+
+  /**
+   * Wires up every IV checker within $scope (a freshly-rendered card or
+   * the whole results area): binds the native "toggle" event directly
+   * (it doesn't bubble, so jQuery delegation from a single document-level
+   * handler can't catch it) to persist open/closed state across the
+   * Normal/Shadow toggle's full card re-render, and eagerly computes each
+   * checker's result once so it's ready the instant it's expanded.
+   */
+  function initIvCheckers($scope) {
+    $scope.find('.iv-checker').each(function () {
+      var el = this;
+      el.addEventListener('toggle', function () {
+        getIvCheckerState($(el).data('slug')).open = el.open;
+      });
+      updateIvResult($(el));
+    });
+  }
+
   function renderPokemonCard(member, leagueDefinitions, viewMode) {
     viewMode = viewMode === 'shadow' && member.shadowEligible ? 'shadow' : 'normal';
 
@@ -427,6 +717,7 @@
             '<tbody>' + rows + '</tbody>' +
           '</table>' +
         '</div>' +
+        renderIvChecker(member, leagueDefinitions) +
         '<h3 class="section-heading">Raid Attacker Rankings</h3>' +
         renderAttackerPanel(effectiveAttacker) +
       '</article>'
@@ -619,6 +910,7 @@
       .join('');
 
     $results.html(stripHtml + notableHtml + cardsHtml);
+    initIvCheckers($results);
 
     setStatus(
       'Showing the evolution family for "' + escapeHtml(data.query) + '".',
@@ -640,7 +932,30 @@
     }
 
     var newCardHtml = renderPokemonCard(member, lastSearchData.leagueDefinitions, mode);
-    $('#member-' + slug).replaceWith(newCardHtml);
+    var $newCard = $(newCardHtml);
+    $('#member-' + slug).replaceWith($newCard);
+    initIvCheckers($newCard);
+  });
+
+  $results.on('change', '.iv-select', function () {
+    updateIvResult($(this).closest('.iv-checker'));
+  });
+
+  $results.on('click', '.iv-league-tab', function () {
+    var $tab = $(this);
+    var $details = $tab.closest('.iv-checker');
+    $details.find('.iv-league-tab').removeClass('active');
+    $tab.addClass('active');
+    updateIvResult($details);
+  });
+
+  $results.on('click', '.iv-quick-btn', function () {
+    var $details = $(this).closest('.iv-checker');
+    var preset = String($(this).attr('data-preset')).split(',');
+    $details.find('.iv-select[data-stat="atk"]').val(preset[0]);
+    $details.find('.iv-select[data-stat="def"]').val(preset[1]);
+    $details.find('.iv-select[data-stat="sta"]').val(preset[2]);
+    updateIvResult($details);
   });
 
   /**
@@ -759,6 +1074,27 @@
       .done(function (data) {
         if (data && data.success && data.moves) {
           movesByKey = data.moves;
+        }
+      });
+  }
+
+  /**
+   * Fetches data.json's "cpMultipliers" table once on page load. Same
+   * best-effort approach as loadMovesTable() - if this hasn't finished by
+   * the time a card renders, the IV checker just shows a "still loading"
+   * message instead of a result until it arrives (see updateIvResult()).
+   */
+  function loadCpMultipliers() {
+    localAction(function () { return PvPEngine.cpMultipliers(); })
+      .done(function (data) {
+        if (data && data.success && data.cpMultipliers) {
+          cpMultipliersTable = data.cpMultipliers;
+          // Multipliers may have finished loading after cards already
+          // rendered (e.g. a fast first search) - recompute every checker
+          // already on screen (all computed eagerly regardless of open/
+          // closed state - see initIvCheckers()) instead of leaving any
+          // stuck on "loading".
+          $('.iv-checker').each(function () { updateIvResult($(this)); });
         }
       });
   }
@@ -1027,4 +1363,5 @@
   renderRecentSearches();
   loadSpeciesList();
   loadMovesTable();
+  loadCpMultipliers();
 }(jQuery));

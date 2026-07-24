@@ -1043,6 +1043,28 @@ function handle_moves_request(): void
     }
 }
 
+/**
+ * AJAX endpoint (?action=cp-multipliers): returns data.json's whole
+ * "cpMultipliers" table (level label -> CPM), fetched once by script.js on
+ * page load so the "Check Your IVs" tool can compute CP/level/Stat Product
+ * for an arbitrary IV spread entirely client-side (the same
+ * calculate_cp()/find_max_level_index_under_cap() algorithm as the server,
+ * just run reactively as the user picks IVs, with no round trip per pick).
+ */
+function handle_cp_multipliers_request(): void
+{
+    header('Content-Type: application/json; charset=utf-8');
+    ini_set('display_errors', '0');
+
+    try {
+        echo json_encode(['success' => true, 'cpMultipliers' => load_game_data()['cpMultipliers']]);
+    } catch (\Throwable $e) {
+        error_log('Pokecheck cp-multipliers failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Could not load CP multiplier data.']);
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Entry point: dispatch AJAX requests, otherwise fall through to the HTML page.
 // ---------------------------------------------------------------------------
@@ -1059,6 +1081,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'species-list') {
 
 if (isset($_GET['action']) && $_GET['action'] === 'moves') {
     handle_moves_request();
+    exit;
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
+    handle_cp_multipliers_request();
     exit;
 }
 ?>
@@ -1610,6 +1637,171 @@ if (isset($_GET['action']) && $_GET['action'] === 'moves') {
   }
 
   .type-attacker-list li:last-child { border-bottom: none; }
+
+  /* IV rank checker ("I caught a 13/14/11 X - how good is that?"). A
+     native <details> disclosure - keyboardable/collapsible with no JS -
+     containing three native <select> IV pickers, which on a phone/WebView
+     open as the OS's own scrollable wheel/list picker for free (exactly
+     the "scroll wheel" input style that's easiest to use one-handed on
+     mobile - no custom drag/gesture code to build or risk bugs in). */
+  .iv-checker {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.9rem;
+  }
+
+  .iv-checker summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    min-height: 2.25rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .iv-checker summary::-webkit-details-marker { display: none; }
+
+  /* Custom chevron in place of the suppressed default marker - rotates via
+     the [open] attribute selector, no JS needed to flip it. */
+  .iv-checker summary::before {
+    content: '\25B8';
+    display: inline-block;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+
+  .iv-checker[open] summary::before { transform: rotate(90deg); }
+
+  .iv-summary-hint {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  .iv-checker-body {
+    margin-top: 0.9rem;
+  }
+
+  .iv-league-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .iv-league-tab {
+    border: 1px solid var(--border);
+    background: var(--panel-alt);
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    min-height: 2.25rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Same per-league color identities as the league table's accent bars,
+     so a tab and its table row read as the same "brand" at a glance. */
+  .iv-league-tab.iv-tab-littleCup.active { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+  .iv-league-tab.iv-tab-greatLeague.active { background: #2563eb; border-color: #2563eb; color: #fff; }
+  .iv-league-tab.iv-tab-summerLeague.active,
+  .iv-league-tab.iv-tab-ultraLeague.active { background: #facc15; border-color: #facc15; color: #1a1a1a; }
+  .iv-league-tab.iv-tab-masterLeague.active { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+
+  .iv-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .iv-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1 1 6rem;
+  }
+
+  .iv-input-group span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-dim);
+  }
+
+  .iv-select {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #0c1730;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    min-height: 2.75rem;
+  }
+
+  .iv-select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .iv-quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .iv-quick-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 999px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+    min-height: 2.25rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .iv-quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .iv-result {
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem 0.9rem;
+  }
+
+  .iv-result-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .iv-result-rank {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .iv-percentile {
+    color: var(--text-dim);
+  }
 
   .badge {
     display: inline-block;

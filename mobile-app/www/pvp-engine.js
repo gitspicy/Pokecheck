@@ -691,6 +691,10 @@
     return { success: true, moves: gameData.moves };
   }
 
+  function cpMultipliers() {
+    return { success: true, cpMultipliers: gameData.cpMultipliers };
+  }
+
   // ---------------------------------------------------------------------
   // Init / public API
   // ---------------------------------------------------------------------
@@ -730,5 +734,6 @@
     search: search,
     speciesList: speciesList,
     moves: moves,
+    cpMultipliers: cpMultipliers,
   };
 })(window);
