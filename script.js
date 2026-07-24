@@ -29,6 +29,13 @@
   var allSpecies = []; // [{slug, label, dex, types, searchKey}], fetched once on load
   var autocompleteHighlightIndex = -1;
 
+  // Move-detail tooltips: {normalizedName: {name, type, power, energyGain,
+  // energyCost, turns, buffs?, buffTarget?, buffChance?}}, fetched once on
+  // load (see loadMovesTable()) and consulted by moveChip() below.
+  var movesByKey = {};
+  var $moveTooltip = $('<div class="move-tooltip-popover" hidden></div>').appendTo('body');
+  var activeMoveChipEl = null;
+
   /**
    * Escapes text before it is dropped into an HTML template string, so
    * nothing derived from user input (e.g. the echoed search query) can
@@ -114,14 +121,112 @@
     );
   }
 
+  /**
+   * Wraps a move name in a tappable "chip" that opens a stats tooltip
+   * (type/power/energy/buff - see formatMoveTooltip()) if that move is in
+   * movesByKey, otherwise falls back to plain escaped text. The name is
+   * looked up via toSearchKey() - the same lowercase-alnum-only reduction
+   * used to build data.json's "moves" table - which conveniently also
+   * strips the trailing "*"/"&dagger;" legacy/Elite-TM marker some move
+   * names carry, without needing a separate regex for it.
+   */
+  function moveChip(name) {
+    if (!name) {
+      return '';
+    }
+
+    var key = toSearchKey(name);
+    var info = movesByKey[key];
+
+    if (!info) {
+      return escapeHtml(name);
+    }
+
+    return (
+      '<button type="button" class="move-chip" data-move-key="' + escapeHtml(key) + '">' +
+        escapeHtml(name) +
+      '</button>'
+    );
+  }
+
   function formatMoveset(ranking) {
     if (!ranking) {
       return '<span class="unranked">&mdash;</span>';
     }
     return (
-      escapeHtml(ranking.fastMove) +
-      '<br><small>' + escapeHtml(ranking.chargedMove1) + ' + ' + escapeHtml(ranking.chargedMove2) + '</small>'
+      moveChip(ranking.fastMove) +
+      '<br><small>' + moveChip(ranking.chargedMove1) + ' + ' + moveChip(ranking.chargedMove2) + '</small>'
     );
+  }
+
+  /**
+   * Builds a move-detail tooltip's inner HTML: type/power always, then
+   * either Energy Gain + Turns (fast moves, energyGain > 0) or Energy Cost
+   * (charged moves), plus a buff line when the move has a chance to raise/
+   * lower a stat stage (e.g. Ancient Power's self-buff, Superpower's
+   * self-debuff) - the exact mechanic PvP players care about a charged
+   * move for beyond raw power.
+   */
+  function formatMoveTooltip(info) {
+    var typeBadge = '<span class="type-badge type-' + escapeHtml(info.type) + '">' + escapeHtml(info.type) + '</span>';
+    var isFastMove = info.energyGain > 0;
+
+    var rows =
+      '<div class="move-tooltip-row"><span>Type</span>' + typeBadge + '</div>' +
+      '<div class="move-tooltip-row"><span>Power</span><strong>' + info.power + '</strong></div>';
+
+    rows += isFastMove
+      ? '<div class="move-tooltip-row"><span>Energy Gain</span><strong>+' + info.energyGain + '</strong></div>' +
+        '<div class="move-tooltip-row"><span>Turns</span><strong>' + info.turns + '</strong></div>'
+      : '<div class="move-tooltip-row"><span>Energy Cost</span><strong>' + info.energyCost + '</strong></div>';
+
+    if (info.buffs && (info.buffs[0] !== 0 || info.buffs[1] !== 0)) {
+      var statParts = [];
+      if (info.buffs[0] !== 0) { statParts.push((info.buffs[0] > 0 ? '+' : '') + info.buffs[0] + ' Attack'); }
+      if (info.buffs[1] !== 0) { statParts.push((info.buffs[1] > 0 ? '+' : '') + info.buffs[1] + ' Defense'); }
+      var target = info.buffTarget === 'opponent' ? "opponent's" : 'own';
+      var chancePct = Math.round((info.buffChance || 0) * 100);
+
+      rows += (
+        '<div class="move-tooltip-row move-tooltip-buff">' +
+          '<span>' + chancePct + '% chance</span>' +
+          '<strong>' + escapeHtml(statParts.join(', ')) + ' (' + target + ')</strong>' +
+        '</div>'
+      );
+    }
+
+    return '<div class="move-tooltip-title">' + escapeHtml(info.name) + '</div>' + rows;
+  }
+
+  function closeMoveTooltip() {
+    $moveTooltip.attr('hidden', true).empty();
+    if (activeMoveChipEl) {
+      $(activeMoveChipEl).removeClass('active');
+    }
+    activeMoveChipEl = null;
+  }
+
+  /**
+   * Positions the shared tooltip element next to the tapped chip using
+   * viewport-relative coordinates (position: fixed in CSS) rather than
+   * relying on an ancestor's position:relative - the league table scrolls
+   * horizontally (.table-scroll), and a plain absolutely-positioned
+   * tooltip would either get clipped by that scroll container or drift
+   * out of sync with the chip. Clamped so it never overflows the viewport.
+   */
+  function openMoveTooltip(chipEl, info) {
+    $moveTooltip.html(formatMoveTooltip(info)).removeAttr('hidden');
+
+    var chipRect = chipEl.getBoundingClientRect();
+    var tooltipRect = $moveTooltip.get(0).getBoundingClientRect();
+
+    var left = Math.max(8, Math.min(chipRect.left, window.innerWidth - tooltipRect.width - 8));
+    var top = chipRect.bottom + 6;
+    if (top + tooltipRect.height > window.innerHeight - 8) {
+      top = chipRect.top - tooltipRect.height - 6;
+    }
+
+    $moveTooltip.css({ left: left + 'px', top: Math.max(8, top) + 'px' });
   }
 
   function renderLeagueRow(leagueId, leagueDefinitions, leagueResult, viewMode) {
@@ -198,7 +303,7 @@
           '<div class="attacker-stat"><span>ER</span><strong>' + attacker.er + '</strong></div>' +
           '<div class="attacker-stat"><span>Overall Rank</span><strong>' + rankBadge(attacker.overallRank, attacker.totalOverall) + '</strong></div>' +
         '</div>' +
-        '<p class="raid-line">Best raid moveset: <strong>' + escapeHtml(attacker.fastMove) + ' + ' + escapeHtml(attacker.chargedMove) + '</strong> ' + formTags + '</p>' +
+        '<p class="raid-line">Best raid moveset: <strong>' + moveChip(attacker.fastMove) + ' + ' + moveChip(attacker.chargedMove) + '</strong> ' + formTags + '</p>' +
         '<ul class="type-attacker-list">' + typeLines + '</ul>' +
         '<p class="raid-line">' + tierLine + '</p>' +
       '</div>'
@@ -602,6 +707,23 @@
   }
 
   /**
+   * Fetches data.json's "moves" table once on page load so every fast/
+   * charged move name shown in the league and raid-attacker tables can
+   * become a tappable tooltip trigger (see moveChip() below). Same
+   * best-effort, non-blocking approach as loadSpeciesList() - if this
+   * hasn't finished by the time a search renders, move names just render
+   * as plain text instead of tooltip triggers.
+   */
+  function loadMovesTable() {
+    $.ajax({ url: 'index.php', method: 'GET', dataType: 'json', data: { action: 'moves' } })
+      .done(function (data) {
+        if (data && data.success && data.moves) {
+          movesByKey = data.moves;
+        }
+      });
+  }
+
+  /**
    * Matches the query against each species' name and slug, ranking
    * "starts with" hits above "contains" hits (so typing "pon" surfaces
    * Ponyta before, say, a species that merely contains "pon" mid-word),
@@ -837,6 +959,46 @@
     performSearch();
   });
 
+  // Delegated binding: move chips are (re)rendered per search, so this is
+  // bound once at load time rather than re-bound after every render.
+  $(document).on('click', '.move-chip', function (event) {
+    event.stopPropagation();
+    var chipEl = this;
+    var info = movesByKey[$(this).data('move-key')];
+
+    if (!info) {
+      return;
+    }
+
+    if (activeMoveChipEl === chipEl) {
+      closeMoveTooltip();
+      return;
+    }
+
+    closeMoveTooltip();
+    $(chipEl).addClass('active');
+    activeMoveChipEl = chipEl;
+    openMoveTooltip(chipEl, info);
+  });
+
+  // Closes on an outside click/tap, Escape, or any scroll (including the
+  // league table's own horizontal .table-scroll, which doesn't fire a
+  // window-level scroll event - listening in the capture phase catches it
+  // anyway, since scroll events still propagate to ancestors that way even
+  // though they don't bubble).
+  $(document).on('click', function (event) {
+    if (activeMoveChipEl && !$(event.target).closest('.move-tooltip-popover, .move-chip').length) {
+      closeMoveTooltip();
+    }
+  });
+  $(document).on('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeMoveTooltip();
+    }
+  });
+  document.addEventListener('scroll', closeMoveTooltip, true);
+
   renderRecentSearches();
   loadSpeciesList();
+  loadMovesTable();
 }(jQuery));

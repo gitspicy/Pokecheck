@@ -619,6 +619,65 @@
     font-style: italic;
   }
 
+  /* Move name -> tooltip trigger. Looks like plain text (not an obvious
+     button) since most move names in the tables are just this, with a
+     dotted underline as the only affordance that it's tappable. */
+  .move-chip {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: underline dotted;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--text-dim);
+  }
+
+  .move-chip:hover,
+  .move-chip.active {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  .move-tooltip-popover {
+    position: fixed;
+    z-index: 50;
+    min-width: 200px;
+    max-width: 260px;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.7rem 0.8rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    font-size: 0.85rem;
+  }
+
+  .move-tooltip-title {
+    font-weight: 700;
+    margin-bottom: 0.45rem;
+    color: var(--text);
+  }
+
+  .move-tooltip-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.2rem 0;
+  }
+
+  .move-tooltip-row span {
+    color: var(--text-dim);
+  }
+
+  .move-tooltip-buff {
+    border-top: 1px solid var(--border);
+    margin-top: 0.3rem;
+    padding-top: 0.4rem;
+  }
+
   /* Subtle zebra striping, layered under each league row's own color theme
      below - a small brightness nudge, never a hard color swap. */
   table.league-table tbody tr:nth-child(even) { filter: brightness(1.09); }

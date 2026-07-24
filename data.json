@@ -1,5 +1,5 @@
 {
-  "_comment": "Static Pokemon GO reference data. baseStats is imported directly from PvPoke's public gamemaster.json (https://github.com/pvpoke/pvpoke/blob/master/src/data/gamemaster.json), filtered to released, non-Shadow/Mega/Gmax/Primal/Purified species+forms (1045 entries covering the full Pokedex as of this import), with duplicate-stat cosmetic variants (e.g. costume Pikachu) collapsed to one canonical entry per dex number. Each entry's \"family\" block (id/parent/evolutions) also comes straight from PvPoke's gamemaster, so evolution-line lookups need no external API call. CP multipliers are Niantic's official per-level values; half-levels are derived with Niantic's documented formula sqrt((cpm[n]^2 + cpm[n+1]^2) / 2). displayNameAliases covers the handful of species whose PvPoke display name doesn't normalize back to its own speciesId (e.g. \"Zygarde (50% Forme)\").",
+  "_comment": "Static Pokemon GO reference data. baseStats is imported directly from PvPoke's public gamemaster.json (https://github.com/pvpoke/pvpoke/blob/master/src/data/gamemaster.json), filtered to released, non-Shadow/Mega/Gmax/Primal/Purified species+forms (1045 entries covering the full Pokedex as of this import), with duplicate-stat cosmetic variants (e.g. costume Pikachu) collapsed to one canonical entry per dex number. Each entry's \"family\" block (id/parent/evolutions) also comes straight from PvPoke's gamemaster, so evolution-line lookups need no external API call. CP multipliers are Niantic's official per-level values; half-levels are derived with Niantic's documented formula sqrt((cpm[n]^2 + cpm[n+1]^2) / 2). displayNameAliases covers the handful of species whose PvPoke display name doesn't normalize back to its own speciesId (e.g. \"Zygarde (50% Forme)\"). \"moves\" is likewise imported straight from the same gamemaster.json export (\"moves\" array), keyed by each move's display name with spaces/punctuation stripped and lowercased (e.g. \"Hydro Cannon\" -> \"hydrocannon\") so a ranking CSV's move-name text can be looked up directly - covers 331 of PvPoke's 334 listed moves (2 Aegislash-exclusive internal duplicates of \"Air Slash\"/\"Psycho Cut\" are dropped in favor of the real move's stats; Morpeko's dual-type \"Aura Wheel\" keeps just one type variant since power/energy/buff are identical either way).",
   "shadowModifiers": {
     "attackMultiplier": 1.2,
     "defenseMultiplier": 0.83333331,
@@ -16298,5 +16298,3195 @@
     "zygarde_10_forme": "zygarde_10",
     "zygarde_50_forme": "zygarde",
     "zygarde_complete_forme": "zygarde_complete"
+  },
+  "moves": {
+    "acid": {
+      "name": "Acid",
+      "type": "poison",
+      "power": 6,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "acidspray": {
+      "name": "Acid Spray",
+      "type": "poison",
+      "power": 20,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -2
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "acrobatics": {
+      "name": "Acrobatics",
+      "type": "flying",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "aerialace": {
+      "name": "Aerial Ace",
+      "type": "flying",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "aeroblast": {
+      "name": "Aeroblast",
+      "type": "flying",
+      "power": 170,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1,
+      "buffs": [
+        2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.125
+    },
+    "aircutter": {
+      "name": "Air Cutter",
+      "type": "flying",
+      "power": 45,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.3
+    },
+    "airslash": {
+      "name": "Air Slash",
+      "type": "flying",
+      "power": 9,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "ancientpower": {
+      "name": "Ancient Power",
+      "type": "rock",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.1
+    },
+    "aquajet": {
+      "name": "Aqua Jet",
+      "type": "water",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "aquastep": {
+      "name": "Aqua Step",
+      "type": "water",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "aquatail": {
+      "name": "Aqua Tail",
+      "type": "water",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "astonish": {
+      "name": "Astonish",
+      "type": "ghost",
+      "power": 12,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "aurasphere": {
+      "name": "Aura Sphere",
+      "type": "fighting",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "aurawheel": {
+      "name": "Aura Wheel",
+      "type": "dark",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "aurorabeam": {
+      "name": "Aurora Beam",
+      "type": "ice",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "avalanche": {
+      "name": "Avalanche",
+      "type": "ice",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "beakblast": {
+      "name": "Beak Blast",
+      "type": "flying",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "behemothbash": {
+      "name": "Behemoth Bash",
+      "type": "steel",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "behemothblade": {
+      "name": "Behemoth Blade",
+      "type": "steel",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "bite": {
+      "name": "Bite",
+      "type": "dark",
+      "power": 4,
+      "energyGain": 2,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "blastburn": {
+      "name": "Blast Burn",
+      "type": "fire",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "blazekick": {
+      "name": "Blaze Kick",
+      "type": "fire",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "bleakwindstorm": {
+      "name": "Bleakwind Storm",
+      "type": "flying",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "blizzard": {
+      "name": "Blizzard",
+      "type": "ice",
+      "power": 140,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1
+    },
+    "bodyslam": {
+      "name": "Body Slam",
+      "type": "normal",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "boneclub": {
+      "name": "Bone Club",
+      "type": "ground",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "boomburst": {
+      "name": "Boomburst",
+      "type": "normal",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 70,
+      "turns": 1
+    },
+    "bravebird": {
+      "name": "Brave Bird",
+      "type": "flying",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        0,
+        -3
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "breakingswipe": {
+      "name": "Breaking Swipe",
+      "type": "dragon",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "brickbreak": {
+      "name": "Brick Break",
+      "type": "fighting",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "brine": {
+      "name": "Brine",
+      "type": "water",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "brutalswing": {
+      "name": "Brutal Swing",
+      "type": "dark",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "bubble": {
+      "name": "Bubble",
+      "type": "water",
+      "power": 8,
+      "energyGain": 11,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "bubblebeam": {
+      "name": "Bubble Beam",
+      "type": "water",
+      "power": 25,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "bugbite": {
+      "name": "Bug Bite",
+      "type": "bug",
+      "power": 4,
+      "energyGain": 3,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "bugbuzz": {
+      "name": "Bug Buzz",
+      "type": "bug",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "bulldoze": {
+      "name": "Bulldoze",
+      "type": "ground",
+      "power": 45,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "bulletpunch": {
+      "name": "Bullet Punch",
+      "type": "steel",
+      "power": 7,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "bulletseed": {
+      "name": "Bullet Seed",
+      "type": "grass",
+      "power": 5,
+      "energyGain": 13,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "chargebeam": {
+      "name": "Charge Beam",
+      "type": "electric",
+      "power": 5,
+      "energyGain": 11,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "charm": {
+      "name": "Charm",
+      "type": "fairy",
+      "power": 12,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "chillingwater": {
+      "name": "Chilling Water",
+      "type": "water",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "clangingscales": {
+      "name": "Clanging Scales",
+      "type": "dragon",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "closecombat": {
+      "name": "Close Combat",
+      "type": "fighting",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -2
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "confusion": {
+      "name": "Confusion",
+      "type": "psychic",
+      "power": 16,
+      "energyGain": 14,
+      "energyCost": 0,
+      "turns": 4
+    },
+    "counter": {
+      "name": "Counter",
+      "type": "fighting",
+      "power": 8,
+      "energyGain": 6,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "crabhammer": {
+      "name": "Crabhammer",
+      "type": "water",
+      "power": 85,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.125
+    },
+    "crosschop": {
+      "name": "Cross Chop",
+      "type": "fighting",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "crosspoison": {
+      "name": "Cross Poison",
+      "type": "poison",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.125
+    },
+    "crunch": {
+      "name": "Crunch",
+      "type": "dark",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.2
+    },
+    "crushgrip": {
+      "name": "Crush Grip",
+      "type": "normal",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "cut": {
+      "name": "Cut",
+      "type": "normal",
+      "power": 3,
+      "energyGain": 2,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "darkestlariat": {
+      "name": "Darkest Lariat",
+      "type": "dark",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "darkpulse": {
+      "name": "Dark Pulse",
+      "type": "dark",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "dazzlinggleam": {
+      "name": "Dazzling Gleam",
+      "type": "fairy",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "dig": {
+      "name": "Dig",
+      "type": "ground",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "disarmingvoice": {
+      "name": "Disarming Voice",
+      "type": "fairy",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "discharge": {
+      "name": "Discharge",
+      "type": "electric",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "dive": {
+      "name": "Dive",
+      "type": "water",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "doomdesire": {
+      "name": "Doom Desire",
+      "type": "steel",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "doubleironbash": {
+      "name": "Double Iron Bash",
+      "type": "steel",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "doublekick": {
+      "name": "Double Kick",
+      "type": "fighting",
+      "power": 8,
+      "energyGain": 12,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "dracometeor": {
+      "name": "Draco Meteor",
+      "type": "dragon",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "dragonascent": {
+      "name": "Dragon Ascent",
+      "type": "flying",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "dragonbreath": {
+      "name": "Dragon Breath",
+      "type": "dragon",
+      "power": 3,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "dragonclaw": {
+      "name": "Dragon Claw",
+      "type": "dragon",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "dragonenergy": {
+      "name": "Dragon Energy",
+      "type": "dragon",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "dragonpulse": {
+      "name": "Dragon Pulse",
+      "type": "dragon",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "dragontail": {
+      "name": "Dragon Tail",
+      "type": "dragon",
+      "power": 9,
+      "energyGain": 12,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "drainingkiss": {
+      "name": "Draining Kiss",
+      "type": "fairy",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "drainpunch": {
+      "name": "Drain Punch",
+      "type": "fighting",
+      "power": 40,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "drillpeck": {
+      "name": "Drill Peck",
+      "type": "flying",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "drillrun": {
+      "name": "Drill Run",
+      "type": "ground",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "drumbeating": {
+      "name": "Drum Beating",
+      "type": "grass",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "dynamaxcannon": {
+      "name": "Dynamax Cannon",
+      "type": "dragon",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "dynamicpunch": {
+      "name": "Dynamic Punch",
+      "type": "fighting",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "earthpower": {
+      "name": "Earth Power",
+      "type": "ground",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.1
+    },
+    "earthquake": {
+      "name": "Earthquake",
+      "type": "ground",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "ember": {
+      "name": "Ember",
+      "type": "fire",
+      "power": 4,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "energyball": {
+      "name": "Energy Ball",
+      "type": "grass",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.1
+    },
+    "extrasensory": {
+      "name": "Extrasensory",
+      "type": "psychic",
+      "power": 8,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "fairywind": {
+      "name": "Fairy Wind",
+      "type": "fairy",
+      "power": 4,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "featherdance": {
+      "name": "Feather Dance",
+      "type": "flying",
+      "power": 35,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "feintattack": {
+      "name": "Feint Attack",
+      "type": "dark",
+      "power": 6,
+      "energyGain": 6,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "fellstinger": {
+      "name": "Fell Stinger",
+      "type": "bug",
+      "power": 20,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "fireblast": {
+      "name": "Fire Blast",
+      "type": "fire",
+      "power": 140,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1
+    },
+    "firefang": {
+      "name": "Fire Fang",
+      "type": "fire",
+      "power": 8,
+      "energyGain": 6,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "firepunch": {
+      "name": "Fire Punch",
+      "type": "fire",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "firespin": {
+      "name": "Fire Spin",
+      "type": "fire",
+      "power": 11,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "flameburst": {
+      "name": "Flame Burst",
+      "type": "fire",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "flamecharge": {
+      "name": "Flame Charge",
+      "type": "fire",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "flamethrower": {
+      "name": "Flamethrower",
+      "type": "fire",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "flamewheel": {
+      "name": "Flame Wheel",
+      "type": "fire",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "flashcannon": {
+      "name": "Flash Cannon",
+      "type": "steel",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "flowertrick": {
+      "name": "Flower Trick",
+      "type": "grass",
+      "power": 30,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "fly": {
+      "name": "Fly",
+      "type": "flying",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "flyingpress": {
+      "name": "Flying Press",
+      "type": "fighting",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "focusblast": {
+      "name": "Focus Blast",
+      "type": "fighting",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1
+    },
+    "forcepalm": {
+      "name": "Force Palm",
+      "type": "fighting",
+      "power": 13,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "foulplay": {
+      "name": "Foul Play",
+      "type": "dark",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "freezeshock": {
+      "name": "Freeze Shock",
+      "type": "ice",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "frenzyplant": {
+      "name": "Frenzy Plant",
+      "type": "grass",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "frostbreath": {
+      "name": "Frost Breath",
+      "type": "ice",
+      "power": 7,
+      "energyGain": 5,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "frustration": {
+      "name": "Frustration",
+      "type": "normal",
+      "power": 10,
+      "energyGain": 0,
+      "energyCost": 70,
+      "turns": 1
+    },
+    "furycutter": {
+      "name": "Fury Cutter",
+      "type": "bug",
+      "power": 3,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "fusionbolt": {
+      "name": "Fusion Bolt",
+      "type": "electric",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "fusionflare": {
+      "name": "Fusion Flare",
+      "type": "fire",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "futuresight": {
+      "name": "Future Sight",
+      "type": "psychic",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "geomancy": {
+      "name": "Geomancy",
+      "type": "fairy",
+      "power": 8,
+      "energyGain": 13,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "gigadrain": {
+      "name": "Giga Drain",
+      "type": "grass",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1
+    },
+    "gigaimpact": {
+      "name": "Giga Impact",
+      "type": "normal",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1
+    },
+    "gigatonhammer": {
+      "name": "Gigaton Hammer",
+      "type": "steel",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "glaciate": {
+      "name": "Glaciate",
+      "type": "ice",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "glaiverush": {
+      "name": "Glaive Rush",
+      "type": "dragon",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "grassknot": {
+      "name": "Grass Knot",
+      "type": "grass",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "gunkshot": {
+      "name": "Gunk Shot",
+      "type": "poison",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1
+    },
+    "gust": {
+      "name": "Gust",
+      "type": "flying",
+      "power": 16,
+      "energyGain": 14,
+      "energyCost": 0,
+      "turns": 4
+    },
+    "gyroball": {
+      "name": "Gyro Ball",
+      "type": "steel",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "heartstamp": {
+      "name": "Heart Stamp",
+      "type": "psychic",
+      "power": 40,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "heatwave": {
+      "name": "Heat Wave",
+      "type": "fire",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "heavyslam": {
+      "name": "Heavy Slam",
+      "type": "steel",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "hex": {
+      "name": "Hex",
+      "type": "ghost",
+      "power": 7,
+      "energyGain": 13,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpower": {
+      "name": "Hidden Power",
+      "type": "normal",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerbug": {
+      "name": "Hidden Power (Bug)",
+      "type": "bug",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerdark": {
+      "name": "Hidden Power (Dark)",
+      "type": "dark",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerdragon": {
+      "name": "Hidden Power (Dragon)",
+      "type": "dragon",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerelectric": {
+      "name": "Hidden Power (Electric)",
+      "type": "electric",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerfighting": {
+      "name": "Hidden Power (Fighting)",
+      "type": "fighting",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerfire": {
+      "name": "Hidden Power (Fire)",
+      "type": "fire",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerflying": {
+      "name": "Hidden Power (Flying)",
+      "type": "flying",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerghost": {
+      "name": "Hidden Power (Ghost)",
+      "type": "ghost",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowergrass": {
+      "name": "Hidden Power (Grass)",
+      "type": "grass",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerground": {
+      "name": "Hidden Power (Ground)",
+      "type": "ground",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerice": {
+      "name": "Hidden Power (Ice)",
+      "type": "ice",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerpoison": {
+      "name": "Hidden Power (Poison)",
+      "type": "poison",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerpsychic": {
+      "name": "Hidden Power (Psychic)",
+      "type": "psychic",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerrock": {
+      "name": "Hidden Power (Rock)",
+      "type": "rock",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowersteel": {
+      "name": "Hidden Power (Steel)",
+      "type": "steel",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "hiddenpowerwater": {
+      "name": "Hidden Power (Water)",
+      "type": "water",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "highhorsepower": {
+      "name": "High Horsepower",
+      "type": "ground",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "highjumpkick": {
+      "name": "High Jump Kick",
+      "type": "fighting",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        0,
+        -4
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.1
+    },
+    "hornattack": {
+      "name": "Horn Attack",
+      "type": "normal",
+      "power": 40,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "hurricane": {
+      "name": "Hurricane",
+      "type": "flying",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "hydrocannon": {
+      "name": "Hydro Cannon",
+      "type": "water",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "hydropump": {
+      "name": "Hydro Pump",
+      "type": "water",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1
+    },
+    "hydropumpblastoise": {
+      "name": "Hydro Pump Blastoise",
+      "type": "water",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1
+    },
+    "hyperbeam": {
+      "name": "Hyper Beam",
+      "type": "normal",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1
+    },
+    "hyperfang": {
+      "name": "Hyper Fang",
+      "type": "normal",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "icebeam": {
+      "name": "Ice Beam",
+      "type": "ice",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "iceburn": {
+      "name": "Ice Burn",
+      "type": "ice",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "icefang": {
+      "name": "Ice Fang",
+      "type": "ice",
+      "power": 8,
+      "energyGain": 6,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "icepunch": {
+      "name": "Ice Punch",
+      "type": "ice",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "iceshard": {
+      "name": "Ice Shard",
+      "type": "ice",
+      "power": 9,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "iciclespear": {
+      "name": "Icicle Spear",
+      "type": "ice",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "icywind": {
+      "name": "Icy Wind",
+      "type": "ice",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "incinerate": {
+      "name": "Incinerate",
+      "type": "fire",
+      "power": 20,
+      "energyGain": 20,
+      "energyCost": 0,
+      "turns": 5
+    },
+    "infestation": {
+      "name": "Infestation",
+      "type": "bug",
+      "power": 6,
+      "energyGain": 12,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "ironhead": {
+      "name": "Iron Head",
+      "type": "steel",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "irontail": {
+      "name": "Iron Tail",
+      "type": "steel",
+      "power": 10,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "karatechop": {
+      "name": "Karate Chop",
+      "type": "fighting",
+      "power": 5,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "lastresort": {
+      "name": "Last Resort",
+      "type": "normal",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "leafage": {
+      "name": "Leafage",
+      "type": "grass",
+      "power": 6,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "leafblade": {
+      "name": "Leaf Blade",
+      "type": "grass",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "leafstorm": {
+      "name": "Leaf Storm",
+      "type": "grass",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "leaftornado": {
+      "name": "Leaf Tornado",
+      "type": "grass",
+      "power": 45,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "lick": {
+      "name": "Lick",
+      "type": "ghost",
+      "power": 3,
+      "energyGain": 3,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "liquidation": {
+      "name": "Liquidation",
+      "type": "water",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "lockon": {
+      "name": "Lock On",
+      "type": "normal",
+      "power": 1,
+      "energyGain": 5,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "lowkick": {
+      "name": "Low Kick",
+      "type": "fighting",
+      "power": 5,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "lowsweep": {
+      "name": "Low Sweep",
+      "type": "fighting",
+      "power": 40,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "lunge": {
+      "name": "Lunge",
+      "type": "bug",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "lusterpurge": {
+      "name": "Luster Purge",
+      "type": "psychic",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "magicalleaf": {
+      "name": "Magical Leaf",
+      "type": "grass",
+      "power": 10,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "magmastorm": {
+      "name": "Magma Storm",
+      "type": "fire",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "magnetbomb": {
+      "name": "Magnet Bomb",
+      "type": "steel",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "megadrain": {
+      "name": "Mega Drain",
+      "type": "grass",
+      "power": 25,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "megahorn": {
+      "name": "Megahorn",
+      "type": "bug",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "metalclaw": {
+      "name": "Metal Claw",
+      "type": "steel",
+      "power": 5,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "metalsound": {
+      "name": "Metal Sound",
+      "type": "steel",
+      "power": 5,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "meteorbeam": {
+      "name": "Meteor Beam",
+      "type": "rock",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "meteormash": {
+      "name": "Meteor Mash",
+      "type": "steel",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "mindblown": {
+      "name": "Mind Blown",
+      "type": "fire",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        0,
+        -4
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "mirrorcoat": {
+      "name": "Mirror Coat",
+      "type": "psychic",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "mirrorshot": {
+      "name": "Mirror Shot",
+      "type": "steel",
+      "power": 35,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "mistball": {
+      "name": "Mist Ball",
+      "type": "psychic",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "moonblast": {
+      "name": "Moonblast",
+      "type": "fairy",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.1
+    },
+    "moongeistbeam": {
+      "name": "Moongeist Beam",
+      "type": "ghost",
+      "power": 135,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "mudbomb": {
+      "name": "Mud Bomb",
+      "type": "ground",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "muddywater": {
+      "name": "Muddy Water",
+      "type": "water",
+      "power": 35,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 2,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "mudshot": {
+      "name": "Mud Shot",
+      "type": "ground",
+      "power": 3,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "mudslap": {
+      "name": "Mud Slap",
+      "type": "ground",
+      "power": 11,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "mysticalfire": {
+      "name": "Mystical Fire",
+      "type": "fire",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "naturesmadness": {
+      "name": "Nature's Madness",
+      "type": "fairy",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "nightshade": {
+      "name": "Night Shade",
+      "type": "ghost",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "nightslash": {
+      "name": "Night Slash",
+      "type": "dark",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.125
+    },
+    "oblivionwing": {
+      "name": "Oblivion Wing",
+      "type": "flying",
+      "power": 85,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        0,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "obstruct": {
+      "name": "Obstruct",
+      "type": "dark",
+      "power": 15,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        1
+      ],
+      "buffTarget": "both",
+      "buffChance": 1.0
+    },
+    "octazooka": {
+      "name": "Octazooka",
+      "type": "water",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "ominouswind": {
+      "name": "Ominous Wind",
+      "type": "ghost",
+      "power": 45,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.1
+    },
+    "originpulse": {
+      "name": "Origin Pulse",
+      "type": "water",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "outrage": {
+      "name": "Outrage",
+      "type": "dragon",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "overheat": {
+      "name": "Overheat",
+      "type": "fire",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "paraboliccharge": {
+      "name": "Parabolic Charge",
+      "type": "electric",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        0,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "payback": {
+      "name": "Payback",
+      "type": "dark",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "peck": {
+      "name": "Peck",
+      "type": "flying",
+      "power": 6,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "petalblizzard": {
+      "name": "Petal Blizzard",
+      "type": "grass",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "plasmafists": {
+      "name": "Plasma Fists",
+      "type": "electric",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "playrough": {
+      "name": "Play Rough",
+      "type": "fairy",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "poisonfang": {
+      "name": "Poison Fang",
+      "type": "poison",
+      "power": 45,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "poisonjab": {
+      "name": "Poison Jab",
+      "type": "poison",
+      "power": 7,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "poisonsting": {
+      "name": "Poison Sting",
+      "type": "poison",
+      "power": 4,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "poltergeist": {
+      "name": "Poltergeist",
+      "type": "ghost",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1
+    },
+    "pound": {
+      "name": "Pound",
+      "type": "normal",
+      "power": 4,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "powdersnow": {
+      "name": "Powder Snow",
+      "type": "ice",
+      "power": 6,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "powergem": {
+      "name": "Power Gem",
+      "type": "rock",
+      "power": 85,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "poweruppunch": {
+      "name": "Power-Up Punch",
+      "type": "fighting",
+      "power": 20,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "powerwhip": {
+      "name": "Power Whip",
+      "type": "grass",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "precipiceblades": {
+      "name": "Precipice Blades",
+      "type": "ground",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "present": {
+      "name": "Present",
+      "type": "normal",
+      "power": 3,
+      "energyGain": 12,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "psybeam": {
+      "name": "Psybeam",
+      "type": "psychic",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "psychic": {
+      "name": "Psychic",
+      "type": "psychic",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.1
+    },
+    "psychicfangs": {
+      "name": "Psychic Fangs",
+      "type": "psychic",
+      "power": 40,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "psychoboost": {
+      "name": "Psycho Boost",
+      "type": "psychic",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        -2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "psychocut": {
+      "name": "Psycho Cut",
+      "type": "psychic",
+      "power": 4,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "psyshock": {
+      "name": "Psyshock",
+      "type": "psychic",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "psystrike": {
+      "name": "Psystrike",
+      "type": "psychic",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "psywave": {
+      "name": "Psywave",
+      "type": "psychic",
+      "power": 3,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "pyroball": {
+      "name": "Pyro Ball",
+      "type": "fire",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "quickattack": {
+      "name": "Quick Attack",
+      "type": "normal",
+      "power": 5,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "ragefist": {
+      "name": "Rage Fist",
+      "type": "ghost",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "razorleaf": {
+      "name": "Razor Leaf",
+      "type": "grass",
+      "power": 9,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "razorshell": {
+      "name": "Razor Shell",
+      "type": "water",
+      "power": 35,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "rest": {
+      "name": "Rest",
+      "type": "normal",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "return": {
+      "name": "Return",
+      "type": "normal",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 70,
+      "turns": 1
+    },
+    "roaroftime": {
+      "name": "Roar of Time",
+      "type": "dragon",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "rockblast": {
+      "name": "Rock Blast",
+      "type": "rock",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "rockslide": {
+      "name": "Rock Slide",
+      "type": "rock",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "rocksmash": {
+      "name": "Rock Smash",
+      "type": "fighting",
+      "power": 9,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "rockthrow": {
+      "name": "Rock Throw",
+      "type": "rock",
+      "power": 8,
+      "energyGain": 5,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "rocktomb": {
+      "name": "Rock Tomb",
+      "type": "rock",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "rockwrecker": {
+      "name": "Rock Wrecker",
+      "type": "rock",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "rollout": {
+      "name": "Rollout",
+      "type": "rock",
+      "power": 7,
+      "energyGain": 13,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "sacredfire": {
+      "name": "Sacred Fire",
+      "type": "fire",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "sacredsword": {
+      "name": "Sacred Sword",
+      "type": "fighting",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "sandattack": {
+      "name": "Sand Attack",
+      "type": "ground",
+      "power": 2,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "sandsearstorm": {
+      "name": "Sandsear Storm",
+      "type": "ground",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "sandtomb": {
+      "name": "Sand Tomb",
+      "type": "ground",
+      "power": 40,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "scald": {
+      "name": "Scald",
+      "type": "water",
+      "power": 85,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "scorchingsands": {
+      "name": "Scorching Sands",
+      "type": "ground",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.1
+    },
+    "scratch": {
+      "name": "Scratch",
+      "type": "normal",
+      "power": 4,
+      "energyGain": 2,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "secretsword": {
+      "name": "Secret Sword",
+      "type": "fighting",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "seedbomb": {
+      "name": "Seed Bomb",
+      "type": "grass",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "seedflare": {
+      "name": "Seed Flare",
+      "type": "grass",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1,
+      "buffs": [
+        0,
+        -2
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.4
+    },
+    "shadowball": {
+      "name": "Shadow Ball",
+      "type": "ghost",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "shadowbone": {
+      "name": "Shadow Bone",
+      "type": "ghost",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.2
+    },
+    "shadowclaw": {
+      "name": "Shadow Claw",
+      "type": "ghost",
+      "power": 6,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "shadowforce": {
+      "name": "Shadow Force",
+      "type": "ghost",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 90,
+      "turns": 1
+    },
+    "shadowpunch": {
+      "name": "Shadow Punch",
+      "type": "ghost",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "shadowsneak": {
+      "name": "Shadow Sneak",
+      "type": "ghost",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "signalbeam": {
+      "name": "Signal Beam",
+      "type": "bug",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1,
+      "buffs": [
+        -1,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.2
+    },
+    "silverwind": {
+      "name": "Silver Wind",
+      "type": "bug",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.1
+    },
+    "skullbash": {
+      "name": "Skull Bash",
+      "type": "normal",
+      "power": 130,
+      "energyGain": 0,
+      "energyCost": 75,
+      "turns": 1,
+      "buffs": [
+        0,
+        1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "skyattack": {
+      "name": "Sky Attack",
+      "type": "flying",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "sludge": {
+      "name": "Sludge",
+      "type": "poison",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "sludgebomb": {
+      "name": "Sludge Bomb",
+      "type": "poison",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "sludgewave": {
+      "name": "Sludge Wave",
+      "type": "poison",
+      "power": 110,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "smackdown": {
+      "name": "Smack Down",
+      "type": "rock",
+      "power": 11,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "snarl": {
+      "name": "Snarl",
+      "type": "dark",
+      "power": 5,
+      "energyGain": 13,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "snipeshot": {
+      "name": "Snipe Shot",
+      "type": "water",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1,
+      "buffs": [
+        2,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 0.125
+    },
+    "solarbeam": {
+      "name": "Solar Beam",
+      "type": "grass",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1
+    },
+    "spacialrend": {
+      "name": "Spacial Rend",
+      "type": "dragon",
+      "power": 95,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "spark": {
+      "name": "Spark",
+      "type": "electric",
+      "power": 5,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "sparklingaria": {
+      "name": "Sparkling Aria",
+      "type": "water",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "spiritshackle": {
+      "name": "Spirit Shackle",
+      "type": "ghost",
+      "power": 50,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.33
+    },
+    "splash": {
+      "name": "Splash",
+      "type": "water",
+      "power": 0,
+      "energyGain": 12,
+      "energyCost": 0,
+      "turns": 4
+    },
+    "springtidestormspeculative": {
+      "name": "Springtide Storm (Speculative)",
+      "type": "fairy",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "steelwing": {
+      "name": "Steel Wing",
+      "type": "steel",
+      "power": 7,
+      "energyGain": 5,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "stomp": {
+      "name": "Stomp",
+      "type": "normal",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "stoneedge": {
+      "name": "Stone Edge",
+      "type": "rock",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "struggle": {
+      "name": "Struggle",
+      "type": "normal",
+      "power": 35,
+      "energyGain": 0,
+      "energyCost": 100,
+      "turns": 1
+    },
+    "strugglebug": {
+      "name": "Struggle Bug",
+      "type": "bug",
+      "power": 9,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "submission": {
+      "name": "Submission",
+      "type": "fighting",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "suckerpunch": {
+      "name": "Sucker Punch",
+      "type": "dark",
+      "power": 8,
+      "energyGain": 7,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "sunsteelstrike": {
+      "name": "Sunsteel Strike",
+      "type": "steel",
+      "power": 135,
+      "energyGain": 0,
+      "energyCost": 65,
+      "turns": 1
+    },
+    "superpower": {
+      "name": "Superpower",
+      "type": "fighting",
+      "power": 85,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        -1,
+        -1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "surf": {
+      "name": "Surf",
+      "type": "water",
+      "power": 75,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1
+    },
+    "swift": {
+      "name": "Swift",
+      "type": "normal",
+      "power": 55,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "synchronoise": {
+      "name": "Synchronoise",
+      "type": "psychic",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "tackle": {
+      "name": "Tackle",
+      "type": "normal",
+      "power": 3,
+      "energyGain": 3,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "takedown": {
+      "name": "Take Down",
+      "type": "normal",
+      "power": 5,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "technoblastburn": {
+      "name": "Techno Blast (Burn)",
+      "type": "fire",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "technoblastchill": {
+      "name": "Techno Blast (Chill)",
+      "type": "ice",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "technoblastdouse": {
+      "name": "Techno Blast (Douse)",
+      "type": "water",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "technoblastnormal": {
+      "name": "Techno Blast (Normal)",
+      "type": "normal",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "technoblastshock": {
+      "name": "Techno Blast (Shock)",
+      "type": "electric",
+      "power": 120,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "thunder": {
+      "name": "Thunder",
+      "type": "electric",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 60,
+      "turns": 1
+    },
+    "thunderbolt": {
+      "name": "Thunderbolt",
+      "type": "electric",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 55,
+      "turns": 1
+    },
+    "thundercage": {
+      "name": "Thunder Cage",
+      "type": "electric",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "thunderfang": {
+      "name": "Thunder Fang",
+      "type": "electric",
+      "power": 8,
+      "energyGain": 6,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "thunderpunch": {
+      "name": "Thunder Punch",
+      "type": "electric",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "thundershock": {
+      "name": "Thunder Shock",
+      "type": "electric",
+      "power": 4,
+      "energyGain": 9,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "torchsong": {
+      "name": "Torch Song",
+      "type": "fire",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "trailblaze": {
+      "name": "Trailblaze",
+      "type": "grass",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "transform": {
+      "name": "Transform",
+      "type": "normal",
+      "power": 0,
+      "energyGain": 0,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "triattack": {
+      "name": "Tri Attack",
+      "type": "normal",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1,
+      "buffs": [
+        -1,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.5
+    },
+    "tripleaxel": {
+      "name": "Triple Axel",
+      "type": "ice",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        1,
+        0
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "twister": {
+      "name": "Twister",
+      "type": "dragon",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "upperhand": {
+      "name": "Upper Hand",
+      "type": "fighting",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.3
+    },
+    "vcreate": {
+      "name": "V-Create",
+      "type": "fire",
+      "power": 95,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -3
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "vinewhip": {
+      "name": "Vine Whip",
+      "type": "grass",
+      "power": 5,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "visegrip": {
+      "name": "Vise Grip",
+      "type": "normal",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "voltswitch": {
+      "name": "Volt Switch",
+      "type": "electric",
+      "power": 14,
+      "energyGain": 16,
+      "energyCost": 0,
+      "turns": 4
+    },
+    "volttackle": {
+      "name": "Volt Tackle",
+      "type": "electric",
+      "power": 90,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "waterfall": {
+      "name": "Waterfall",
+      "type": "water",
+      "power": 11,
+      "energyGain": 10,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "watergun": {
+      "name": "Water Gun",
+      "type": "water",
+      "power": 3,
+      "energyGain": 3,
+      "energyCost": 0,
+      "turns": 1
+    },
+    "watergunfastblastoise": {
+      "name": "Water Gun Fast Blastoise",
+      "type": "water",
+      "power": 6,
+      "energyGain": 4,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "waterpulse": {
+      "name": "Water Pulse",
+      "type": "water",
+      "power": 80,
+      "energyGain": 0,
+      "energyCost": 50,
+      "turns": 1
+    },
+    "watershuriken": {
+      "name": "Water Shuriken",
+      "type": "water",
+      "power": 6,
+      "energyGain": 14,
+      "energyCost": 0,
+      "turns": 3
+    },
+    "weatherballfire": {
+      "name": "Weather Ball (Fire)",
+      "type": "fire",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "weatherballice": {
+      "name": "Weather Ball (Ice)",
+      "type": "ice",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "weatherballnormal": {
+      "name": "Weather Ball (Normal)",
+      "type": "normal",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "weatherballrock": {
+      "name": "Weather Ball (Rock)",
+      "type": "rock",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "weatherballwater": {
+      "name": "Weather Ball (Water)",
+      "type": "water",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 35,
+      "turns": 1
+    },
+    "wildboltstorm": {
+      "name": "Wildbolt Storm",
+      "type": "electric",
+      "power": 60,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "wildcharge": {
+      "name": "Wild Charge",
+      "type": "electric",
+      "power": 100,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -2
+      ],
+      "buffTarget": "self",
+      "buffChance": 1.0
+    },
+    "wingattack": {
+      "name": "Wing Attack",
+      "type": "flying",
+      "power": 5,
+      "energyGain": 8,
+      "energyCost": 0,
+      "turns": 2
+    },
+    "wrap": {
+      "name": "Wrap",
+      "type": "normal",
+      "power": 70,
+      "energyGain": 0,
+      "energyCost": 45,
+      "turns": 1,
+      "buffs": [
+        0,
+        -1
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 1.0
+    },
+    "xscissor": {
+      "name": "X-Scissor",
+      "type": "bug",
+      "power": 65,
+      "energyGain": 0,
+      "energyCost": 40,
+      "turns": 1
+    },
+    "yawn": {
+      "name": "Yawn",
+      "type": "normal",
+      "power": 0,
+      "energyGain": 12,
+      "energyCost": 0,
+      "turns": 4
+    },
+    "zapcannon": {
+      "name": "Zap Cannon",
+      "type": "electric",
+      "power": 150,
+      "energyGain": 0,
+      "energyCost": 80,
+      "turns": 1,
+      "buffs": [
+        -1,
+        0
+      ],
+      "buffTarget": "opponent",
+      "buffChance": 0.33
+    },
+    "zenheadbutt": {
+      "name": "Zen Headbutt",
+      "type": "psychic",
+      "power": 8,
+      "energyGain": 6,
+      "energyCost": 0,
+      "turns": 3
+    }
   }
 }

@@ -687,6 +687,10 @@
     return { success: true, species: list };
   }
 
+  function moves() {
+    return { success: true, moves: gameData.moves };
+  }
+
   // ---------------------------------------------------------------------
   // Init / public API
   // ---------------------------------------------------------------------
@@ -725,5 +729,6 @@
     init: init,
     search: search,
     speciesList: speciesList,
+    moves: moves,
   };
 })(window);
