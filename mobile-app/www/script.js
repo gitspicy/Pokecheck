@@ -845,6 +845,10 @@
     var icon = member.iconImage
       ? '<img class="family-strip-icon" src="' + escapeHtml(member.iconImage) + '" alt="" width="32" height="32" loading="lazy">'
       : '';
+    // Always the Normal verdict, matching the tier badge/rank line above -
+    // neither reflects any card's Shadow toggle, so the verdict shouldn't
+    // either (see computeVerdict()'s own Normal/Shadow scoping note).
+    var verdict = computeVerdict(member, 'normal');
 
     return (
       '<a class="family-strip-item" href="#member-' + escapeHtml(member.slug) + '">' +
@@ -852,6 +856,7 @@
         '<div class="family-strip-name">' + escapeHtml(member.displayName) + '</div>' +
         '<div class="family-strip-badges">' + tierBadge + '</div>' +
         '<div class="family-strip-rank">' + rankLine + '</div>' +
+        '<div class="family-strip-verdict verdict-' + verdict.tier + '">' + verdict.label + '</div>' +
       '</a>'
     );
   }

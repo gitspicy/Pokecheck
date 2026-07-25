@@ -1778,6 +1778,21 @@ if (isset($_GET['action']) && $_GET['action'] === 'leaderboard') {
     color: var(--text-dim);
   }
 
+  /* Compact echo of each card's own verdict banner - same KEEP/YOU
+     DECIDE/TRANSFER color coding (verdict-keep/-decide/-transfer are
+     shared with .verdict-banner below), just small enough to fit the
+     family strip's narrow per-member column. */
+  .family-strip-verdict {
+    display: inline-block;
+    margin-top: 0.35rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #1a1a1a;
+  }
+
   .pokemon-card {
     background: var(--panel);
     border: 1px solid var(--border);
