@@ -1449,6 +1449,16 @@
   });
 
   $input.on('focus', function () {
+    // Mobile only: tapping into an already-filled search box is far more
+    // likely to mean "search for something else" than "edit this text",
+    // and placing a cursor to backspace out an old entry is fiddly on a
+    // touch keyboard - clear it immediately instead. Left alone on the
+    // web app, where mouse/keyboard editing (double-click, Ctrl+A, etc.)
+    // doesn't have that same friction.
+    if (isStandaloneApp() && $input.val().trim() !== '') {
+      $input.val('');
+    }
+
     if ($input.val().trim() !== '') {
       renderAutocomplete(filterSpecies($input.val()));
     }
