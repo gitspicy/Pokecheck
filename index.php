@@ -1785,6 +1785,36 @@ if (isset($_GET['action']) && $_GET['action'] === 'leaderboard') {
     padding: 1.1rem 1.2rem 1.3rem;
   }
 
+  /* The one-glance verdict every other detail on the card exists to
+     support: KEEP (top 25 anywhere), YOU DECIDE (top 26-50), or
+     TRANSFER (neither) - deliberately the loudest, most saturated
+     element on the card, and always the first thing in it. */
+  .verdict-banner {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .verdict-label {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+  }
+
+  .verdict-reason {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+
+  .verdict-keep { background: var(--good); }
+  .verdict-decide { background: #f5a623; }
+  .verdict-transfer { background: var(--bad); }
+
   .pokemon-card-head {
     display: flex;
     align-items: center;

@@ -638,6 +638,82 @@
     });
   }
 
+  var VERDICT_KEEP_THRESHOLD = 25;
+  var VERDICT_DECIDE_THRESHOLD = 50;
+
+  /**
+   * The single most important thing this app answers: KEEP, YOU DECIDE,
+   * or TRANSFER, based on the best (lowest-numbered) rank this member
+   * reaches across every ranking it tracks - all 5 PvP leagues, raid-
+   * attacker overall rank, each of its own types' attacker rank, and
+   * community tier rank. Top 25 anywhere is a KEEP, 26-50 is YOU DECIDE,
+   * anything worse (or a complete unranked blank) is a TRANSFER.
+   *
+   * Strictly scoped to the given viewMode - a Normal verdict never looks
+   * at shadowRanking/shadowAttacker, and a Shadow verdict never looks at
+   * the Normal ranking/attacker, so toggling the card is the only way to
+   * see the other variant's verdict, never a mix of both at once.
+   */
+  function computeVerdict(member, viewMode) {
+    var best = null; // {rank, source}
+
+    function consider(rank, source) {
+      if (rank && (best === null || rank < best.rank)) {
+        best = { rank: rank, source: source };
+      }
+    }
+
+    LEAGUE_ORDER.forEach(function (leagueId) {
+      var leagueResult = member.leagues[leagueId];
+      if (!leagueResult) {
+        return;
+      }
+      var ranking = viewMode === 'shadow' ? leagueResult.shadowRanking : leagueResult.ranking;
+      if (ranking) {
+        consider(ranking.rank, LEAGUE_LABELS[leagueId]);
+      }
+    });
+
+    var attacker = viewMode === 'shadow' ? member.shadowAttacker : member.attacker;
+    if (attacker) {
+      consider(attacker.overallRank, 'Raid Attacker (Overall)');
+
+      Object.keys(attacker.byType).forEach(function (type) {
+        var label = type.charAt(0).toUpperCase() + type.slice(1) + ' Attacker';
+        consider(attacker.byType[type].rank, label);
+      });
+
+      if (attacker.tier) {
+        consider(attacker.tier.rank, 'Community Tier');
+      }
+    }
+
+    if (best === null) {
+      return { tier: 'transfer', label: 'TRANSFER', bestRank: null, bestSource: null };
+    }
+    if (best.rank <= VERDICT_KEEP_THRESHOLD) {
+      return { tier: 'keep', label: 'KEEP', bestRank: best.rank, bestSource: best.source };
+    }
+    if (best.rank <= VERDICT_DECIDE_THRESHOLD) {
+      return { tier: 'decide', label: 'YOU DECIDE', bestRank: best.rank, bestSource: best.source };
+    }
+    return { tier: 'transfer', label: 'TRANSFER', bestRank: best.rank, bestSource: best.source };
+  }
+
+  function renderVerdictBanner(member, viewMode) {
+    var verdict = computeVerdict(member, viewMode);
+    var reason = verdict.bestRank
+      ? 'Best rank: #' + verdict.bestRank + ' in ' + escapeHtml(verdict.bestSource)
+      : 'No top-50 finish in any ranking';
+
+    return (
+      '<div class="verdict-banner verdict-' + verdict.tier + '">' +
+        '<span class="verdict-label">' + verdict.label + '</span>' +
+        '<span class="verdict-reason">' + reason + '</span>' +
+      '</div>'
+    );
+  }
+
   function renderPokemonCard(member, leagueDefinitions, viewMode) {
     viewMode = viewMode === 'shadow' && member.shadowEligible ? 'shadow' : 'normal';
 
@@ -677,6 +753,7 @@
 
     return (
       '<article class="pokemon-card' + (viewMode === 'shadow' ? ' shadow-view' : '') + '" id="member-' + escapeHtml(member.slug) + '">' +
+        renderVerdictBanner(member, viewMode) +
         '<div class="pokemon-card-head">' +
           '<div class="pokemon-card-title">' +
             heroImg +
