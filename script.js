@@ -1086,10 +1086,18 @@
    * words (not stripped) since the backend needs it to resolve
    * multi-word names like "Mr Mime" or "Tapu Koko"; only repeated/
    * leading/trailing whitespace is collapsed away.
+   *
+   * Underscore is allowed too - autocomplete selection, recent-search
+   * pills, and leaderboard rows all set the search box directly to a raw
+   * slug (e.g. "tapu_koko", "palkia_origin"), not a display name, and
+   * this function runs as a safety pass at the top of every
+   * performSearch() call. Without it, the underscore joining a multi-word
+   * slug's two halves got silently stripped down to "tapukoko" right
+   * before the search fired, which the backend then couldn't resolve.
    */
   function sanitizeName(value) {
     return String(value)
-      .replace(/[^\p{L}0-9\s'.\-()♀♂]/gu, '')
+      .replace(/[^\p{L}0-9\s'.\-()♀♂_]/gu, '')
       .replace(/\s+/g, ' ')
       .trim();
   }
