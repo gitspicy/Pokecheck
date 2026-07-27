@@ -58,6 +58,13 @@
   // entirely client-side - no round trip per IV pick.
   var cpMultipliersTable = null;
 
+  // {normal: {resistances: [...], weaknesses: [...], immunities: [...]}, ...},
+  // fetched once on load (see loadTypeChart()) so computeTypeWeaknesses()
+  // below can combine a member's own 1-2 types into the "1.6x from
+  // Electric / Grass"-style super-effective summary shown on both the main
+  // card and the family strip.
+  var typeChartTable = null;
+
   // IV checker: {slug: {league, atk, def, sta, open}}. Persisted here
   // (rather than trusting the live DOM) because the Normal/Shadow toggle
   // fully replaces a card's HTML - without this, tapping it would silently
@@ -700,6 +707,106 @@
     return { tier: 'transfer', label: 'TRANSFER', bestRank: best.rank, bestSource: best.source };
   }
 
+  // All 18 Pokemon GO types, used to walk every possible attacking type
+  // when combining a member's own defending type(s) - see
+  // computeTypeWeaknesses() below.
+  var ALL_TYPES = [
+    'normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost',
+    'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon',
+    'dark', 'fairy',
+  ];
+
+  /**
+   * Combines a member's own 1-2 types into the final super-effective
+   * multiplier it takes from each of the 18 attacking types, using
+   * data.json's typeEffectiveness chart (fetched by loadTypeChart() -
+   * mirrors PvPoke's own DamageCalculator.getEffectiveness()): for each
+   * attacking type, each of the member's own defending types contributes
+   * its own multiplier (1.6x if that attacking type is one of this
+   * defending type's "weaknesses", 0.625x if a "resistance", 0.390625x if
+   * an "immunity", else neutral 1x), and the final multiplier is the
+   * product across both defending types - e.g. Rock/Fairy vs a Fighting
+   * attack is weak (1.6x) on the Rock side but resisted (0.625x) on the
+   * Fairy side, netting exactly 1x (no weakness shown at all).
+   *
+   * Returns only the attacking types whose combined multiplier ends up
+   * above neutral, grouped by identical multiplier and sorted worst-first
+   * (highest multiplier first), each group's own types alphabetized -
+   * e.g. [{multiplier: 2.56, types: ['steel']}, {multiplier: 1.6, types:
+   * ['grass', 'ground', 'water']}].
+   */
+  function computeTypeWeaknesses(types) {
+    if (!typeChartTable || !types || !types.length) {
+      return [];
+    }
+
+    var groups = {}; // roundedMultiplier (string) -> {multiplier, types: []}
+
+    ALL_TYPES.forEach(function (attackType) {
+      var multiplier = 1;
+
+      types.forEach(function (defendType) {
+        var traits = typeChartTable[defendType];
+        if (!traits) {
+          return;
+        }
+        if (traits.weaknesses.indexOf(attackType) !== -1) {
+          multiplier *= 1.6;
+        } else if (traits.resistances.indexOf(attackType) !== -1) {
+          multiplier *= 0.625;
+        } else if (traits.immunities.indexOf(attackType) !== -1) {
+          multiplier *= 0.390625;
+        }
+      });
+
+      // Floating point (1.6 * 1.6 = 2.5600000000000005) needs rounding
+      // before it can be used as a stable group key.
+      var rounded = Math.round(multiplier * 10000) / 10000;
+      if (rounded <= 1) {
+        return;
+      }
+
+      var key = rounded.toFixed(4);
+      if (!groups[key]) {
+        groups[key] = { multiplier: rounded, types: [] };
+      }
+      groups[key].types.push(attackType);
+    });
+
+    var result = Object.keys(groups).map(function (key) { return groups[key]; });
+    result.forEach(function (group) { group.types.sort(); });
+    result.sort(function (a, b) { return b.multiplier - a.multiplier; });
+    return result;
+  }
+
+  /**
+   * Renders computeTypeWeaknesses()'s groups into the "2.56x from Steel,
+   * 1.6x from Grass / Ground / Water" style summary line. Returns '' (no
+   * element at all) for a Pokemon with no super-effective weaknesses or
+   * before the type chart has finished loading, so callers can safely
+   * concatenate the result without an empty-container gap.
+   */
+  function renderTypeWeaknesses(types, wrapperClass) {
+    var groups = computeTypeWeaknesses(types);
+    if (!groups.length) {
+      return '';
+    }
+
+    var groupsHtml = groups.map(function (group) {
+      var multLabel = (Math.round(group.multiplier * 100) / 100) + 'x';
+      var typeNames = group.types
+        .map(function (t) { return escapeHtml(t.charAt(0).toUpperCase() + t.slice(1)); })
+        .join(' / ');
+      return '<span class="weak-mult">' + multLabel + '</span> from ' + typeNames;
+    });
+
+    return (
+      '<div class="' + wrapperClass + '">' +
+        'Weak to ' + groupsHtml.join('<span class="weak-sep">, </span>') +
+      '</div>'
+    );
+  }
+
   function renderVerdictBanner(member, viewMode) {
     var verdict = computeVerdict(member, viewMode);
     var reason = verdict.bestRank
@@ -762,6 +869,7 @@
           renderShadowToggle(member, viewMode) +
         '</div>' +
         '<div class="raid-badges">' + badges + '</div>' +
+        renderTypeWeaknesses(member.types, 'type-weaknesses') +
         shadowNote +
         '<h3 class="section-heading">PvP League Rankings</h3>' +
         '<div class="table-scroll">' +
@@ -814,6 +922,7 @@
         '<div class="family-strip-badges">' + tierBadge + '</div>' +
         '<div class="family-strip-rank">' + rankLine + '</div>' +
         '<div class="family-strip-verdict verdict-' + verdict.tier + '">' + verdict.label + '</div>' +
+        renderTypeWeaknesses(member.types, 'family-strip-weaknesses') +
       '</a>'
     );
   }
@@ -1161,6 +1270,26 @@
           // closed state - see initIvCheckers()) instead of leaving any
           // stuck on "loading".
           $('.iv-checker').each(function () { updateIvResult($(this)); });
+        }
+      });
+  }
+
+  /**
+   * Fetches data.json's "typeEffectiveness" chart once on page load so
+   * every card/strip's weakness summary (see computeTypeWeaknesses()) can
+   * be computed entirely client-side. Same best-effort approach as the
+   * other loaders above - if this hasn't finished by the time a search
+   * renders, the weakness line is simply omitted, then the whole result
+   * set is re-rendered in place once the chart does arrive.
+   */
+  function loadTypeChart() {
+    $.ajax({ url: 'index.php', method: 'GET', dataType: 'json', data: { action: 'type-chart' } })
+      .done(function (data) {
+        if (data && data.success && data.typeEffectiveness) {
+          typeChartTable = data.typeEffectiveness;
+          if (lastSearchData) {
+            renderResults(lastSearchData);
+          }
         }
       });
   }
@@ -1791,4 +1920,5 @@
   loadSpeciesList();
   loadMovesTable();
   loadCpMultipliers();
+  loadTypeChart();
 }(jQuery));

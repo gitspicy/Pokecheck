@@ -1120,6 +1120,27 @@ function handle_cp_multipliers_request(): void
 }
 
 /**
+ * AJAX endpoint (?action=type-chart): returns data.json's whole
+ * "typeEffectiveness" table (each of the 18 types' resistances/weaknesses/
+ * immunities as a defender), fetched once by script.js on page load so it
+ * can compute and display each Pokemon's combined super-effective
+ * weaknesses (e.g. "1.6x from Electric | Grass") entirely client-side.
+ */
+function handle_type_chart_request(): void
+{
+    header('Content-Type: application/json; charset=utf-8');
+    ini_set('display_errors', '0');
+
+    try {
+        echo json_encode(['success' => true, 'typeEffectiveness' => load_game_data()['typeEffectiveness']]);
+    } catch (\Throwable $e) {
+        error_log('Pokecheck type-chart failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Could not load type effectiveness data.']);
+    }
+}
+
+/**
  * AJAX endpoint (?action=leaderboard&league=LEAGUE_ID): returns the full
  * rank-ordered ranking list for one league, powering the "Browse Rankings"
  * view (as opposed to ?action=search's single-species lookup).
@@ -1187,6 +1208,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'cp-multipliers') {
 
 if (isset($_GET['action']) && $_GET['action'] === 'leaderboard') {
     handle_leaderboard_request();
+    exit;
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
+    handle_type_chart_request();
     exit;
 }
 ?>
@@ -1793,6 +1819,21 @@ if (isset($_GET['action']) && $_GET['action'] === 'leaderboard') {
     color: #1a1a1a;
   }
 
+  /* Compact echo of .type-weaknesses for the narrow family-strip column -
+     same computeTypeWeaknesses() data, just smaller and sitting right
+     beside the KEEP/YOU DECIDE/TRANSFER verdict tag above it. */
+  .family-strip-weaknesses {
+    margin-top: 0.3rem;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .family-strip-weaknesses .weak-mult {
+    color: var(--text);
+    font-weight: 800;
+  }
+
   .pokemon-card {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -1946,6 +1987,28 @@ if (isset($_GET['action']) && $_GET['action'] === 'leaderboard') {
   }
 
   .raid-badges { margin-bottom: 0.4rem; }
+
+  /* Combined PvP type-effectiveness weaknesses (e.g. "2.56x from Steel,
+     1.6x from Grass / Ground / Water"), computed client-side from
+     data.json's typeEffectiveness chart - see computeTypeWeaknesses() in
+     script.js. Only ever lists attacking types the member takes actual
+     super-effective (>1x) damage from once both of its own types'
+     multipliers are combined. */
+  .type-weaknesses {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin: 0 0 0.7rem;
+    line-height: 1.5;
+  }
+
+  .weak-mult {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .weak-sep {
+    color: var(--text-dim);
+  }
 
   .section-heading {
     font-size: 0.78rem;

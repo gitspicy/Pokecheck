@@ -731,6 +731,10 @@
     return { success: true, cpMultipliers: gameData.cpMultipliers };
   }
 
+  function typeChart() {
+    return { success: true, typeEffectiveness: gameData.typeEffectiveness };
+  }
+
   function leaderboard(leagueId) {
     var league = gameData.leagues[leagueId];
 
@@ -787,6 +791,7 @@
     speciesList: speciesList,
     moves: moves,
     cpMultipliers: cpMultipliers,
+    typeChart: typeChart,
     leaderboard: leaderboard,
   };
 })(window);

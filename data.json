@@ -1,5 +1,5 @@
 {
-  "_comment": "Static Pokemon GO reference data. baseStats is imported directly from PvPoke's public gamemaster.json (https://github.com/pvpoke/pvpoke/blob/master/src/data/gamemaster.json), filtered to released, non-Shadow/Mega/Gmax/Primal/Purified species+forms (1045 entries covering the full Pokedex as of this import), with duplicate-stat cosmetic variants (e.g. costume Pikachu) collapsed to one canonical entry per dex number. Each entry's \"family\" block (id/parent/evolutions) also comes straight from PvPoke's gamemaster, so evolution-line lookups need no external API call. CP multipliers are Niantic's official per-level values; half-levels are derived with Niantic's documented formula sqrt((cpm[n]^2 + cpm[n+1]^2) / 2). displayNameAliases covers the handful of species whose PvPoke display name doesn't normalize back to its own speciesId (e.g. \"Zygarde (50% Forme)\"). \"moves\" is likewise imported straight from the same gamemaster.json export (\"moves\" array), keyed by each move's display name with spaces/punctuation stripped and lowercased (e.g. \"Hydro Cannon\" -> \"hydrocannon\") so a ranking CSV's move-name text can be looked up directly - covers 331 of PvPoke's 334 listed moves (2 Aegislash-exclusive internal duplicates of \"Air Slash\"/\"Psycho Cut\" are dropped in favor of the real move's stats; Morpeko's dual-type \"Aura Wheel\" keeps just one type variant since power/energy/buff are identical either way).",
+  "_comment": "Static Pokemon GO reference data. baseStats is imported directly from PvPoke's public gamemaster.json (https://github.com/pvpoke/pvpoke/blob/master/src/data/gamemaster.json), filtered to released, non-Shadow/Mega/Gmax/Primal/Purified species+forms (1045 entries covering the full Pokedex as of this import), with duplicate-stat cosmetic variants (e.g. costume Pikachu) collapsed to one canonical entry per dex number. Each entry's \"family\" block (id/parent/evolutions) also comes straight from PvPoke's gamemaster, so evolution-line lookups need no external API call. CP multipliers are Niantic's official per-level values; half-levels are derived with Niantic's documented formula sqrt((cpm[n]^2 + cpm[n+1]^2) / 2). displayNameAliases covers the handful of species whose PvPoke display name doesn't normalize back to its own speciesId (e.g. \"Zygarde (50% Forme)\"). \"moves\" is likewise imported straight from the same gamemaster.json export (\"moves\" array), keyed by each move's display name with spaces/punctuation stripped and lowercased (e.g. \"Hydro Cannon\" -> \"hydrocannon\") so a ranking CSV's move-name text can be looked up directly - covers 331 of PvPoke's 334 listed moves (2 Aegislash-exclusive internal duplicates of \"Air Slash\"/\"Psycho Cut\" are dropped in favor of the real move's stats; Morpeko's dual-type \"Aura Wheel\" keeps just one type variant since power/energy/buff are identical either way). \"typeEffectiveness\" is transcribed from PvPoke's battle simulation source (https://github.com/pvpoke/pvpoke/blob/master/src/js/battle/DamageCalculator.js, the DamageMultiplier constants and DamageCalculator.getTypeTraits() switch statement), since the type chart used for actual PvP damage calculation is not part of gamemaster.json. Each of the 18 types lists its own resistances/weaknesses/immunities arrays as a defender (i.e. attacking-type names that are resisted/super-effective/double-resisted against this type). Multipliers: super-effective (weaknesses) = 1.6x, resisted = 0.625x, immune/double-resisted = 0.390625x, everything else neutral = 1x; a dual-type Pokemon's effectiveness against a given attacking type is the product of both of its types' individual multipliers against that attacking type.",
   "shadowModifiers": {
     "attackMultiplier": 1.2,
     "defenseMultiplier": 0.83333331,
@@ -19487,6 +19487,260 @@
       "energyGain": 6,
       "energyCost": 0,
       "turns": 3
+    }
+  },
+  "typeEffectiveness": {
+    "normal": {
+      "resistances": [],
+      "weaknesses": [
+        "fighting"
+      ],
+      "immunities": [
+        "ghost"
+      ]
+    },
+    "fighting": {
+      "resistances": [
+        "rock",
+        "bug",
+        "dark"
+      ],
+      "weaknesses": [
+        "flying",
+        "psychic",
+        "fairy"
+      ],
+      "immunities": []
+    },
+    "flying": {
+      "resistances": [
+        "fighting",
+        "bug",
+        "grass"
+      ],
+      "weaknesses": [
+        "rock",
+        "electric",
+        "ice"
+      ],
+      "immunities": [
+        "ground"
+      ]
+    },
+    "poison": {
+      "resistances": [
+        "fighting",
+        "poison",
+        "bug",
+        "fairy",
+        "grass"
+      ],
+      "weaknesses": [
+        "ground",
+        "psychic"
+      ],
+      "immunities": []
+    },
+    "ground": {
+      "resistances": [
+        "poison",
+        "rock"
+      ],
+      "weaknesses": [
+        "water",
+        "grass",
+        "ice"
+      ],
+      "immunities": [
+        "electric"
+      ]
+    },
+    "rock": {
+      "resistances": [
+        "normal",
+        "flying",
+        "poison",
+        "fire"
+      ],
+      "weaknesses": [
+        "fighting",
+        "ground",
+        "steel",
+        "water",
+        "grass"
+      ],
+      "immunities": []
+    },
+    "bug": {
+      "resistances": [
+        "fighting",
+        "ground",
+        "grass"
+      ],
+      "weaknesses": [
+        "flying",
+        "rock",
+        "fire"
+      ],
+      "immunities": []
+    },
+    "ghost": {
+      "resistances": [
+        "poison",
+        "bug"
+      ],
+      "weaknesses": [
+        "ghost",
+        "dark"
+      ],
+      "immunities": [
+        "normal",
+        "fighting"
+      ]
+    },
+    "steel": {
+      "resistances": [
+        "normal",
+        "flying",
+        "rock",
+        "bug",
+        "steel",
+        "grass",
+        "psychic",
+        "ice",
+        "dragon",
+        "fairy"
+      ],
+      "weaknesses": [
+        "fighting",
+        "ground",
+        "fire"
+      ],
+      "immunities": [
+        "poison"
+      ]
+    },
+    "fire": {
+      "resistances": [
+        "bug",
+        "steel",
+        "fire",
+        "grass",
+        "ice",
+        "fairy"
+      ],
+      "weaknesses": [
+        "ground",
+        "rock",
+        "water"
+      ],
+      "immunities": []
+    },
+    "water": {
+      "resistances": [
+        "steel",
+        "fire",
+        "water",
+        "ice"
+      ],
+      "weaknesses": [
+        "grass",
+        "electric"
+      ],
+      "immunities": []
+    },
+    "grass": {
+      "resistances": [
+        "ground",
+        "water",
+        "grass",
+        "electric"
+      ],
+      "weaknesses": [
+        "flying",
+        "poison",
+        "bug",
+        "fire",
+        "ice"
+      ],
+      "immunities": []
+    },
+    "electric": {
+      "resistances": [
+        "flying",
+        "steel",
+        "electric"
+      ],
+      "weaknesses": [
+        "ground"
+      ],
+      "immunities": []
+    },
+    "psychic": {
+      "resistances": [
+        "fighting",
+        "psychic"
+      ],
+      "weaknesses": [
+        "bug",
+        "ghost",
+        "dark"
+      ],
+      "immunities": []
+    },
+    "ice": {
+      "resistances": [
+        "ice"
+      ],
+      "weaknesses": [
+        "fighting",
+        "fire",
+        "steel",
+        "rock"
+      ],
+      "immunities": []
+    },
+    "dragon": {
+      "resistances": [
+        "fire",
+        "water",
+        "grass",
+        "electric"
+      ],
+      "weaknesses": [
+        "dragon",
+        "ice",
+        "fairy"
+      ],
+      "immunities": []
+    },
+    "dark": {
+      "resistances": [
+        "ghost",
+        "dark"
+      ],
+      "weaknesses": [
+        "fighting",
+        "fairy",
+        "bug"
+      ],
+      "immunities": [
+        "psychic"
+      ]
+    },
+    "fairy": {
+      "resistances": [
+        "fighting",
+        "bug",
+        "dark"
+      ],
+      "weaknesses": [
+        "poison",
+        "steel"
+      ],
+      "immunities": [
+        "dragon"
+      ]
     }
   }
 }

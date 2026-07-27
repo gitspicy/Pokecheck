@@ -601,6 +601,21 @@
     color: #1a1a1a;
   }
 
+  /* Compact echo of .type-weaknesses for the narrow family-strip column -
+     same computeTypeWeaknesses() data, just smaller and sitting right
+     beside the KEEP/YOU DECIDE/TRANSFER verdict tag above it. */
+  .family-strip-weaknesses {
+    margin-top: 0.3rem;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  .family-strip-weaknesses .weak-mult {
+    color: var(--text);
+    font-weight: 800;
+  }
+
   .pokemon-card {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -754,6 +769,28 @@
   }
 
   .raid-badges { margin-bottom: 0.4rem; }
+
+  /* Combined PvP type-effectiveness weaknesses (e.g. "2.56x from Steel,
+     1.6x from Grass / Ground / Water"), computed client-side from
+     data.json's typeEffectiveness chart - see computeTypeWeaknesses() in
+     script.js. Only ever lists attacking types the member takes actual
+     super-effective (>1x) damage from once both of its own types'
+     multipliers are combined. */
+  .type-weaknesses {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin: 0 0 0.7rem;
+    line-height: 1.5;
+  }
+
+  .weak-mult {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .weak-sep {
+    color: var(--text-dim);
+  }
 
   .section-heading {
     font-size: 0.78rem;
