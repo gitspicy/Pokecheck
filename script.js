@@ -780,11 +780,14 @@
   }
 
   /**
-   * Renders computeTypeWeaknesses()'s groups into the "2.56x from Steel,
-   * 1.6x from Grass / Ground / Water" style summary line. Returns '' (no
-   * element at all) for a Pokemon with no super-effective weaknesses or
-   * before the type chart has finished loading, so callers can safely
-   * concatenate the result without an empty-container gap.
+   * Renders computeTypeWeaknesses()'s groups as "Weak to:" followed by
+   * each group's colored type-badge pills (same .type-badge styling/
+   * colors as the header's own type badges, for instant at-a-glance
+   * recognition) with that group's multiplier last - e.g. "Weak to:
+   * [Steel] 2.56x [Grass][Ground][Water] 1.6x". Returns '' (no element at
+   * all) for a Pokemon with no super-effective weaknesses or before the
+   * type chart has finished loading, so callers can safely concatenate
+   * the result without an empty-container gap.
    */
   function renderTypeWeaknesses(types, wrapperClass) {
     var groups = computeTypeWeaknesses(types);
@@ -794,15 +797,18 @@
 
     var groupsHtml = groups.map(function (group) {
       var multLabel = (Math.round(group.multiplier * 100) / 100) + 'x';
-      var typeNames = group.types
-        .map(function (t) { return escapeHtml(t.charAt(0).toUpperCase() + t.slice(1)); })
-        .join(' / ');
-      return '<span class="weak-mult">' + multLabel + '</span> from ' + typeNames;
+      var badges = group.types
+        .map(function (t) {
+          return '<span class="type-badge type-' + escapeHtml(t) + '">' + escapeHtml(t.charAt(0).toUpperCase() + t.slice(1)) + '</span>';
+        })
+        .join('');
+      return '<span class="weak-group">' + badges + '<span class="weak-mult">' + multLabel + '</span></span>';
     });
 
     return (
       '<div class="' + wrapperClass + '">' +
-        'Weak to ' + groupsHtml.join('<span class="weak-sep">, </span>') +
+        '<span class="weak-label">Weak to:</span>' +
+        groupsHtml.join('') +
       '</div>'
     );
   }
@@ -922,7 +928,7 @@
         '<div class="family-strip-badges">' + tierBadge + '</div>' +
         '<div class="family-strip-rank">' + rankLine + '</div>' +
         '<div class="family-strip-verdict verdict-' + verdict.tier + '">' + verdict.label + '</div>' +
-        renderTypeWeaknesses(member.types, 'family-strip-weaknesses') +
+        renderTypeWeaknesses(member.types, 'type-weaknesses family-strip-weaknesses') +
       '</a>'
     );
   }

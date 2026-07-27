@@ -1820,18 +1820,29 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   }
 
   /* Compact echo of .type-weaknesses for the narrow family-strip column -
-     same computeTypeWeaknesses() data, just smaller and sitting right
-     beside the KEEP/YOU DECIDE/TRANSFER verdict tag above it. */
+     same computeTypeWeaknesses() data and markup, just shrunk down and
+     centered to fit beside the KEEP/YOU DECIDE/TRANSFER verdict tag
+     above it. */
   .family-strip-weaknesses {
-    margin-top: 0.3rem;
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    line-height: 1.4;
+    justify-content: center;
+    margin-top: 0.4rem;
+    margin-bottom: 0;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+  }
+
+  .family-strip-weaknesses .weak-label {
+    display: block;
+    width: 100%;
+  }
+
+  .family-strip-weaknesses .type-badge {
+    font-size: 0.62rem;
+    padding: 0.12rem 0.4rem;
   }
 
   .family-strip-weaknesses .weak-mult {
-    color: var(--text);
-    font-weight: 800;
+    font-size: 0.72rem;
   }
 
   .pokemon-card {
@@ -1988,26 +1999,44 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
 
   .raid-badges { margin-bottom: 0.4rem; }
 
-  /* Combined PvP type-effectiveness weaknesses (e.g. "2.56x from Steel,
-     1.6x from Grass / Ground / Water"), computed client-side from
+  /* Combined PvP type-effectiveness weaknesses (e.g. "Weak to: [Steel]
+     2.56x [Grass][Ground][Water] 1.6x"), computed client-side from
      data.json's typeEffectiveness chart - see computeTypeWeaknesses() in
      script.js. Only ever lists attacking types the member takes actual
      super-effective (>1x) damage from once both of its own types'
-     multipliers are combined. */
+     multipliers are combined. Reuses the same colored .type-badge pills
+     as the header's own type badges so a weakness reads at a glance,
+     with the multiplier sized to match for quick scanning. */
   .type-weaknesses {
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    margin: 0 0 0.7rem;
-    line-height: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    margin: 0 0 0.9rem;
+  }
+
+  .weak-label {
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .weak-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .weak-group .type-badge {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.7rem;
+    margin-left: 0;
   }
 
   .weak-mult {
-    color: var(--text);
-    font-weight: 700;
-  }
-
-  .weak-sep {
-    color: var(--text-dim);
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 1rem;
   }
 
   .section-heading {
