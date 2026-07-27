@@ -649,11 +649,11 @@
   var VERDICT_DECIDE_THRESHOLD = 50;
 
   /**
-   * The single most important thing this app answers: KEEP, YOU DECIDE,
+   * The single most important thing this app answers: KEEP, OPTIONAL,
    * or TRANSFER, based on the best (lowest-numbered) rank this member
    * reaches across every ranking it tracks - all 5 PvP leagues, raid-
    * attacker overall rank, each of its own types' attacker rank, and
-   * community tier rank. Top 25 anywhere is a KEEP, 26-50 is YOU DECIDE,
+   * community tier rank. Top 25 anywhere is a KEEP, 26-50 is OPTIONAL,
    * anything worse (or a complete unranked blank) is a TRANSFER.
    *
    * Strictly scoped to the given viewMode - a Normal verdict never looks
@@ -702,7 +702,7 @@
       return { tier: 'keep', label: 'KEEP', bestRank: best.rank, bestSource: best.source };
     }
     if (best.rank <= VERDICT_DECIDE_THRESHOLD) {
-      return { tier: 'decide', label: 'YOU DECIDE', bestRank: best.rank, bestSource: best.source };
+      return { tier: 'decide', label: 'OPTIONAL', bestRank: best.rank, bestSource: best.source };
     }
     return { tier: 'transfer', label: 'TRANSFER', bestRank: best.rank, bestSource: best.source };
   }

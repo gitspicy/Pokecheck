@@ -1821,7 +1821,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
 
   /* Compact echo of .type-weaknesses for the narrow family-strip column -
      same computeTypeWeaknesses() data and markup, just shrunk down and
-     centered to fit beside the KEEP/YOU DECIDE/TRANSFER verdict tag
+     centered to fit beside the KEEP/OPTIONAL/TRANSFER verdict tag
      above it. */
   .family-strip-weaknesses {
     justify-content: center;
@@ -1842,7 +1842,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   }
 
   .family-strip-weaknesses .weak-mult {
-    font-size: 0.72rem;
+    font-size: 0.95rem;
   }
 
   .pokemon-card {
@@ -1853,7 +1853,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   }
 
   /* The one-glance verdict every other detail on the card exists to
-     support: KEEP (top 25 anywhere), YOU DECIDE (top 26-50), or
+     support: KEEP (top 25 anywhere), OPTIONAL (top 26-50), or
      TRANSFER (neither) - deliberately the loudest, most saturated
      element on the card, and always the first thing in it. */
   .verdict-banner {
@@ -2036,7 +2036,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   .weak-mult {
     color: var(--accent);
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 1.35rem;
   }
 
   .section-heading {
