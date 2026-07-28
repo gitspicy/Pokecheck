@@ -903,6 +903,111 @@
 
   .type-attacker-list li:last-child { border-bottom: none; }
 
+  /* "Top Counters" - who beats this Pokemon (member.counters, from
+     index.php's build_counters()). Same collapsible <details> pattern as
+     .iv-checker below (custom chevron, no JS needed to toggle), since the
+     full attacker list can run long for a multi-weakness Pokemon. */
+  .counters-panel {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.9rem;
+  }
+
+  .counters-panel summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    min-height: 2.25rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .counters-panel summary::-webkit-details-marker { display: none; }
+
+  .counters-panel summary::before {
+    content: '\25B8';
+    display: inline-block;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+
+  .counters-panel[open] summary::before { transform: rotate(90deg); }
+
+  .counters-body {
+    margin-top: 0.9rem;
+  }
+
+  .counter-group {
+    margin-bottom: 1rem;
+  }
+
+  .counter-group:last-child { margin-bottom: 0; }
+
+  .counter-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .counter-attackers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .counter-attacker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 5.5rem;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.4rem;
+  }
+
+  .counter-attacker-icon {
+    display: block;
+    margin-bottom: 0.3rem;
+    object-fit: contain;
+  }
+
+  .counter-attacker-icon-empty {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.3rem;
+  }
+
+  .counter-attacker-name {
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .counter-attacker-dps {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 0.15rem;
+  }
+
+  .counter-attacker-tags {
+    margin-top: 0.3rem;
+  }
+
+  .counter-attacker-tags .badge {
+    margin-right: 0;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+  }
+
   /* IV rank checker ("I caught a 13/14/11 X - how good is that?"). A
      native <details> disclosure - keyboardable/collapsible with no JS -
      containing three native <select> IV pickers, which on a phone/WebView

@@ -352,6 +352,71 @@
     );
   }
 
+  /**
+   * One attacker "chip" inside a Top Counters group - icon, display name,
+   * DPS, and Mega/Shadow tags where applicable. iconImage can be null even
+   * for a real attacker: the DPS ranking covers Mega/fusion forms this
+   * app's own baseStats (and therefore its image pipeline) deliberately
+   * excludes - see build_counters()'s PHP-side comment - so a blank
+   * placeholder swatch stands in rather than a broken image.
+   */
+  function renderCounterAttacker(attacker) {
+    var icon = attacker.iconImage
+      ? '<img class="counter-attacker-icon" src="' + escapeHtml(attacker.iconImage) + '" alt="" width="40" height="40" loading="lazy">'
+      : '<span class="counter-attacker-icon counter-attacker-icon-empty"></span>';
+
+    var tags = '';
+    if (attacker.isMega) { tags += '<span class="badge tier">Mega</span>'; }
+    if (attacker.isShadow) { tags += '<span class="badge tier">Shadow</span>'; }
+
+    return (
+      '<div class="counter-attacker">' +
+        icon +
+        '<div class="counter-attacker-name">' + escapeHtml(attacker.name) + '</div>' +
+        '<div class="counter-attacker-dps">' + attacker.dps + ' DPS</div>' +
+        (tags ? '<div class="counter-attacker-tags">' + tags + '</div>' : '') +
+      '</div>'
+    );
+  }
+
+  /**
+   * "Top Counters" - who beats this Pokemon, straight from member.counters
+   * (index.php's build_counters(): every attacking type it takes
+   * super-effective damage from, worst multiplier first, each paired with
+   * the top 4 raid attackers of that type from the same DPS ranking the
+   * Raid Attacker Rankings section above already reads). A collapsible
+   * <details> like Check Your IVs, since this list can run long for a
+   * multi-weakness Pokemon and most searches won't need it open.
+   */
+  function renderCountersPanel(counters) {
+    if (!counters || !counters.length) {
+      return '';
+    }
+
+    var groupsHtml = counters.map(function (group) {
+      var multLabel = (Math.round(group.multiplier * 100) / 100) + 'x';
+      var typeLabel = group.type.charAt(0).toUpperCase() + group.type.slice(1);
+      var attackersHtml = group.attackers.map(renderCounterAttacker).join('');
+
+      return (
+        '<div class="counter-group">' +
+          '<div class="counter-group-header">' +
+            '<span class="type-badge type-' + escapeHtml(group.type) + '">' + escapeHtml(typeLabel) + '</span>' +
+            '<span class="weak-mult">' + multLabel + '</span>' +
+          '</div>' +
+          '<div class="counter-attackers">' + attackersHtml + '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    return (
+      '<details class="counters-panel">' +
+        '<summary>Top Counters <span class="iv-summary-hint">best raid attackers against each weakness</span></summary>' +
+        '<div class="counters-body">' + groupsHtml + '</div>' +
+      '</details>'
+    );
+  }
+
   function renderShadowToggle(member, viewMode) {
     if (!member.shadowEligible) {
       return '';
@@ -887,6 +952,7 @@
         renderIvChecker(member, leagueDefinitions) +
         '<h3 class="section-heading">Raid Attacker Rankings</h3>' +
         renderAttackerPanel(effectiveAttacker) +
+        renderCountersPanel(member.counters) +
       '</article>'
     );
   }

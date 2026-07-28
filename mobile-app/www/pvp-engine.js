@@ -620,6 +620,110 @@
   }
 
   // ---------------------------------------------------------------------
+  // "Top Counters" (mirrors index.php's compute_weak_types() /
+  // find_top_attackers_by_type() / build_counters())
+  // ---------------------------------------------------------------------
+
+  function computeWeakTypes(types, typeChart) {
+    var entries = [];
+
+    Object.keys(typeChart).forEach(function (attackType) {
+      var multiplier = 1;
+
+      types.forEach(function (defendType) {
+        var traits = typeChart[defendType.toLowerCase()];
+        if (!traits) {
+          return;
+        }
+        if (traits.weaknesses.indexOf(attackType) !== -1) {
+          multiplier *= 1.6;
+        } else if (traits.resistances.indexOf(attackType) !== -1) {
+          multiplier *= 0.625;
+        } else if (traits.immunities.indexOf(attackType) !== -1) {
+          multiplier *= 0.390625;
+        }
+      });
+
+      var rounded = Math.round(multiplier * 10000) / 10000;
+      if (rounded > 1) {
+        entries.push({ type: attackType, multiplier: rounded });
+      }
+    });
+
+    entries.sort(function (a, b) {
+      return b.multiplier - a.multiplier || (a.type < b.type ? -1 : a.type > b.type ? 1 : 0);
+    });
+
+    return entries;
+  }
+
+  function findTopAttackersByType(dpsRows, type, excludeSlugs, limit) {
+    var excludeLookup = {};
+    excludeSlugs.forEach(function (s) { excludeLookup[s] = true; });
+
+    var found = [];
+
+    for (var i = 0; i < dpsRows.length && found.length < limit; i++) {
+      var row = dpsRows[i];
+      if (row.type1 !== type && row.type2 !== type) {
+        continue;
+      }
+
+      var slug = normalizeRankingPokemonName(row.name);
+      if (excludeLookup[slug]) {
+        continue;
+      }
+
+      var iconSlug = row.isShadow && slug.slice(-7) === '_shadow' ? slug.slice(0, -7) : slug;
+      // Unlike every other iconImage lookup in this file, this one can't
+      // assume "every baseStats key has an icon file" and stop there - the
+      // DPS ranking also covers Mega/fusion forms PvPoke tracks that this
+      // app's own baseStats (and therefore its image pipeline) excludes
+      // entirely (see data.json's baseStats _comment), so resolveImagePath()
+      // would confidently return a path to a file that doesn't exist. Gate
+      // on baseStats membership - the same real-world condition index.php's
+      // is_file() check resolves to server-side - so a missing icon is
+      // reported as null here too, not a broken image.
+
+      found.push({
+        slug: slug,
+        name: row.name,
+        iconImage: gameData.baseStats[iconSlug] ? resolveImagePath(iconSlug, 'icon') : null,
+        dps: row.dps,
+        tdo: row.tdo,
+        cp: row.cp,
+        fastMove: row.fastMove,
+        chargedMove: row.chargedMove,
+        isShadow: row.isShadow,
+        isMega: row.isMega,
+      });
+    }
+
+    return found;
+  }
+
+  function buildCounters(types, memberSlug, attackerRankings) {
+    var weakTypes = computeWeakTypes(types, gameData.typeEffectiveness);
+    if (!weakTypes.length) {
+      return [];
+    }
+
+    var dps = loadAttackerDpsCsv(attackerRankings.dpsFile);
+    var excludeSlugs = [memberSlug, memberSlug + '_shadow'];
+
+    var counters = [];
+    weakTypes.forEach(function (entry) {
+      var attackers = findTopAttackersByType(dps.rows, entry.type, excludeSlugs, 4);
+      if (!attackers.length) {
+        return;
+      }
+      counters.push({ type: entry.type, multiplier: entry.multiplier, attackers: attackers });
+    });
+
+    return counters;
+  }
+
+  // ---------------------------------------------------------------------
   // Search / species-list (mirrors handle_search_request_body /
   // handle_species_list_request's exact response shape)
   // ---------------------------------------------------------------------
@@ -667,6 +771,7 @@
           stamina: stats.stamina,
         },
         attacker: buildAttackerSummary(memberSlug, stats.types, attackerRankings),
+        counters: buildCounters(stats.types, memberSlug, attackerRankings),
         littleCupEligible: family.canEvolveFurther[memberSlug] || false,
         evolutionStage: family.stage[memberSlug] || 0,
         leagues: computeAllLeagues(memberSlug, stats.attack, stats.defense, stats.stamina, leagues, cpMultipliers),

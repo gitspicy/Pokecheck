@@ -904,6 +904,151 @@ function build_attacker_summary(string $memberSlug, array $types, array $attacke
 }
 
 // ---------------------------------------------------------------------------
+// "Top Counters" - who beats this Pokemon, derived from its own combined
+// type weaknesses (data.json's typeEffectiveness chart) plus the same
+// raid-attacker DPS ranking used by build_attacker_summary() above.
+// ---------------------------------------------------------------------------
+
+/**
+ * Combines a Pokemon's own 1-2 types into the final super-effective
+ * multiplier it takes from each of the 18 attacking types - same
+ * multiplicative combination PvPoke's own DamageCalculator.getEffectiveness()
+ * uses (see data.json's typeEffectiveness _comment) and the same algorithm
+ * script.js's computeTypeWeaknesses() runs client-side for the "Weak to:"
+ * line, just re-run here server-side so it can drive an attacker lookup.
+ *
+ * @param string[] $types
+ * @param array<string,array{weaknesses:string[],resistances:string[],immunities:string[]}> $typeChart
+ * @return array<int,array{type:string,multiplier:float}> Only types with a combined
+ *     multiplier above neutral (1x), sorted worst-first then alphabetically.
+ */
+function compute_weak_types(array $types, array $typeChart): array
+{
+    $entries = [];
+
+    foreach (array_keys($typeChart) as $attackType) {
+        $multiplier = 1.0;
+
+        foreach ($types as $defendType) {
+            $traits = $typeChart[strtolower($defendType)] ?? null;
+            if ($traits === null) {
+                continue;
+            }
+            if (in_array($attackType, $traits['weaknesses'], true)) {
+                $multiplier *= 1.6;
+            } elseif (in_array($attackType, $traits['resistances'], true)) {
+                $multiplier *= 0.625;
+            } elseif (in_array($attackType, $traits['immunities'], true)) {
+                $multiplier *= 0.390625;
+            }
+        }
+
+        $rounded = round($multiplier, 4);
+        if ($rounded > 1.0) {
+            $entries[] = ['type' => $attackType, 'multiplier' => $rounded];
+        }
+    }
+
+    usort($entries, static function (array $a, array $b): int {
+        return $b['multiplier'] <=> $a['multiplier'] ?: strcmp($a['type'], $b['type']);
+    });
+
+    return $entries;
+}
+
+/**
+ * Walks the already DPS-sorted attacker rows for the top $limit raid
+ * attackers of one attacking type, skipping the member itself (a Pokemon
+ * is never its own counter - $excludeSlugs carries both its Normal and,
+ * where applicable, "_shadow" slug).
+ *
+ * @param array<int,array<string,mixed>> $dpsRows
+ * @param string[] $excludeSlugs
+ * @return array<int,array<string,mixed>>
+ */
+function find_top_attackers_by_type(array $dpsRows, string $type, array $excludeSlugs, int $limit): array
+{
+    $excludeLookup = array_flip($excludeSlugs);
+    $found = [];
+
+    foreach ($dpsRows as $row) {
+        if ($row['type1'] !== $type && $row['type2'] !== $type) {
+            continue;
+        }
+
+        $slug = normalize_ranking_pokemon_name($row['name']);
+
+        if (isset($excludeLookup[$slug])) {
+            continue;
+        }
+
+        // Shadow rows' slug carries a "_shadow" suffix (see
+        // normalize_ranking_pokemon_name) that has no matching icon file -
+        // icons are stored per base species only, so strip it just for the
+        // image lookup while keeping the real slug for isShadow badging.
+        $iconSlug = $row['isShadow'] && str_ends_with($slug, '_shadow')
+            ? substr($slug, 0, -strlen('_shadow'))
+            : $slug;
+
+        $found[] = [
+            'slug' => $slug,
+            'name' => $row['name'],
+            'iconImage' => resolve_image_path($iconSlug, 'icon'),
+            'dps' => $row['dps'],
+            'tdo' => $row['tdo'],
+            'cp' => $row['cp'],
+            'fastMove' => $row['fastMove'],
+            'chargedMove' => $row['chargedMove'],
+            'isShadow' => $row['isShadow'],
+            'isMega' => $row['isMega'],
+        ];
+
+        if (count($found) >= $limit) {
+            break;
+        }
+    }
+
+    return $found;
+}
+
+/**
+ * Builds the full "Top Counters" list for one species: for every attacking
+ * type it takes super-effective damage from (worst multiplier first), the
+ * top 4 raid attackers of that type from the same global DPS ranking
+ * build_attacker_summary() already reads.
+ *
+ * @param string[] $types
+ * @param array<string,mixed> $gameData
+ * @return array<int,array{type:string,multiplier:float,attackers:array<int,array<string,mixed>>}>
+ */
+function build_counters(array $types, string $memberSlug, array $gameData): array
+{
+    $weakTypes = compute_weak_types($types, $gameData['typeEffectiveness']);
+
+    if ($weakTypes === []) {
+        return [];
+    }
+
+    $dps = load_attacker_dps_csv((string) $gameData['attackerRankings']['dpsFile']);
+    $excludeSlugs = [$memberSlug, $memberSlug . '_shadow'];
+
+    $counters = [];
+    foreach ($weakTypes as $entry) {
+        $attackers = find_top_attackers_by_type($dps['rows'], $entry['type'], $excludeSlugs, 4);
+        if ($attackers === []) {
+            continue;
+        }
+        $counters[] = [
+            'type' => $entry['type'],
+            'multiplier' => $entry['multiplier'],
+            'attackers' => $attackers,
+        ];
+    }
+
+    return $counters;
+}
+
+// ---------------------------------------------------------------------------
 // AJAX endpoint
 // ---------------------------------------------------------------------------
 
@@ -980,6 +1125,7 @@ function handle_search_request_body(): void
                 'stamina' => $stats['stamina'],
             ],
             'attacker' => build_attacker_summary($memberSlug, $stats['types'], $attackerRankings),
+            'counters' => build_counters($stats['types'], $memberSlug, $gameData),
             // Little Cup traditionally only permits Pokemon that can still evolve further.
             'littleCupEligible' => $family['canEvolveFurther'][$memberSlug] ?? false,
             'evolutionStage' => $family['stage'][$memberSlug] ?? 0,
@@ -2120,6 +2266,111 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   }
 
   .type-attacker-list li:last-child { border-bottom: none; }
+
+  /* "Top Counters" - who beats this Pokemon (member.counters, from
+     index.php's build_counters()). Same collapsible <details> pattern as
+     .iv-checker below (custom chevron, no JS needed to toggle), since the
+     full attacker list can run long for a multi-weakness Pokemon. */
+  .counters-panel {
+    margin-top: 1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.9rem;
+  }
+
+  .counters-panel summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    min-height: 2.25rem;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .counters-panel summary::-webkit-details-marker { display: none; }
+
+  .counters-panel summary::before {
+    content: '\25B8';
+    display: inline-block;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+
+  .counters-panel[open] summary::before { transform: rotate(90deg); }
+
+  .counters-body {
+    margin-top: 0.9rem;
+  }
+
+  .counter-group {
+    margin-bottom: 1rem;
+  }
+
+  .counter-group:last-child { margin-bottom: 0; }
+
+  .counter-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .counter-attackers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .counter-attacker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 5.5rem;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.4rem;
+  }
+
+  .counter-attacker-icon {
+    display: block;
+    margin-bottom: 0.3rem;
+    object-fit: contain;
+  }
+
+  .counter-attacker-icon-empty {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.3rem;
+  }
+
+  .counter-attacker-name {
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .counter-attacker-dps {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 0.15rem;
+  }
+
+  .counter-attacker-tags {
+    margin-top: 0.3rem;
+  }
+
+  .counter-attacker-tags .badge {
+    margin-right: 0;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+  }
 
   /* IV rank checker ("I caught a 13/14/11 X - how good is that?"). A
      native <details> disclosure - keyboardable/collapsible with no JS -
