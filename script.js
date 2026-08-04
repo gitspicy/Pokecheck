@@ -52,6 +52,14 @@
   var $moveTooltip = $('<div class="move-tooltip-popover" hidden></div>').appendTo('body');
   var activeMoveChipEl = null;
 
+  // Image zoom preview: hovering (desktop) or tapping (mobile) any
+  // .zoomable-img shows the species' full hero artwork here - see
+  // openImageZoom() below.
+  var $imageZoom = $(
+    '<div class="img-zoom-popover" hidden><img alt="" width="200" height="200"><div class="img-zoom-popover-name"></div></div>'
+  ).appendTo('body');
+  var activeZoomEl = null;
+
   // {"1.0": 0.094, "1.5": 0.1351..., ..., "51.0": ...}, fetched once on load
   // (see loadCpMultipliers()) so the "Check Your IVs" tool (renderIvChecker
   // below) can compute CP/level/Stat Product for an arbitrary IV spread
@@ -90,6 +98,19 @@
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
+  }
+
+  /**
+   * Derives a species' full 260x260 "hero" artwork path from its 56x56
+   * "icon" path (both variants are always generated together for every
+   * baseStats-covered species - see images/README.md), so any small icon
+   * elsewhere in the UI can point its hover/tap zoom preview at the same
+   * asset the card header already uses, without a round trip to fetch it.
+   * Returns null unmodified - an icon-less attacker (see
+   * renderCounterAttacker()) has no hero art either.
+   */
+  function toHeroSrc(iconSrc) {
+    return iconSrc ? iconSrc.replace('images/icon/', 'images/hero/') : null;
   }
 
   function setStatus(html, className) {
@@ -249,26 +270,65 @@
   }
 
   /**
-   * Positions the shared tooltip element next to the tapped chip using
-   * viewport-relative coordinates (position: fixed in CSS) rather than
-   * relying on an ancestor's position:relative - the league table scrolls
-   * horizontally (.table-scroll), and a plain absolutely-positioned
-   * tooltip would either get clipped by that scroll container or drift
-   * out of sync with the chip. Clamped so it never overflows the viewport.
+   * Positions a shared floating popover (fixed positioning, viewport-
+   * relative coordinates) directly below the element that triggered it -
+   * or above, if there isn't room below - clamped so it never overflows
+   * the viewport horizontally either. Shared by the move-detail tooltip
+   * and the image zoom preview below; using position:fixed rather than
+   * relying on an ancestor's position:relative matters because both can
+   * be triggered from inside .table-scroll, which scrolls horizontally
+   * and would otherwise clip or misalign an absolutely-positioned popover.
    */
-  function openMoveTooltip(chipEl, info) {
-    $moveTooltip.html(formatMoveTooltip(info)).removeAttr('hidden');
+  function positionFloatingPopover($popover, triggerEl) {
+    var triggerRect = triggerEl.getBoundingClientRect();
+    var popoverRect = $popover.get(0).getBoundingClientRect();
 
-    var chipRect = chipEl.getBoundingClientRect();
-    var tooltipRect = $moveTooltip.get(0).getBoundingClientRect();
-
-    var left = Math.max(8, Math.min(chipRect.left, window.innerWidth - tooltipRect.width - 8));
-    var top = chipRect.bottom + 6;
-    if (top + tooltipRect.height > window.innerHeight - 8) {
-      top = chipRect.top - tooltipRect.height - 6;
+    var left = Math.max(8, Math.min(triggerRect.left, window.innerWidth - popoverRect.width - 8));
+    var top = triggerRect.bottom + 6;
+    if (top + popoverRect.height > window.innerHeight - 8) {
+      top = triggerRect.top - popoverRect.height - 6;
     }
 
-    $moveTooltip.css({ left: left + 'px', top: Math.max(8, top) + 'px' });
+    $popover.css({ left: left + 'px', top: Math.max(8, top) + 'px' });
+  }
+
+  function openMoveTooltip(chipEl, info) {
+    $moveTooltip.html(formatMoveTooltip(info)).removeAttr('hidden');
+    positionFloatingPopover($moveTooltip, chipEl);
+  }
+
+  function closeImageZoom() {
+    $imageZoom.attr('hidden', true);
+    if (activeZoomEl) {
+      $(activeZoomEl).removeClass('zoom-active');
+    }
+    activeZoomEl = null;
+  }
+
+  /**
+   * Shows imgEl's own data-zoom-src (its species' full 260x260 hero
+   * artwork - see renderPokemonCard()/renderFamilyStripItem()/
+   * renderCounterAttacker() for how each .zoomable-img gets one) at a
+   * readable size next to it. A missing/blank data-zoom-src (an attacker
+   * this app has no hero art for at all - see renderCounterAttacker())
+   * means there's nothing to zoom into, so this is a no-op.
+   */
+  function openImageZoom(imgEl) {
+    var zoomSrc = imgEl.getAttribute('data-zoom-src');
+    if (!zoomSrc) {
+      return;
+    }
+
+    if (activeZoomEl && activeZoomEl !== imgEl) {
+      $(activeZoomEl).removeClass('zoom-active');
+    }
+
+    $imageZoom.find('img').attr('src', zoomSrc);
+    $imageZoom.find('.img-zoom-popover-name').text(imgEl.getAttribute('data-zoom-name') || '');
+    $imageZoom.removeAttr('hidden');
+    $(imgEl).addClass('zoom-active');
+    activeZoomEl = imgEl;
+    positionFloatingPopover($imageZoom, imgEl);
   }
 
   function renderLeagueRow(leagueId, leagueDefinitions, leagueResult, viewMode) {
@@ -361,8 +421,11 @@
    * placeholder swatch stands in rather than a broken image.
    */
   function renderCounterAttacker(attacker) {
+    var heroSrc = toHeroSrc(attacker.iconImage);
     var icon = attacker.iconImage
-      ? '<img class="counter-attacker-icon" src="' + escapeHtml(attacker.iconImage) + '" alt="" width="40" height="40" loading="lazy">'
+      ? '<img class="counter-attacker-icon zoomable-img" src="' + escapeHtml(attacker.iconImage) + '"' +
+          (heroSrc ? ' data-zoom-src="' + escapeHtml(heroSrc) + '" data-zoom-name="' + escapeHtml(attacker.name) + '"' : '') +
+          ' alt="" width="40" height="40" loading="lazy">'
       : '<span class="counter-attacker-icon counter-attacker-icon-empty"></span>';
 
     var tags = '';
@@ -926,7 +989,9 @@
       : '';
 
     var heroImg = member.heroImage
-      ? '<img class="hero-thumb" src="' + escapeHtml(member.heroImage) + '" alt="" width="80" height="80" loading="lazy">'
+      ? '<img class="hero-thumb zoomable-img" src="' + escapeHtml(member.heroImage) + '"' +
+          ' data-zoom-src="' + escapeHtml(member.heroImage) + '" data-zoom-name="' + escapeHtml(member.displayName) + '"' +
+          ' alt="" width="80" height="80" loading="lazy">'
       : '';
 
     return (
@@ -980,7 +1045,9 @@
       ? 'best ' + rankBadge(best.rank, null)
       : '<span class="unranked">no PvP rank</span>';
     var icon = member.iconImage
-      ? '<img class="family-strip-icon" src="' + escapeHtml(member.iconImage) + '" alt="" width="32" height="32" loading="lazy">'
+      ? '<img class="family-strip-icon zoomable-img" src="' + escapeHtml(member.iconImage) + '"' +
+          (member.heroImage ? ' data-zoom-src="' + escapeHtml(member.heroImage) + '" data-zoom-name="' + escapeHtml(member.displayName) + '"' : '') +
+          ' alt="" width="32" height="32" loading="lazy">'
       : '';
     // Always the Normal verdict, matching the tier badge/rank line above -
     // neither reflects any card's Shadow toggle, so the verdict shouldn't
@@ -1832,6 +1899,37 @@
     openMoveTooltip(chipEl, info);
   });
 
+  // True hover, desktop only (touch devices don't fire mouseenter/
+  // mouseleave from a tap) - jQuery's delegated mouseenter/mouseleave
+  // already handle the "don't refire on child element changes" logic
+  // native mouseover/mouseout would otherwise need.
+  $(document).on('mouseenter', '.zoomable-img', function () {
+    openImageZoom(this);
+  });
+  $(document).on('mouseleave', '.zoomable-img', function () {
+    if (activeZoomEl === this) {
+      closeImageZoom();
+    }
+  });
+
+  // Touch/click: several .zoomable-img elements sit inside something else
+  // tappable (a family-strip-item link, an autocomplete-style selection)
+  // - preventDefault/stopPropagation here means the first tap on the
+  // image itself always shows the zoom instead of immediately navigating,
+  // exactly like tapping a move-chip already does above. A second tap on
+  // the same (already-zoomed) image closes it again.
+  $(document).on('click', '.zoomable-img', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (activeZoomEl === this) {
+      closeImageZoom();
+      return;
+    }
+
+    openImageZoom(this);
+  });
+
   // Closes on an outside click/tap, Escape, or any scroll (including the
   // league table's own horizontal .table-scroll, which doesn't fire a
   // window-level scroll event - listening in the capture phase catches it
@@ -1841,13 +1939,18 @@
     if (activeMoveChipEl && !$(event.target).closest('.move-tooltip-popover, .move-chip').length) {
       closeMoveTooltip();
     }
+    if (activeZoomEl && !$(event.target).closest('.img-zoom-popover, .zoomable-img').length) {
+      closeImageZoom();
+    }
   });
   $(document).on('keydown', function (event) {
     if (event.key === 'Escape') {
       closeMoveTooltip();
+      closeImageZoom();
     }
   });
   document.addEventListener('scroll', closeMoveTooltip, true);
+  document.addEventListener('scroll', closeImageZoom, true);
 
   // ---------------------------------------------------------------------
   // Settings panel + in-app update checker - standalone Android app only.

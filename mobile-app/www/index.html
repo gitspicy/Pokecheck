@@ -1304,6 +1304,47 @@
     padding-top: 0.4rem;
   }
 
+  /* Hover (desktop) / tap (mobile) on any small Pokemon image - the hero
+     thumbnail, a family-strip icon, or a Top Counters attacker icon -
+     shows the same species' full "hero" artwork (260x260, already the
+     largest asset this app ships - see images/README.md) in a floating
+     preview, so an unfamiliar name in Top Counters (e.g. "Dusk Mane
+     Necrozma") can actually be looked at rather than squinted at as a
+     40px icon. See openImageZoom()/positionFloatingPopover() in
+     script.js - shares its clamped-to-viewport positioning with the move
+     tooltip above, just as a separate popover instance. */
+  .zoomable-img { cursor: zoom-in; }
+
+  .zoomable-img.zoom-active {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .img-zoom-popover {
+    position: fixed;
+    z-index: 55;
+    background: var(--panel-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.6rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .img-zoom-popover img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+  }
+
+  .img-zoom-popover-name {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 0.3rem;
+    max-width: 200px;
+  }
+
   /* Subtle zebra striping, layered under each league row's own color theme
      below - a small brightness nudge, never a hard color swap. */
   table.league-table tbody tr:nth-child(even) { filter: brightness(1.09); }
