@@ -24,12 +24,16 @@
     ultraLeague: 'Ultra League',
     masterLeague: 'Master League',
     summerLeague: 'Summer League',
+    weatherCup: 'Weather Cup',
   };
   var LEADERBOARD_PAGE_SIZE = 100;
   var leaderboardCache = {}; // leagueId -> {success, league, rows, totalRanked}
   var leaderboardState = { league: 'greatLeague', filterText: '', visibleCount: LEADERBOARD_PAGE_SIZE };
 
-  var LEAGUE_ORDER = ['greatLeague', 'ultraLeague', 'masterLeague', 'littleCup', 'summerLeague'];
+  // Weather Cup sits after Little Cup and Summer League - all three are
+  // restricted/seasonal formats grouped together at the end, after the
+  // three standard open-ruleset leagues.
+  var LEAGUE_ORDER = ['greatLeague', 'ultraLeague', 'masterLeague', 'littleCup', 'summerLeague', 'weatherCup'];
 
   // Worst-to-best order, used both to pick a heatmap CSS class (gray -> red
   // -> green) and to decide which "S and above" tiers earn a medal emoji.

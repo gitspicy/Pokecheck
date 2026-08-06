@@ -871,6 +871,7 @@
       'rankings/custom_cp500_all_custom_rankings.csv',
       'rankings/cp1500_all_overall_rankings.csv',
       'rankings/cp1500_summer_overall_rankings.csv',
+      'rankings/cp1500_weather_overall_rankings.csv',
       'rankings/cp2500_all_overall_rankings.csv',
       'rankings/cp10000_all_overall_rankings.csv',
       'rankings/attacker_dps_rankings.csv',

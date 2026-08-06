@@ -2451,6 +2451,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   .iv-league-tab.iv-tab-summerLeague.active,
   .iv-league-tab.iv-tab-ultraLeague.active { background: #facc15; border-color: #facc15; color: #1a1a1a; }
   .iv-league-tab.iv-tab-masterLeague.active { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+  .iv-league-tab.iv-tab-weatherCup.active { background: #06b6d4; border-color: #06b6d4; color: #052e33; }
 
   .iv-input-row {
     display: flex;
@@ -2747,6 +2748,15 @@ if (isset($_GET['action']) && $_GET['action'] === 'type-chart') {
   }
   table.league-table tr.league-row-masterLeague td:first-child { border-left: 4px solid #f472b6; }
   table.league-table tr.league-row-masterLeague .league-name { color: #f9a8d4; }
+
+  /* Cyan wash (storm/ice) with a warm amber accent bar (fire, the odd one
+     out among the cup's Fire/Water/Ice/Rock eligible types) - reads as
+     distinctly "weather" next to the other five leagues' themes. */
+  table.league-table tr.league-row-weatherCup {
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.22), rgba(6, 182, 212, 0.05) 80%);
+  }
+  table.league-table tr.league-row-weatherCup td:first-child { border-left: 4px solid #fb923c; }
+  table.league-table tr.league-row-weatherCup .league-name { color: #67e8f9; }
 
   .league-name {
     font-weight: 700;
