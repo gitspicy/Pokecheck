@@ -142,40 +142,44 @@
       }
     });
 
-    var roots = [];
-    Object.keys(members).forEach(function (key) {
-      if (!members[key].parent) {
-        roots.push(key);
+    // Depth is derived by walking each member's own "parent" pointer back
+    // to a root, NOT by trusting every ancestor's "evolutions" array to
+    // list every child - see resolve_evolution_family()'s PHP-side
+    // comment (index.php) for the full "Mime Jr./Mr. Mime (Galarian)/
+    // Mr. Rime" example this fixes: PvPoke's gamemaster sometimes sets a
+    // branch's own "parent" correctly while the shared base's
+    // "evolutions" array only names the "main" branch, which silently
+    // dropped that branch (and everything evolving from it) from its own
+    // family under the old evolutions-only BFS.
+    var depthCache = {};
+    function resolveDepth(key) {
+      if (Object.prototype.hasOwnProperty.call(depthCache, key)) {
+        return depthCache[key];
       }
-    });
+      // Guard against a cyclical/self-referential parent chain.
+      depthCache[key] = 0;
 
-    if (roots.length === 0) {
-      roots = [speciesKey];
+      var parent = members[key].parent;
+      var depth = (parent && members[parent]) ? resolveDepth(parent) + 1 : 0;
+
+      depthCache[key] = depth;
+      return depth;
     }
 
-    var orderedNames = [];
+    // Stable sort, keeping Object.keys(members)' own iteration order
+    // (which follows data.json's baseStats order) as the tiebreak among
+    // same-depth siblings - Array.prototype.sort is spec-guaranteed
+    // stable in every browser this app targets.
+    var orderedNames = Object.keys(members);
+    orderedNames.sort(function (a, b) { return resolveDepth(a) - resolveDepth(b); });
+
     var canEvolveFurther = {};
     var stage = {};
-    var queue = roots.map(function (root) { return [root, 0]; });
-
-    while (queue.length > 0) {
-      var pair = queue.shift();
-      var current = pair[0];
-      var depth = pair[1];
-
-      if (!members[current] || orderedNames.indexOf(current) !== -1) {
-        continue;
-      }
-
-      orderedNames.push(current);
-      stage[current] = depth;
-      var evolutions = members[current].evolutions || [];
-      canEvolveFurther[current] = evolutions.length > 0;
-
-      evolutions.forEach(function (next) {
-        queue.push([next, depth + 1]);
-      });
-    }
+    orderedNames.forEach(function (key) {
+      stage[key] = resolveDepth(key);
+      var evolutions = members[key].evolutions || [];
+      canEvolveFurther[key] = evolutions.length > 0;
+    });
 
     return { names: orderedNames, canEvolveFurther: canEvolveFurther, stage: stage };
   }

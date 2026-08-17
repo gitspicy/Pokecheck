@@ -176,45 +176,51 @@ function resolve_evolution_family(string $speciesKey, array $baseStats): array
         }
     }
 
-    $roots = [];
-    foreach ($members as $key => $familyData) {
-        if (!isset($familyData['parent'])) {
-            $roots[] = $key;
+    // Depth is derived by walking each member's own "parent" pointer back
+    // to a root, NOT by trusting every ancestor's "evolutions" array to
+    // list every child. PvPoke's gamemaster is occasionally asymmetric
+    // here: a regional/alternate branch's own "parent" is set correctly,
+    // but the shared base's "evolutions" array only names the "main"
+    // branch - e.g. Mime Jr.'s evolutions lists only "mr_mime", never
+    // "mr_mime_galarian", even though Galarian Mr. Mime's own family
+    // block does say its parent is "mime_jr" (and Mr. Rime's in turn says
+    // its parent is "mr_mime_galarian"). The previous approach - a BFS
+    // that only ever enqueues a node by walking its parent's "evolutions"
+    // list - silently dropped every such member (and everything that
+    // evolves from it) from its own family entirely, so searching for
+    // e.g. "mr_mime_galarian" or "mr_rime" surfaced the wrong family
+    // (just Mime Jr./regular Mr. Mime) instead of an error or itself.
+    // Walking "parent" instead sidesteps the asymmetry completely, since
+    // every affected species' own "parent" field was already correct.
+    $depthCache = [];
+    $resolveDepth = static function (string $key) use (&$resolveDepth, &$depthCache, $members): int {
+        if (isset($depthCache[$key])) {
+            return $depthCache[$key];
         }
-    }
+        // Guard against a cyclical/self-referential parent chain (should
+        // never happen in real gamemaster data, but a silent infinite
+        // loop would be far worse than a wrong depth here).
+        $depthCache[$key] = 0;
 
-    if ($roots === []) {
-        $roots = [$speciesKey];
-    }
+        $parent = $members[$key]['parent'] ?? null;
+        $depth = ($parent !== null && isset($members[$parent])) ? $resolveDepth($parent) + 1 : 0;
 
-    $orderedNames = [];
+        $depthCache[$key] = $depth;
+        return $depth;
+    };
+
+    // Stable sort (PHP 8+) by depth, keeping $members' own iteration
+    // order - which follows data.json's baseStats order - as the tiebreak
+    // among same-depth siblings, so a normal (non-orphaned) family's
+    // left-to-right rendering order is unchanged from before.
+    $orderedNames = array_keys($members);
+    usort($orderedNames, static fn (string $a, string $b): int => $resolveDepth($a) <=> $resolveDepth($b));
+
     $canEvolveFurther = [];
     $stage = [];
-    // Queue holds [speciesKey, depth] pairs so branching families (Eevee,
-    // or a regional form's own sub-branch) report which "evolution stage"
-    // each member belongs to - the front end groups same-stage siblings
-    // together instead of drawing a misleading linear chain through them.
-    // Every root starts its own line at depth 0.
-    $queue = [];
-    foreach ($roots as $root) {
-        $queue[] = [$root, 0];
-    }
-
-    while ($queue !== []) {
-        [$current, $depth] = array_shift($queue);
-
-        if (!isset($members[$current]) || in_array($current, $orderedNames, true)) {
-            continue;
-        }
-
-        $orderedNames[] = $current;
-        $stage[$current] = $depth;
-        $evolutions = $members[$current]['evolutions'] ?? [];
-        $canEvolveFurther[$current] = $evolutions !== [];
-
-        foreach ($evolutions as $next) {
-            $queue[] = [$next, $depth + 1];
-        }
+    foreach ($orderedNames as $key) {
+        $stage[$key] = $resolveDepth($key);
+        $canEvolveFurther[$key] = ($members[$key]['evolutions'] ?? []) !== [];
     }
 
     return ['names' => $orderedNames, 'canEvolveFurther' => $canEvolveFurther, 'stage' => $stage];
